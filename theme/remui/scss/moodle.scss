@@ -1,0 +1,117 @@
+$breadcrumb-divider: "▶" !default;
+$breadcrumb-divider-rtl: "◀" !default;
+
+// Specific overrides to make Bootstrap RTL.
+@import "moodle/bootstrap-rtl";
+
+// Old Moodle stuff from base theme.
+// Massive, needs broken up.
+@import "moodle/variables";
+@import "moodle/core";
+@import "moodle/icons";
+@import "moodle/admin";
+@import "moodle/blocks";
+@import "moodle/calendar";
+@import "moodle/contentbank";
+@import "moodle/course";
+@import "moodle/drawer";
+@import "moodle/filemanager";
+@import "moodle/message";
+@import "moodle/question";
+@import "moodle/user";
+@import "moodle/search";
+@import "moodle/forms";
+@import "moodle/login";
+@import "moodle/modules";
+@import "moodle/chat";
+@import "moodle/reports";
+@import "moodle/backup-restore";
+@import "moodle/tables";
+@import "moodle/buttons";
+@import "moodle/grade";
+@import "moodle/templates";
+@import "moodle/undo";
+@import "moodle/debug";
+@import "moodle/sticky-footer";
+@import "moodle/popover-region";
+@import "moodle/tool_usertours";
+@import "moodle/print";
+@import "moodle/modal";
+@import "moodle/layout";
+@import "moodle/prefixes";
+@import "moodle/atto";
+@import "moodle/toasts";
+@import "moodle/navbar";
+@import "moodle/reportbuilder";
+@import "moodle/courseindex";
+@import "moodle/moremenu";
+@import "moodle/primarynavigation";
+@import "moodle/secondarynavigation";
+@import "moodle/tertiarynavigation";
+
+// Moodle extended
+@import "moodle_extend/admin";
+@import "moodle_extend/blocks";
+@import "moodle_extend/bootswatch";
+@import "moodle_extend/buttons";
+@import "moodle_extend/core";
+@import "moodle_extend/course";
+@import "moodle_extend/drawer";
+@import "moodle_extend/forms";
+@import "moodle_extend/grades";
+@import "moodle_extend/icons";
+@import "moodle_extend/layout";
+// @import "moodle_extend/login";
+@import "moodle_extend/modal";
+@import "moodle_extend/modules";
+@import "moodle_extend/popover-region";
+@import "moodle_extend/question";
+@import "moodle_extend/user";
+@import "moodle_extend/contentbank";
+@import "moodle_extend/navbar";
+
+// Custom Default Font
+@import "fonts/Roboto";
+
+// Components
+@import 'components/avatar';
+@import 'components/chat';
+@import 'components/cover';
+@import 'components/profile';
+@import 'components/panels';
+@import 'components/animation';
+@import 'components/slick';
+@import 'components/overlay';
+@import 'components/steps';
+@import 'components/color-picker';
+
+// RemUI SCSS.
+@import 'remui/course';
+@import 'remui/ellipsis';
+@import "remui/global";
+@import "remui/header";
+@import "remui/sidebar";
+@import "remui/footer";
+@import "remui/quiz";
+@import "remui/blocks";
+@import "remui/usertour";
+@import "remui/frontpage";
+@import "remui/toolbar";
+@import "remui/focusmode";
+@import "remui/enrolpage";
+@import "remui/customizer";
+@import "remui/grade";
+@import "remui/feedback";
+@import "remui/icons";
+@import "remui/message";
+@import "remui/modal";
+@import "remui/profile";
+@import "remui/login";
+@import "remui/carddesigns";
+@import "remui/edwiserpluginsupport";
+@import "remui/coursearchive";
+
+// Overrides
+@import 'remui/override';
+@import 'remui/asPieProgress';
+@import "bootstrap-select/bootstrap-select";

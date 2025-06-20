@@ -1,0 +1,23 @@
+<form>
+    <p>
+    <label for="id_mailtemplate">{{#str}}mailtemplate, local_userstatus{{/str}}</label>
+    <select name="mailtemplate" id="id_mailtemplate">
+        <option value="{{{notemplateid}}}">{{#str}} choose {{/str}}</option>
+        {{#templates}}
+            <option value="{{{id}}}">{{{name}}}</option>
+        {{/templates}}
+    </select>
+    </p>
+    <p>
+    <label for="id_mailbody">
+    <span class="sr-only">{{#str}}message, core_message{{/str}}</span>
+    </label>
+    <textarea id="id_mailbody" rows="3" data-max-rows="10" data-auto-rows="true" cols="30" class="form-control"></textarea>
+    </p>
+    <p>{{#str}}placeholdernotice, local_userstatus{{/str}}</p>
+</form>
+{{#js}}
+require(['core/auto_rows'], function(AutoRows) {
+    AutoRows.init(document.getElementById('bulk-message'));
+});
+{{/js}}

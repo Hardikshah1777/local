@@ -1,0 +1,7 @@
+{
+  "moodle-theme_boostchild-completion": {
+    "requires": [
+      "base"
+    ]
+  }
+}

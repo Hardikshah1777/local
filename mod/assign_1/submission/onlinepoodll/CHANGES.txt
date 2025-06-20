@@ -1,0 +1,70 @@
+Change List
+=========
+3.1.9 (Build 2021052200)
+- Added SafeSave feature
+
+3.1.8 (Build 2021032400)
+-Fixes for broke playback on Safari browsers
+
+3.1.7 (Build 2021022800)
+-Fixes for responsiveness on older browsers
+
+3.1.6 (Build 2021022100)
+- fixes to be a bit more responsive and work better in Safari
+
+3.1.5 (Build 2020041000)
+- added support for hiding settings if not enabled
+
+3.1.5 (Build 2019112100)
+- Added support for custom name in settings divider
+
+3.1.4 (Build 2019081000)
+-Added 'active' setting, allowing submission to be set as inactive (students cant submit new or edit old)
+-Added better options for display of current submission (expanded or minimized or always). If 'always' recorder is minimised.
+-Added custom name setting so submission can have a name teachers and students understand
+-Added settings divider (ugly .. but less confusing)
+
+3.1.3 (Build 2019061800)
+-Added a new capability 'reviewsubmissions' allows users. Use to allow playback of recordings even without grade permission
+-Fixed broken teamsubmissions (group)
+
+3.1.2 (Build 2019052000)
+-Implemented "Remove Submission" feature
+-Added toggle current submission and better delete submission on edit page
+
+3.1.1 (Build 2018113000)
+-Improved support for privacy api
+
+Version 3.1.0(Build 2018041000)
+-Implemented new Moodle Privacy API
+
+Version 2017092200
+Added the ability to not show audio player in list or summary pages
+
+Version 2017082600
+Added support for passing "hints" to audio and video recorder
+We use these allow sizes and skins to be set from different context levels
+
+Version 2017052201
+Removed recorder specific options and replaced with media types
+
+Version 2017020501
+Added better support for widths of submitted whiteboards, images and videos
+Fixed a bug when resubmitting assignments that had not passed form validation
+
+Version 2016112701
+Fixed an issue where widths were pulled from a  missing poodll property
+
+Version 2016112401
+Fixed an issue where the snapshot recorder was not properly supported
+
+Version 2016081402
+Fixed an issue with constant declaration that could mess up behat
+Added two new sizes for whiteboard. 
+
+Version 2016081401
+Version bump(big) for PoodLL 3 support, but no major changes
+
+Version 2015121101
+Support for refactored PoodLL filter and support for Moodle 3.0
+

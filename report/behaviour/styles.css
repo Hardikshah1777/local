@@ -1,0 +1,10 @@
+#page-report-behaviour-index .firstheader,
+#page-report-behaviour-weekly .firstheader {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#page-report-behaviour-index .table-dynamic .generaltable thead .header,
+#page-report-behaviour-weekly .table-dynamic .generaltable thead .header {
+    vertical-align: middle;
+}

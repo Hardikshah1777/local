@@ -1,0 +1,53 @@
+<div id="coursefilter" class="collapse">
+    <div id="coursefilterform">
+        <form method="post" class="mform mb-2 offset-2">
+            <div class="row">
+                <div class="form-group mb-2 col-4">
+                    <label for="label_courseid" class="justify-content-start align-self-start">{{#str}} courseid, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <input type="text" name="courseid" id="courseid" class="form-control" pattern="[0-9]+" title="please enter number only" value="{{#courseid}}{{courseid}}{{/courseid}}">
+                    </div>
+                </div>
+                <div class="form-group mb-2 col-4">
+                    <label for="label_fullname" class="justify-content-start align-self-start">{{#str}} coursename, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <input type="text" name="fullname" id="fullname" class="form-control" value="{{#fullname}}{{fullname}}{{/fullname}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-4">
+                    <label for="label_status" class="justify-content-start align-self-start">{{#str}} status, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <select name="status" id="status" class="form-control">
+                            <option value="">{{#str}}choose, core{{/str}}</option>
+                            {{#statusoption}}
+                                <option value="{{value}}" {{#status}}selected{{/status}}>{{key}}</option>
+                            {{/statusoption}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mb-2 col-4">
+                    <label for="label_courseteacher" class="justify-content-start align-self-start">{{#str}} courseteacher, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <select name="courseteacher" id="courseteacher" class="form-control">
+                            <option value="">{{#str}}choose, core{{/str}}</option>
+                            {{#courseteacheroption}}
+                                <option value="{{value}}" {{#status}}selected{{/status}}>{{key}}</option>
+                            {{/courseteacheroption}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-2">
+                    <button class="btn btn-primary collapse" type="submit" name="coursefilter" id="coursefilter">{{#str}}filter, core{{/str}}</button>
+                    <button class="btn btn-primary collapse show" type="button" name="cancelfilter" id="cancelfilter">{{#str}}cancel, core{{/str}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{#js}}
+    require(['local_squibit/coursefilterform'], amd => amd.initTable())
+{{/js}}

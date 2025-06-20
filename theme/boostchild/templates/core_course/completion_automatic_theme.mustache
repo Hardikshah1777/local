@@ -1,0 +1,32 @@
+
+{{#istrackeduser}}
+    {{#overallcomplete}}
+        <button class="btn btn-sm text-nowrap" {{!
+        }}{{#accessibledescription}}{{!
+            }}title="{{.}}" {{!
+            }}aria-label="{{.}}" {{!
+        }}{{/accessibledescription}}>
+            {{#pix}} completion-auto-y{{#overrideby}}-override{{/overrideby}}, theme, {{#str}}completion_automatic:done, core_course{{/str}}{{/pix}}
+        </button>
+    {{/overallcomplete}}
+    {{#overallincomplete}}
+        <button class="btn btn-sm text-nowrap text " {{!
+        }}{{#accessibledescription}}{{!
+            }}title="{{.}}" {{!
+            }}aria-label="{{.}}" {{!
+        }}{{/accessibledescription}}>
+            {{#pix}} completion-auto-n{{#overrideby}}-override{{/overrideby}}, theme, {{#str}}completion_automatic:todo, core_course{{/str}}{{/pix}}
+        </button>
+    {{/overallincomplete}}
+    {{#overallcompletepass}}
+        {{#pix}} completion-auto-pass, theme{{/pix}}
+    {{/overallcompletepass}}
+    {{#overallincompletefail}}
+        {{#pix}} completion-auto-fail, theme, {{#str}}completion_automatic:failed, core_course{{/str}}{{/pix}}
+    {{/overallincompletefail}}
+{{/istrackeduser}}
+{{^istrackeduser}}
+    <button class="btn  btn-sm text-nowrap" disabled>
+        {{#pix}} completion-auto-enabled, theme{{/pix}}
+    </button>
+{{/istrackeduser}}

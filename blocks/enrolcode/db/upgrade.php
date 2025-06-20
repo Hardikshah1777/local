@@ -1,0 +1,76 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * @package    block_enrolcode
+ * @copyright  2019 Center for Learning Management (http://www.lernmanagement.at)
+ * @author     Robert Schrenk
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die;
+
+function xmldb_block_enrolcode_upgrade($oldversion=0) {
+    global $DB;
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2019091900) {
+        $table = new xmldb_table('block_enrolcode');
+        $field = new xmldb_field('maturity', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'created');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // savepoint reached.
+        upgrade_block_savepoint(true, 2019091900, 'enrolcode');
+    }
+    if ($oldversion < 2020061000) {
+        $table = new xmldb_table('block_enrolcode');
+        $field = new xmldb_field('groupid', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, '0', 'roleid');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // savepoint reached.
+        upgrade_block_savepoint(true, 2020061000, 'enrolcode');
+    }
+    if ($oldversion < 2021111800) {
+        $table = new xmldb_table('block_enrolcode');
+        $field = new xmldb_field('enrolmentend', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'maturity');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // savepoint reached.
+        upgrade_block_savepoint(true, 2021111800, 'enrolcode');
+    }
+    if ($oldversion < 2021111802) {
+
+        // Define field usedby to be added to block_enrolcode.
+        $table = new xmldb_table('block_enrolcode');
+        $field = new xmldb_field('usedby', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'userid');
+
+        // Conditionally launch add field usedby.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Enrolcode savepoint reached.
+        upgrade_block_savepoint(true, 2021111802, 'enrolcode');
+    }
+
+    return true;
+}

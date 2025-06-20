@@ -1,0 +1,42 @@
+{{< core/modal }}
+    {{$title}}
+        {{#str}}authmodalheader,local_authtimer{{/str}}
+    {{/title}}
+    {{$body}}
+        <form class="mform">
+            <div class="form-group row fitem">
+                <div class="span-3">
+                    <span class="col-form-label d-inline-block sr-only">
+                        {{#str}}clicktosend,local_authtimer{{/str}}
+                    </span>
+                </div>
+                <div class="span-9 form-inline felement" data-fieldtype="static">
+                    <div id="id_clicktosend" class="form-control-static">
+                        <a href="javascript:void(0)" data-action="mail">{{#str}}clicktosend,local_authtimer{{/str}}</a>
+                    </div>
+                    <div class="form-control-feedback invalid-feedback" id="id_error_clicktosend"></div>
+                </div>
+            </div>
+            <div class="form-group row fitem">
+                <div class="span-3">
+                    <label class="col-form-label d-inline" for="id_code">
+                        {{#name}}
+                            {{.}}
+                        {{/name}}
+                        {{^name}}
+                            {{#str}}emailcode,local_authtimer{{/str}}
+                        {{/name}}
+                    </label>
+                </div>
+                <div class="span-9 form-inline felement" data-fieldtype="text">
+                    <input type="text" class="form-control" name="code" id="id_code" size="30" maxlength="100">
+                    <div class="form-control-feedback invalid-feedback" id="id_error_code"></div>
+                </div>
+            </div>
+        </form>
+    {{/body}}
+    {{$footer}}
+        <button type="button" class="btn btn-primary" data-action="save">{{#str}} submit {{/str}}</button>
+        <button type="button" class="btn btn-primary" data-action="cancel">{{#str}} cancel {{/str}}</button>
+    {{/footer}}
+{{/core/modal}}

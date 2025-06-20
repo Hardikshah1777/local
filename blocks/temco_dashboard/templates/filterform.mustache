@@ -1,0 +1,40 @@
+<div id="filterform">
+    <form method="post" class="mform form-inline mb-2">
+        <div class="d-flex align-items-center col-md-12 px-0 flex-wrap">
+            <div class="flex-divider"></div>
+            <div id="filterformui">
+                <div class="form-group mb-2">
+                    <label for="id_cohortid" class="col-3 justify-content-start">{{#str}}cohortname, block_temco_dashboard{{/str}}</label>
+                    <div class="col-9 d-flex flex-column">
+                        <select class="form-control" name="cohortid[]" id="id_cohortid" data-select="autocomplete">
+                            <option value="0">{{#str}}choose, core{{/str}}</option>
+                            {{#teams}}
+                                <option value="{{{key}}}"{{#selected}} selected{{/selected}}>{{{value}}}</option>
+                            {{/teams}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="label_idnumber" class="col-3 justify-content-start">{{#str}}employeeid, block_temco_dashboard{{/str}}</label>
+                    <div class="col-9 d-flex flex-column">
+                        <input type="text" name="idnumber" id="id_idnumber" class="form-control" {{#idnumber}}value="{{idnumber}}"{{/idnumber}}>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="label_fullname" class="col-3 justify-content-start">{{#str}}fullname, block_temco_dashboard{{/str}}</label>
+                    <div class="col-9 d-flex flex-column">
+                        <input type="text" name="fullname" id="fullname" class="form-control" {{#fullname}}value="{{fullname}}"{{/fullname}}>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <button type="submit" name="savefilter" id="savefilter" class="btn btn-primary">{{#str}}filter, core{{/str}}</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{{#js}}
+    require(['block_temco_dashboard/filterform'], amd => amd.initTable('{{{tableuniqid}}}'))
+    require(['core/checkbox-toggleall'], amd => amd.init());
+{{/js}}

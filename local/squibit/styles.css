@@ -1,0 +1,22 @@
+.path-local-squibit .actionbutton {
+    position: relative;
+}
+.path-local-squibit .actionbutton .loading-icon {
+    position: relative;
+    top: unset;
+    left: auto;
+    margin-left: .5rem;
+}
+.path-local-squibit .actionbutton .loading-icon .icon {
+    height: .8rem;
+    width: .8rem;
+    font-size: .8rem;
+}
+
+.btn.btn-disabled {
+    text-decoration: none;
+    cursor: default;
+    font-style: italic;
+    color: #212529;
+    opacity: .75;
+}

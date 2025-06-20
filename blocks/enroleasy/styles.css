@@ -1,0 +1,15 @@
+.block_enroleasy .easyenrol .form-inline .form-group {
+    max-width: 60%;
+}
+
+.block_enroleasy .easyenrol .form-inline .form-group .input-group {
+    width: 100%;
+}
+
+.block_enroleasy .easyenrol {
+    margin-bottom: 0;
+}
+
+.block_enroleasy .easyenrol #enrolform_course_code {
+    font-size: 1rem;
+}

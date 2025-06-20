@@ -1,0 +1,266 @@
+<form id="evaluationform" action="{{{ evaluationurl }}}" method="POST" >
+    <h2 class="mb-3 text-center">{{evaluationname}}</h2>
+    <div class="row mb-2 border">
+        {{#userfield}}
+        <div class="col-6 border">
+            <div class="row m-1 p-1">
+                <label > {{ field }} </label>
+                <input type="text" class="form-control" name="name[{{id}}]" id="{{id}}" {{^instructorname}}value="{{value}}"{{/instructorname}} {{#attempt}}disabled{{/attempt}} {{^instructorname}}readonly{{/instructorname}}>
+                <input type="hidden" class="form-control" name="userfieldid[{{id}}]" id="userfieldid{{id}}" value="{{id}}">
+                <input type="hidden" class="form-control" name="userid" id="userid" value="{{userid}} ">
+                <input type="hidden" class="form-control" name="evaluationid" id="evaluationid" value="{{evaluationid}}">
+                <input type="hidden" class="form-control" name="moduleid" id="moduleid" value="{{moduleid}}">
+                <input type="hidden" class="form-control" name="sesskey" id="sesskey" value="{{config.sesskey}}">
+            </div>
+        </div>
+    {{/userfield}}
+
+    </div>
+    <div class="row" xmlns="http://www.w3.org/1999/html">
+        <div class="col-12 border p-1 ">
+            {{#sections}}
+                {{^saferskill}}
+                    <div class="section  m-2">
+                        <div class="section-title border">
+                            <h5 class="text-center p-1 mb-0 bold">{{name}}</h5>
+                        </div>
+                        {{#skills}}
+                            <div class="row pt-1 pb-1 border ml-0 mr-0">
+                                <div class="col-5 d-flex">
+                                    {{name}}&nbsp;{{#validation}}<div style="color:red; font-size: 18px;"> * </div>{{/validation}} &nbsp;
+                                    {{#haserror}}
+                                        <div style="color: red;" id="errors{{id}}">required</div>
+                                    {{/haserror}}
+                                    <input type="hidden" name="skillid[{{id}}]" id="skillid[{{id}}]" value="{{id}}">
+                                </div>
+                                <div class="col-4">
+                                    <input type="hidden" name="level[{{id}}]" id="level[{{id}}]" value="0">
+                                    {{#levels}}
+                                        <label for="label-{{skillid}}-{{id}}">
+                                            <input id="label-{{skillid}}-{{id}}" class="text-center ml-4" type="radio" data-point="{{ grade }}" data-urg="{{ urg }}"  name="level[{{skillid}}]" id="level[{{skillid}}]" value="{{id}}"{{#attempt}} disabled{{/attempt}}{{#checked}} checked{{/checked}}> {{name}}
+                                        </label>
+                                    {{/levels}}
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" name="skillcomment[{{id}}]" id="skillcomment[{{id}}]" {{^attempt}} placeholder="comment" {{/attempt}}{{#attempt}}readonly value="{{skillcomment}}{{/attempt}} ">
+                                </div>
+                            </div>
+                        {{/skills}}
+                    </div>
+                {{/saferskill}}
+            {{/sections}}
+        </div>
+        <div class="col-12 border p-1">
+            <div class="p-1 border-bottom">
+                <h3 class="text-center font-weight-bold mb-0">{{#str}}saferskill,mod_evaluation{{/str}}</h3>
+            </div>
+            {{#sections}}
+                {{#saferskill}}
+                    <div class="section m-2">
+                        <div class="section-title border">
+                            <h5 class="text-center p-1 mb-0 bold">{{name}}</h5>
+                        </div>
+                        {{#skills}}
+                            <div class="row pt-1 pb-1 border ml-0 mr-0">
+                                <div class="col-5 d-flex ">
+                                    {{name}} &nbsp;{{#validation}}<div style="color:red; font-size: 18px;"> * </div>{{/validation}} &nbsp;
+                                    {{#haserror}}
+                                        <div style="color: red;" id="errors{{id}}">required</div>
+                                    {{/haserror}}
+                                    <input type="hidden" name="skillid[{{id}}]" id="skillid[{{id}}]" value="{{id}}">
+                                </div>
+                                <div class="col-4">
+                                    <input type="hidden" name="level[{{id}}]" id="level[{{id}}]" value="0">
+                                    {{#levels}}
+                                        <label for="label-{{skillid}}-{{id}}">
+                                            <input id="label-{{skillid}}-{{id}}" class="text-center ml-4" type="radio" data-point="{{ grade }}" data-urg="{{ urg }}"  name="level[{{skillid}}]" id="level[{{skillid}}]" value="{{id}}"{{#attempt}} disabled{{/attempt}}{{#checked}} checked{{/checked}}> {{name}}
+                                        </label>
+                                    {{/levels}}
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" name="skillcomment[{{id}}]" id="skillcomment[{{id}}]" {{^attempt}} placeholder="comment" {{/attempt}}{{#attempt}}readonly value="{{skillcomment}}{{/attempt}}">
+                                </div>
+                            </div>
+                        {{/skills}}
+                    </div>
+                {{/saferskill}}
+            {{/sections}}
+        </div>
+    </div>
+    <div class="row p-1 mt-2 m-1">
+        <label for="comments">{{#str}}comments,mod_evaluation{{/str}}</label>
+        <textarea  class="form-control" name="comments" id="comments" {{#attempt}}disabled{{/attempt}}>{{ postcomments }}{{comments}}</textarea>
+    </div>
+    {{^attempt}}
+        <div class="row mt-2 ml-1" id="result" data-region="result" style="font-size: 18px; font-weight: bold; display: none;">Additional Training Required(URG)</div>
+        <div class="row mt-2 m-1" id="grade" style="font-size: 16px;"><b> {{#str}}grade,mod_evaluation {{/str}} : <span data-region="gradepoint" data-maxgrade="100">{{ default }}</span></b></div>
+        <div class="row mt-2 ml-2">
+            <button type="submit" name="submit" class="btn btn-primary">{{#str}} submit,mod_evaluation {{/str}}</button>
+        </div>
+    {{/attempt}}
+</form>
+{{#attempt}}
+        <form action="{{{ actionlink }}}" method="post">
+        <div class="row p-1 mt-2 ml-1">
+            <p style="font-size: 18px;"> <b>{{#str}}result,mod_evaluation {{/str}}:</b> {{^additionaltraining}} {{result}} {{/additionaltraining}}
+        {{#additionaltraining}}
+            <p style="font-size: 18px;">&nbsp;<b>{{#str}}trainingrequire,mod_evaluation {{/str}} ({{reson}})</b>.</p>
+        {{/additionaltraining}}
+                </p> &nbsp;&nbsp;&nbsp;
+        </div>
+            <div class="row p-1 ml-1">
+                <p style="font-size: 18px;"> <b>{{#str}}grade,mod_evaluation {{/str}}:</b> <b>{{grade}}</b></p>
+            </div>
+
+        <div class="row p-1 mt-2 ml-1">
+            <input type="hidden" name="agree" value="0">
+            <label for="agree"><input class="ml-2 mt-1 mr-1" type="checkbox" name="agree" {{^student}}disabled{{/student}}  {{#agree}} checked disabled{{/agree}}  id="agree" value="1">{{#str}} agree,mod_evaluation{{/str}}</label>
+        </div>
+        {{#student}}
+            {{^agree}}
+                <div class="row mt-2 ml-2">
+                    <button type="submit" name="submit" class="btn btn-primary">{{#str}} submit,mod_evaluation {{/str}}</button>
+                </div>
+            {{/agree}}
+        {{/student}}
+        </form>
+{{/attempt}}
+
+{{^attempt}}
+    <div class="row mt-4 ml-1">
+        <h4  style="font-weight: 900"> {{#str}} coaches,mod_evaluation {{/str}}</b></h4>
+        <p style="font-size: 18px; font-weight: 400;"> {{#str}} description1,mod_evaluation {{/str}}</p>
+        <p style="font-size: 18px; font-weight: 400;"> {{#str}} description2,mod_evaluation {{/str}}</p>
+    </div>
+    <div class="row mt-0 ml-1">
+        <h4  style="font-weight: 900">{{#str}}scoring,mod_evaluation{{/str}}</h4>
+    </div>
+    <div class="row mt-0 ml-1">
+        <div class="col-1" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}ee,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-4" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}eename,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-7" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}eedesc,mod_evaluation{{/str}}</p>
+        </div>
+    </div>
+    <div class="row mt-0 ml-1">
+        <div class="col-1" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}me,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-4" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}mename,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-7" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}medesc,mod_evaluation{{/str}}</p>
+        </div>
+    </div>
+    <div class="row mt-0 ml-1">
+        <div class="col-1" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}ni,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-4" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}niname,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-7" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}nidesc,mod_evaluation{{/str}}</p>
+        </div>
+    </div>
+    <div class="row mt-0 ml-1">
+        <div class="col-1" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}urg,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-4" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}urgname,mod_evaluation{{/str}}</p>
+        </div>
+        <div class="col-7" style="border: 1px solid gray;">
+            <p style="font-size: 17px; font-weight: 500;margin-bottom: 0px;">{{#str}}urgdesc,mod_evaluation{{/str}}</p>
+        </div>
+    </div>
+    <div class="row mt-4 ml-1">
+        <h5 style="font-weight: 900">{{#str}} passtext,mod_evaluation {{/str}}</h5>
+    </div>
+    <div class="row mt-3 ml-1">
+        <h5 style="font-weight: 900">{{#str}} trainingrequire,mod_evaluation {{/str}} :  </h5>
+    </div>
+    <div class="row mt-0 ml-2">
+        <ul>
+            <li class="ml-2 mb-1" style="font-size: 17px;">{{#str}} lesethan80,mod_evaluation {{/str}} </li>
+            <li class="ml-2 mb-1" style="font-size: 17px;">{{#str}} urg1,mod_evaluation {{/str}} </li>
+            <li class="ml-2 mb-1" style="font-size: 17px;">{{#str}} anyofthe,mod_evaluation {{/str}}
+                <ul>
+                    <li class="ml-4 mb-1" style="font-size: 17px;">{{#str}} anyofthe1,mod_evaluation {{/str}}</li>
+                    <li class="ml-4 mb-1" style="font-size: 17px;">{{#str}} anyofthe2,mod_evaluation {{/str}}</li>
+                    <li class="ml-4 mb-1" style="font-size: 17px;">{{#str}} anyofthe3,mod_evaluation {{/str}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row mt-1 ml-1">
+        <h5 style="font-weight: 900">{{#str}}instructions,mod_evaluation{{/str}}</h5>
+    </div>
+    <div class="row ml-1">
+        <h5>{{#str}}instructionsdesc,mod_evaluation{{/str}}</h5>
+    </div>
+{{/attempt}}
+
+
+<script>
+(function () {
+    const form = document.querySelector('#evaluationform');
+    const gradepoint = document.querySelector('[data-region="gradepoint"]');
+    const result = document.querySelector('[data-region="result"]');
+    const gradeinitial = parseInt(gradepoint.innerText);
+    const maxgrade = parseInt(gradepoint.getAttribute('data-maxgrade'));
+    form.addEventListener('change' , () => {
+        let grade = gradeinitial;
+        let urgval = false;
+        document.querySelectorAll('[data-point]:checked').forEach(el => {
+            const urg =  el.getAttribute('data-urg');
+            if (urg == 1){
+                urgval =  true;
+            }
+            const gradeval = el.getAttribute('data-point');
+            grade += parseInt(gradeval);
+        });
+        if (urgval === true){
+            result.style.display = "block";
+        }else{
+            result.style.display = "none";
+        }
+        gradepoint.innerText = Math.min(grade, maxgrade);
+    });
+
+})()
+</script>
+<script>
+(function () {
+    const form = document.querySelector('#evaluationform');
+    const gradepoint = document.querySelector('[data-region="gradepoint"]');
+    const result = document.querySelector('[data-region="result"]');
+    const gradeinitial = parseInt(gradepoint.innerText);
+    const maxgrade = parseInt(gradepoint.getAttribute('data-maxgrade'));
+    window.addEventListener('load' , () => {
+        let grade = gradeinitial;
+        let urgval = false;
+        document.querySelectorAll('[data-point]:checked').forEach(el => {
+            const urg =  el.getAttribute('data-urg');
+            if (urg == 1){
+                urgval =  true;
+            }
+            const gradeval = el.getAttribute('data-point');
+            grade += parseInt(gradeval);
+        });
+        if (urgval === true){
+            result.style.display = "block";
+        }else{
+            result.style.display = "none";
+        }
+        gradepoint.innerText = Math.min(grade, maxgrade);
+    });
+
+})()
+</script>

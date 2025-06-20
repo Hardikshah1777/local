@@ -1,0 +1,94 @@
+{{!
+    @template local_squibit/setting
+
+    Example context (json):
+    {
+        "title": "Setting title",
+        "labelfor": "id0",
+        "override": "Overidden",
+        "warning": "Warning",
+        "name": "Name",
+        "error": "Error",
+        "element": "Raw HTML",
+        "forceltr": false,
+        "default": "Default value"
+    }
+}}
+<div class="form-item row" id="{{id}}">
+    <div class="form-label bold col-sm-12">
+        {{#customcontrol}}
+            <p {{#labelfor}}id="{{labelfor}}_label"{{/labelfor}}>
+                {{{title}}}
+                {{#override}}
+                    <div class="alert alert-info">{{override}}</div>
+                {{/override}}
+                {{#warning}}
+                    <div class="alert alert-warning">{{warning}}</div>
+                {{/warning}}
+            </p>
+        {{/customcontrol}}
+        {{^customcontrol}}
+            <label {{#labelfor}}for="{{labelfor}}"{{/labelfor}}>
+                {{{title}}}
+                {{#override}}
+                    <div class="alert alert-info">{{override}}</div>
+                {{/override}}
+                {{#warning}}
+                    <div class="alert alert-warning">{{warning}}</div>
+                {{/warning}}
+            </label>
+        {{/customcontrol}}
+        <span class="form-shortname d-none small text-muted">{{{name}}}</span>
+    </div>
+    <div class="form-setting col-sm-12">
+        {{#error}}
+            <div><span class="error">{{error}}</span></div>
+        {{/error}}
+        <table id="{{{id}}}" class="flexible table admintable generaltable">
+            <tr class="text-center">
+                <td class="cell">
+                    <p class="text-muted">{{{strings.total}}} {{{counts.total}}}</p>
+                </td>
+                <td class="cell">
+                    <p class="text-muted">{{{strings.pending}}} {{{counts.pending}}}</p>
+                </td>
+                <td class="cell">
+                    <p class="text-muted">{{{strings.sync}}} {{{counts.sync}}}</p>
+                </td>
+                <td class="cell">
+                    <p>
+                        {{#buttondisabled}}
+                        <a class="btn btn-secondary btn-disabled" href="javascript:void(0)" data-toggle="tooltip" title="{{#str}}pleaseselectteacher, local_squibit{{/str}}">
+                            {{{strings.viewlink}}}
+                        </a>
+                        {{/buttondisabled}}
+                        {{^buttondisabled}}
+                        <a class="btn btn-secondary" href="{{{viewlink}}}">
+                            {{{strings.viewlink}}}
+                        </a>
+                        {{/buttondisabled}}
+                    </p>
+                </td>
+            </tr>
+        </table>
+        {{#default}}
+            <div class="form-defaultinfo text-muted {{#forceltr}}text-ltr{{/forceltr}}">{{{default}}}</div>
+        {{/default}}
+        <div class="form-description mt-3">{{{description}}}</div>
+        {{#dependenton}}<div class="form-dependenton mb-4 text-muted">{{{.}}}</div>{{/dependenton}}
+    </div>
+</div>
+{{#customcontrol}}
+    {{#js}}
+        require(['jquery'], function($) {
+            $('#{{id}}_label').css('cursor', 'default');
+            $('#{{id}}_label').click(function() {
+                $('#{{id}}')
+                    .find('button, a, input:not([type="hidden"]), select, textarea, [tabindex]')
+                    .filter(':not([disabled]):not([tabindex="0"]):not([tabindex="-1"])')
+                    .first().focus();
+            });
+        });
+    {{/js}}
+{{/customcontrol}}
+

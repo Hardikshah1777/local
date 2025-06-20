@@ -1,0 +1,138 @@
+
+/*Custom css - Begin*/
+#page-login-index #region-main, #page-my-index #region-main {
+    background:none;
+    border:0;
+}
+
+.blocks, [class*=blocks-] {
+    font-size: 14px;
+    margin: 0 !important;
+}
+
+.block_iomad_reports h3:before {
+   font-family: FontAwesome;
+   content: "" !important;
+}
+
+.path-blocks-iomad_company_admin .generaltable tbody td a, .path-blocks-iomad_company_admin .generaltable tbody tr:hover a {
+    color: white !important;
+}
+
+#page-local-iomad-dashboard-index #stats, #page-local-iomad-dashboard-index #quiz-overview {
+   display:none;
+}
+
+#page-local-iomad-dashboard-index ul.blocks-sm-100 {
+    display: none;
+}
+
+#region-main, section.block {
+   border:none !important;
+}
+
+#page-local-iomad-dashboard-index #region-main-box {
+   display: flex !important;
+}
+
+#page-my-index #region-main-box ul.blocks-sm-100 li:nth-child(2) {
+   float:right;
+}
+
+#page-my-index .block_myoverview {
+  padding-top: 0px;
+}
+/*Custom css - End */
+
+/* Dashboard IOMAD Block Fixes */
+div.block_iomad_company_admin div.iomadlink_container {
+  top: 0 !important;
+}
+
+/* Added By Abhishek Karadbhuje*/
+/* Dropdown Menu Fixes */
+.path-blocks-iomad_company_admin .generaltable tbody td a.dropdown-item.menu-action {
+    color: inherit !important;
+}
+
+/* User and Course From Fixes */
+.companyusertable td#existingcell,
+.companyusertable td#potentialcell,
+.companyusertable td#buttonscell,
+.companycoursetable td#existingcell,
+.companycoursetable td#potentialcell,
+.companycoursetable td#buttonscell,
+.roleassigntable td#existingcell,
+.roleassigntable td#potentialcell,
+.roleassigntable td#buttonscell
+{
+    height: inherit!important;
+    vertical-align: top !important;
+    border-top: 1px solid #e4eaec !important;
+}
+.companyusertable td#existingcell,
+.companyusertable td#potentialcell,
+.companycoursetable td#existingcell,
+.companycoursetable td#potentialcell,
+.roleassigntable td#existingcell,
+.roleassigntable td#potentialcell
+{
+    width: 45% !important;
+}
+.companyusertable td#buttonscell,
+.companycoursetable td#buttonscell,
+.roleassigntable td#buttonscell{
+    width: 10% !important;
+}
+.companyusertable td .courseselector select,
+.companycoursetable td .courseselector select,
+.roleassigntable td .courseselector select {
+    width: 100%;
+}
+
+#courseselector_options #courseselector_options_sizer #courseselector_options_inner p {
+    display: inline-flex;
+}
+#courseselector_options #courseselector_options_sizer #courseselector_options_inner input {
+    margin-top: 5px !important;
+    margin-right: 5px !important;
+}
+.path-blocks-iomad_company_admin .generaltable tbody td.cell a, .path-blocks-iomad_company_admin .generaltable tbody tr:hover a, .generaltable tbody tr:hover {
+color: inherit !important;
+}
+.iomadclear .form-autocomplete-suggestions {
+    position: absolute;
+    background-color: white;
+    border: 2px solid #dee2e6;
+    border-radius: 3px;
+    min-width: 206px;
+    max-height: 20em;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: .4em;
+    z-index: 1;
+}
+.iomadclear .form-inline.felement {
+  display: block;
+}
+.fitem .singleselect label {
+  width: 25%;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+/* Alert Icon Fixes */
+.card-block .alert-icon {
+    padding-left: 45px !important;
+}
+.card-block .alert-dismissible {
+    padding-right: 40px !important;
+}
+.alert-icon>.icon {
+    top: 9px !important;
+    left: 22px !important;
+}
+.fade.in {
+    opacity: 1;
+}

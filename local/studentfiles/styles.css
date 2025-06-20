@@ -1,0 +1,6 @@
+a[title="My Media"] {
+    display: none;
+}
+#nav-drawer-container .list-group>a[data-key="privatefiles"] {
+    display: none;
+}

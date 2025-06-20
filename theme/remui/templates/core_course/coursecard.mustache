@@ -1,0 +1,156 @@
+{{!
+This file is part of Moodle - http://moodle.org/
+
+Moodle is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Moodle is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Moodle. If not, see
+<http: //www.gnu.org/licenses />.
+}}
+{{!
+@template course_course/coursecard
+
+This template renders the a card for the course cards.
+
+Example context (json):
+{
+"courses": [
+{
+"name": "Assignment due 1",
+"viewurl": "https://moodlesite/course/view.php?id=2",
+"courseimage": "https://moodlesite/pluginfile/123/course/overviewfiles/123.jpg",
+"fullname": "course 3",
+"hasprogress": true,
+"progress": 10,
+"visible": true
+}
+]
+}
+}}
+{{#carddesignsetting}}
+<div class="card dashboard-card edwanimate-{{cardanimation}} course_card-0" role="listitem" data-region="course-content"
+    data-course-id="{{{id}}}">
+    <div class="img-container position-relative">
+        <a href="{{viewurl}}" aria-label="Course - {{{ coursename }}}">
+            <div class="rounded-top"
+                style="background-image: url('{{ courseimage }}');background-size: cover;background-position: center; position: relative; height:200px;">
+                <div class="right-top-menu">
+                    <div class="favirite-icon-wrapper">
+                        {{> core_course/favouriteicon }}
+                    </div>
+                </div>
+                {{# instructor }}
+                <a href="{{ url }}" class="d-flex justify-content-end instructor-img {{ imgStyle }}"
+                    aria-label="Instructor for {{coursename}} is - {{name}}" data-toggle="tooltip" title="{{{name}}}"
+                    style="position: absolute;top: 175px;right: 25px;">
+                    <img src="{{ picture }}" style="border: 2px solid white; cursor: pointer; height: 50px;width: 50px;"
+                        class="rounded-circle" alt="{{ name }}" />
+                </a>
+                {{/ instructor }}
+            </div>
+        </a>
+    </div>
+    <div class="card-body pb-0" title='{{$coursename}}{{/coursename}}'>
+        <div class='m-1 font-size-10'>{{{rnrshortdesign}}}</div>
+        <span class="text-muted ellipsis ellipsis-2" style="-webkit-box-orient: vertical;" tabindex="-1">
+            {{$coursecategory}}{{/coursecategory}}</span>
+        <h4 class="card-title my-1 ellipsis ellipsis-3" style="-webkit-box-orient: vertical;">
+            <a href="{{viewurl}}" class="font-weight-400  font-size-18" tabindex="-1">
+                {{$coursename}}{{/coursename}}
+            </a>
+        </h4>
+        <div class="left-bottom-menu">
+            {{#courseprogresstext}}
+            <div class="progress-text">
+                <span class="sr-only">{{#str}}aria:courseprogress, block_myoverview{{/str}}</span>
+                <span>{{#str}}completepercent, block_myoverview, {{progress}}{{/str}}</span>
+            </div>
+            {{/courseprogresstext}}
+            
+            {{^visible}}
+            <div class="visibilityicon">
+                <i class="hidden-icon fa fa-eye-slash visible text-white" aria-hidden="true"
+                    title="{{#str}} hiddencourse, theme_remui {{/str}}"></i>
+            </div>
+            {{/visible}}
+        </div>
+        <span class="card-text ellipsis ellipsis-2 m-0 pt-2" style="-webkit-box-orient: vertical;">{{{summary}}}</span>
+    </div>
+    <div class="d-flex align-items-end ">
+        {{$menu}}{{/menu}}
+    </div>
+</div>
+{{/carddesignsetting}}
+
+{{^carddesignsetting}}
+<div class="card dashboard-card edwanimate-{{cardanimation}} course_card-1" role="listitem" data-region="course-content"
+    data-course-id="{{{id}}}">
+    <div class="course_card-1 " role="listitem" data-region="course-content" data-course-id="{{{id}}}"
+        style="max-width: unset;">
+        <div class='wrapper h-100' style='background-image: url({{courseimage}});background-size: cover;background-position: center; position: relative;'>
+
+            {{#date}}
+            <div class='date btn-primary'>
+                <span class='day'>{{day}}</span>
+                <span class='month'>{{month}}</span>
+                <span class='year'>{{year}}</span>
+            </div>
+            {{/date}}
+
+            <span style="position: absolute;right: 0px;">
+                {{$menu}}{{/menu}}
+            </span>
+            {{# instructor }}
+            <a href="{{ url }}" class="d-flex justify-content-end instructor-img {{ imgStyle }}"
+                aria-label="Instructor for {{coursename}} is - {{name}}" data-toggle="tooltip" title="{{{name}}}">
+                <img src="{{ picture }}" style="border: 2px solid white; cursor: pointer;" class="rounded-circle"
+                    alt="{{ name }}" />
+            </a>
+            {{/ instructor }}
+            <div class="left-bottom-menu">
+                {{#courseprogresstext}}
+                <div class="progress-text">
+                    <span class="sr-only">{{#str}}aria:courseprogress, block_myoverview{{/str}}</span>
+                    <span>{{#str}}completepercent, block_myoverview, {{progress}}{{/str}}</span>
+                </div>
+                {{/courseprogresstext}}
+                
+                {{^visible}}
+                <div class="visibilityicon">
+                    <i class="hidden-icon fa fa-eye-slash visible text-white" aria-hidden="true"
+                        title="{{#str}} hiddencourse, theme_remui {{/str}}"></i>
+                </div>
+                {{/visible}}
+            </div>
+            <div class='data'>
+                {{$progress}}{{/progress}}
+                <div class='content' title='{{$coursename}}{{/coursename}}'>
+                    <div class='m-1 font-size-10'>{{{rnrshortdesign}}}</div>
+                    <span class='author ellipsis ellipsis-1'
+                        style="-webkit-box-orient: vertical;">{{$coursecategory}}{{/coursecategory}}
+                    </span>
+                    <h4 class='title ellipsis ellipsis-2 {{#hasrating}}hasrating{{/hasrating}}' style='-webkit-box-orient: vertical;visibility: visible;'>
+                        <a href='{{ viewurl }}'>
+                            <span style="color: gold;">
+                                {{> core_course/favouriteicon }}
+                            </span>
+                            {{$coursename}}{{/coursename}}
+                        </a>
+                    </h4>
+                    <span class="card-text ellipsis ellipsis-3 m-0 pt-2"
+                        style="-webkit-box-orient: vertical;">{{{summary}}}</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/carddesignsetting}}

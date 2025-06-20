@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/timetracker/db" VERSION="20190225" COMMENT="XMLDB file for Moodle local/timetracker"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="timetracker_log" COMMENT="Standard log table for track time">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="eventname" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="component" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="target" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contextlevel" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contextinstanceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="timetracker_securitycheck" COMMENT="securitycheck log">
+		<FIELDS>
+		  <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+		  <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="courseid" PREVIOUS="id"/>
+		  <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="qid" PREVIOUS="userid"/>
+		  <FIELD NAME="qid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" NEXT="answer" PREVIOUS="courseid"/>
+		  <FIELD NAME="answer" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" NEXT="status" PREVIOUS="qid"/>
+		  <FIELD NAME="answerstatus" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="userstatus" PREVIOUS="answer"/>
+		  <FIELD NAME="userstatus" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="timecreated" PREVIOUS="status"/>
+		  <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"  PREVIOUS="userstatus"/>
+		</FIELDS>
+		<KEYS>
+		  <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		</KEYS>
+	  </TABLE>
+	   <TABLE NAME="timetracker_lock" COMMENT="lock tracker">
+		<FIELDS>
+		  <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+		  <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="courseid" PREVIOUS="id"/>
+		  <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="userstatus" PREVIOUS="userid"/>
+		  <FIELD NAME="userstatus" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="timecreated" PREVIOUS="courseid"/>
+		  <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"  PREVIOUS="userstatus"/>
+		</FIELDS>
+		<KEYS>
+		  <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		</KEYS>
+	  </TABLE>
+	   <TABLE NAME="timetracker_coursebreak" COMMENT="coursebreak tracker">
+		<FIELDS>
+		  <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+		  <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="courseid" PREVIOUS="id"/>
+		  <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="status" PREVIOUS="userid"/>
+		  <FIELD NAME="status" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" NEXT="timecreated" PREVIOUS="courseid"/>
+		  <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+		  <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>		</FIELDS>
+		<KEYS>
+		  <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		</KEYS>
+	  </TABLE>
+  </TABLES>
+</XMLDB>

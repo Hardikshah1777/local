@@ -1,0 +1,32 @@
+@media (min-width: 768px) {
+    body.drawer-open-left {
+        margin-left: 285px;
+   }
+}
+@media (max-width: 767.98px) {
+    [data-region=right-hand-drawer].drawer {
+        top: 0;
+        height: 100%;
+        z-index: 1030;
+   }
+    [data-region=right-hand-drawer] .closewidget {
+        display: block;
+        padding: 0 0.2rem;
+   }
+}
+@media print {
+    body.drawer-open-left.jsenabled, body.drawer-open-right.jsenabled {
+        margin: 0;
+   }
+    .container {
+        width: auto;
+   }
+}
+
+.activity-item .inplaceeditable .quickeditlink, .activity-item .afterlink{
+    margin: 0rem 0 0.2rem 0.5rem;
+}
+.navbar.fixed-top .nav-link {
+    height: 80%;
+    margin-top: 5px;
+}

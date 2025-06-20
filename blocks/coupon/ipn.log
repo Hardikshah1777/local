@@ -1,0 +1,20 @@
+[18-Apr-2019 04:45:43 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 04:46:57 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances. Debug: SELECT id,parentcontextid FROM {block_instances} WHERE id = ?
+[array (
+  0 => '2',
+)]
+Error code: invalidrecord
+* line 1546 of /lib/dml/moodle_database.php: dml_missing_record_exception thrown
+* line 1522 of /lib/dml/moodle_database.php: call to moodle_database->get_record_select()
+* line 7313 of /lib/accesslib.php: call to moodle_database->get_record()
+* line 113 of /blocks/coupon/ipn.php: call to context_block::instance()
+
+[18-Apr-2019 05:11:25 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:12:08 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:12:51 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:17:45 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:17:53 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:18:02 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:18:26 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[18-Apr-2019 05:19:09 America/Edmonton] block_coupon IPN exception handler: Can not find data record in database table block_instances.
+[12-Oct-2022 12:51:53 America/Edmonton] block_coupon IPN exception handler: block_coupon/erripninvalid

@@ -1,0 +1,188 @@
+.pagelayout-coursecategory {
+    .layout-1 {
+        min-height: 300px;
+    }
+
+    .filters-wrapper {
+        display: flex;
+        column-gap: 10px;
+        .categoryfiltermenu {
+            max-width: 195px;
+            .dropdown-menu.open{
+                max-height: 200px;
+                max-width: 600px;
+                width: 600px;
+                overflow: hidden;
+                span{
+                    white-space: pre-wrap;
+                }
+            }
+            .dropdown-menu.inner{
+                max-height: 200px !important;
+                overflow-y:auto;
+            }
+        }
+        .dropdown-toggle:focus{
+            outline: unset;
+            outline-offset: 0px;
+        }
+    }
+    .course-cards.grid-view {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-gap: 20px;
+        align-items: start;
+        width: 100%;
+        .card-wrapper {
+            height: 100%;
+        }
+        .instructor-img {
+            position: absolute;
+            top: 175px;
+            right: 25px;
+            img {
+                height: 50px;
+                width: 50px;
+            }
+        }
+    }
+    .list-view {
+        .instructor-img {
+            position: absolute;
+            top: 140px;
+            right: -25px;
+            img {
+                height: 50px;
+                width: 50px;
+            }
+        }
+    }
+}
+
+.tag_list {
+    display: flex;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media  screen and (max-width: 768px) {
+    .pagelayout-coursecategory {
+        .layout-1 .container .filters-wrapper {
+            .categoryfiltermenu {
+                // max-height: 250px;
+                max-width: unset;
+                .dropdown-menu.open{
+                    max-width: 400px;
+                    width: 400px;
+                    overflow: hidden;
+                }
+                .dropdown-menu.inner{
+                    max-height: 200px !important;
+                    overflow-y:auto;
+                }
+            }
+        }
+    }
+}
+@media  screen and (max-width: 480px) {
+    .pagelayout-coursecategory {
+        .layout-1 .container .filters-wrapper {
+            flex-wrap: wrap;
+            row-gap: 10px;
+
+            .categoryfiltermenu {
+                // max-height: 250px;
+                max-width: unset;
+                .dropdown-menu.open{
+                    max-width: 300px;
+                    width: inherit;
+                }
+                .dropdown-menu.inner{
+                    max-height: 200px !important;
+                    overflow-y:auto;
+                }
+            }
+        }
+        .layout-1 .container .filters-wrapper .simplesearchform .mform {
+            padding-left: unset;
+            padding-right: unset;
+        }
+        .layout-1 .container .filters-wrapper .btn-group:nth-child(4) {
+            display: none;
+        }
+    }
+}
+// .heighthandler {
+//     max-height: 250px;
+// }
+
+// .tag_list li {
+//     border-radius: 15px;
+//     background-color: rgb(237, 239, 247);
+//     height: 30px;
+//     margin-bottom: 15px;
+//     padding: 3px 15px;
+// }
+// .pagelayout-coursecategory  {
+// .grid-view {
+//    .instructor-img {
+//        position: absolute;
+//        top: 175px;
+//        right: 25px;
+//         img {
+//             height: 50px;
+//             width: 50px;
+//         }
+//    }
+// }
+//     .list-view {
+//         .instructor-img {
+//             position: absolute;
+//             top: 140px;
+//             right: -25px;
+//             img {
+//                 height: 50px;
+//                 width: 50px;
+//             }
+//         }
+//         #mycoursesregion {
+//             .card-footer.activity-btn {
+//                 position: absolute;
+//                 width: 200px;
+//                 bottom: 0;
+//                 right: 0;
+//             }
+//         }
+//     }
+//     .courses-tabs {
+//         .tab-content {
+//             min-height: 500px;
+//             position: relative;
+//             .courses-loader-wrap {
+//                 position: absolute;
+//                 z-index: 1;
+//                 i.fa {
+//                     position: absolute;
+//                     top: 50%;
+//                     left: 50%;
+//                     transform: translate(-50%, -50%);
+//                 }
+//             }
+//         }
+//     }
+//     .hidden-icon {
+//         position: absolute;
+//         font-size: 20px;
+//         left: 10px;
+//         bottom: 10px;
+//     }
+// }
+.block-myoverview,
+.block_starredcourses,
+.pagelayout-coursecategory {
+    .hidden-icon {
+        font-size: 18px;
+    }
+}

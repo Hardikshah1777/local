@@ -1,0 +1,10 @@
+{
+  "name": "moodle-theme_boostchild-completion",
+  "builds": {
+    "moodle-theme_boostchild-completion": {
+      "jsfiles": [
+        "completion.js"
+      ]
+    }
+  }
+}

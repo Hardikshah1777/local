@@ -1,0 +1,8 @@
+{
+    "moodle-mod_behaviour-groupfilter": {
+        "requires": [
+            "base",
+            "node"
+        ]
+    }
+}

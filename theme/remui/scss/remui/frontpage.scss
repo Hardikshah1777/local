@@ -1,0 +1,109 @@
+$aboutus-card-height : 200px;
+$aboutus-card-border-radius: 20px;
+body {
+    &#page-site-index:not(.limitedwidth) {
+
+        #page-header,
+        .secondary-navigation {
+            display: none;
+        }
+
+        &.innerfullwidth {
+            #page.drawers {
+                .main-inner {
+                    width: 100%;
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    padding: 0;
+
+                    .main-content {
+                        padding: 3rem;
+
+                        @include media-breakpoint-down(sm) {
+                            padding: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .grids {
+            display: grid;
+            gap: 25px;
+            .grid-item {
+                box-shadow: 0 0 2rem #00000024;
+                min-height: $aboutus-card-height;
+                border-radius: $aboutus-card-border-radius;
+            }
+        }
+
+        .grids {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            margin-top: 50px;
+        }
+        .incol {
+            @include media-breakpoint-up(md) {
+                display: flex;
+                justify-content: space-between;
+                .grids {
+                    grid-template-columns : repeat(2, minmax(100px, 1fr));
+                    flex: 1;
+                    padding-left: 100px;
+                    margin-top: 0;
+                    min-width: 70%;
+                }
+            }
+        }
+
+        .overlay {
+            .overlay-figure,
+            .overlay-panel {
+                min-height: $aboutus-card-height;
+                border-radius: $aboutus-card-border-radius;
+            }
+
+            .iconsquare {
+                height: 50px;
+                width: 50px;
+                margin: auto;
+                margin-bottom: 10px;
+                i {
+                    font-size: 50px;
+                }
+            }
+        }
+
+        #edwiser-testimonials {
+            display: flex;
+            .heading,
+            .testimonials {
+                flex: 1 0 50%;
+            }
+            .testimonials {
+                .carousel-inner {
+                    padding: 100px;
+                    .carousel-item.active,
+                    .carousel-item-left {
+                        .carousel-item-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            flex-grow:1;
+                        }
+                    }
+                }
+                background-color: #eee;
+            }
+        }
+
+        &.animate-header {
+            .drawers.show-drawer-right{
+                margin-right: 0px !important;
+            }
+            .drawer.drawer-right.show {
+                z-index: 1;
+                top: 80px;
+            }
+        }
+    }
+}

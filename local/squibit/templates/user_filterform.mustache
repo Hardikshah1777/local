@@ -1,0 +1,48 @@
+<div id="userfilter" class="collapse">
+    <div id="userfilterform">
+        <form method="post" class="mform mb-2 offset-2">
+            <div class="row">
+                <div class="form-group mb-2 col-4">
+                    <label for="label_userid" class="justify-content-start align-self-start">{{#str}} userid, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <input type="text" name="userid" id="userid" class="form-control" pattern="[0-9]+" title="please enter number only" value="{{#userid}}{{userid}}{{/userid}}">
+                    </div>
+                </div>
+                <div class="form-group mb-2 col-4">
+                    <label for="label_firstname" class="justify-content-start align-self-start">{{#str}} firstname, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <input type="text" name="firstname" id="firstname" class="form-control" value="{{#firstname}}{{firstname}}{{/firstname}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-4">
+                    <label for="label_lastname" class="justify-content-start align-self-start">{{#str}} lastname, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <input type="text" name="lastname" id="lastname" class="form-control" value="{{#lastname}}{{lastname}}{{/lastname}}">
+                    </div>
+                </div>
+                <div class="form-group mb-2 col-4">
+                    <label for="label_status" class="justify-content-start align-self-start">{{#str}} status, local_squibit {{/str}}</label>
+                    <div class="d-flex flex-column">
+                        <select name="status" id="status" class="form-control">
+                            <option value="">{{#str}}choose, core{{/str}}</option>
+                            {{#statusoption}}
+                                <option value="{{value}}" {{#status}}selected{{/status}}>{{key}}</option>
+                            {{/statusoption}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-2">
+                    <button class="btn btn-primary collapse" type="submit" name="userfilter" id="userfilter">{{#str}}filter, core{{/str}}</button>
+                    <button class="btn btn-primary collapse show" type="button" name="canceluserfilter" id="canceluserfilter">{{#str}}cancel, core{{/str}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{#js}}
+    require(['local_squibit/userfilterform'], amd => amd.initTable())
+{{/js}}

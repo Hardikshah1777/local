@@ -1,0 +1,31 @@
+Change List
+=========
+Version 3.1.2 (Build 2022120200)
+- added new icons
+
+Version 3.1.1(Build 2018113000)
+-Small code refactor
+-Removal of audio mp3 audio. audio is always mp3 these days
+
+Version 3.1.0(Build 2018041000)
+-Implemented new Moodle Privacy API
+
+Version 2017082600
+Added support for passing "hints" to audio and video recorder
+We use these allow sizes and skins to be set from different context levels
+
+
+Version 2016112101
+Added a labeltype lang string a poodll.png img (which wont display)
+Removed reference to setting videowidth and replaced with css class for snapshot and whiteboard images
+Removed size specification on audio player and video player. That can be done with templates
+
+Version 2016081402
+Fixed bug that killed snapshot camera
+
+Version 2016081401
+Support for PoodLL 3
+
+Version 2015121101
+Support for refactored PoodLL filter and support for Moodle 3.0
+

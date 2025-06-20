@@ -1,0 +1,30 @@
+{{!
+    @template core/signup_form_layout
+
+    Example context (json):
+    {
+        "logourl": "https://moodle.org/logo/moodle-logo.svg",
+        "sitename": "Site name",
+        "formhtml": "<p>(Form html would go here)</p>"
+    }
+}}
+<div class="signupform">
+    {{#hidelogo}}
+    {{# output.should_display_navbar_logo }}
+        <a class="login-brand-wrapper login-{{logoorsitename}}" href="#" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
+            <img src="{{ logourl }}" class="login-brand-logo logo">
+            <img src="{{ logominiurl }}" class="login-brand-logo logomini">
+            <span class="login-brand-logo icononly"><i class="fa fa-{{siteicon}}"></i> {{{ sitename }}}</span>
+            <span class="login-brand-logo font-weight-bold iconsitename">
+                <i class="fa fa-{{siteicon}}"></i>&nbsp;
+                {{{ sitename }}}
+            </span>
+        </a>
+    {{/ output.should_display_navbar_logo }}
+    {{^ output.should_display_navbar_logo }}
+        {{{ sitename }}}
+    {{/ output.should_display_navbar_logo }}
+    {{/hidelogo}}
+    <h1 class="login-heading">{{#str}} newaccount {{/str}}</h1>
+    {{{formhtml}}}
+</div>

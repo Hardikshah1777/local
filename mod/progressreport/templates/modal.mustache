@@ -1,0 +1,14 @@
+{{< core/modal }}
+    {{$title}}{{#str}} confirmheader,mod_progressreport {{/str}}{{/title}}
+    {{$body}}
+        <div class="container">
+            <p class="test">{{#str}} confirmmsg,mod_progressreport {{/str}}</p>
+            <input type="hidden" id="confirmvalue" name="confirmvalue" value="1">
+            <p><b>{{#str}}note,mod_progressreport{{/str}}</b> {{#str}}notetext,mod_progressreport{{/str}}</p>
+        </div>
+    {{/body}}
+    {{$footer}}
+        <button type="button" class="btn btn-primary" data-action="confirmsave">{{#str}} confirm,mod_progressreport {{/str}}</button>
+        <button type="button" class="btn btn-secondary" data-action="cancelsave">{{#str}} cancel {{/str}}</button>
+    {{/footer}}
+{{/ core/modal }}

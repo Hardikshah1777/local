@@ -1,0 +1,300 @@
+.path-mod-behaviour .attbtn {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 5px;
+    display: inline-block;
+}
+
+.path-mod-behaviour .attcurbtn {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 5px;
+}
+
+.path-mod-behaviour .attfiltercontrols {
+    margin-bottom: 10px;
+}
+
+.path-mod-behaviour .attfiltercontrols #currentdate {
+    display: inline;
+}
+
+.path-mod-behaviour .attwidth {
+    margin: auto;
+}
+
+.path-mod-behaviour .userwithoutenrol,
+.path-mod-behaviour .userwithoutenrol a {
+    color: gray;
+}
+
+.path-mod-behaviour .userwithoutdata,
+.path-mod-behaviour .userwithoutdata a {
+    color: red;
+}
+
+.path-mod-behaviour .takelist td {
+    vertical-align: middle;
+}
+
+.path-mod-behaviour .takelist .userpicture {
+    margin: 0 3px;
+    vertical-align: middle;
+}
+
+.path-mod-behaviour .takegrid input {
+    margin: 0 3px 0 6px;
+}
+
+.path-mod-behaviour .takegrid .fullname {
+    font-size: 0.8em;
+}
+
+.path-mod-behaviour div.allsessionssummary + form#behaviourtakeform > div {
+    width: 100%;
+}
+
+.path-mod-behaviour table.controls {
+    text-align: center;
+    width: 100%;
+}
+
+.path-mod-behaviour table.controls tr {
+    vertical-align: top;
+}
+
+.path-mod-behaviour table.controls td.right,
+.path-mod-behaviour table.controls td.left {
+    padding: 4px;
+}
+
+.path-mod-behaviour table.controls .right {
+    text-align: right;
+}
+/* for IE7*/
+.path-mod-behaviour .filtercontrols td {
+    padding: 6px;
+}
+
+.path-mod-behaviour .takecontrols {
+    margin: 0 auto 20px auto;
+    width: 800px;
+}
+.path-mod-behaviour .takecontrols table {
+    margin: 0 auto;
+}
+.path-mod-behaviour .takecontrols .c0 {
+    text-align: left;
+    width: 500px;
+}
+.path-mod-behaviour .takecontrols .c1 {
+    text-align: right;
+}
+
+.path-mod-behaviour .inline,
+.path-mod-behaviour .inline form,
+.path-mod-behaviour .inline div {
+    display: inline;
+}
+
+.path-mod-behaviour table.userinfobox {
+    border: 1px solid #eee;
+    padding: 0;
+}
+.path-mod-behaviour table.userinfobox td.left {
+    background-color: #eee;
+    padding: 30px 10px;
+}
+.path-mod-behaviour table.userinfobox .userpicture {
+    margin: 0;
+}
+.path-mod-behaviour table.attlist td.c0 {
+    text-align: right;
+}
+.path-mod-behaviour table.allsessions tr.grouper td {
+    background-color: #eee;
+}
+.path-mod-behaviour table.allsessions td.groupheading {
+    font-weight: bold;
+}
+.path-mod-behaviour .allsessionssummary .float-right {
+    float: right;
+}
+.path-mod-behaviour .allsessionssummary .float-left {
+    float: left;
+}
+
+#page-mod-behaviour-preferences .generalbox {
+    text-align: center;
+}
+
+.path-mod-behaviour .attsessions_manage_table .action-icon img.smallicon {
+    margin-left: 5px;
+}
+#page-mod-behaviour-sessions input[type="checkbox"] {
+    margin-right: 2px;
+}
+
+.path-mod-behaviour .setallstatuses {
+    text-align: right;
+}
+
+.path-mod-behaviour .remarkholder {
+    position: relative;
+}
+
+.path-mod-behaviour .remarkholder .remarkcontent {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px #ccc;
+    display: none;
+    left: 20px;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    width: 150px;
+    z-index: 5000;
+}
+
+.path-mod-behaviour .remarkholder:hover .remarkcontent {
+    display: inline-block;
+}
+
+.path-mod-behaviour .behaviourstatus-P {
+    color: green;
+}
+
+.path-mod-behaviour .behaviourstatus-E {
+    color: #00aee3;
+}
+
+.path-mod-behaviour .behaviourstatus-L {
+    color: #f7931e;
+}
+
+.path-mod-behaviour .behaviourstatus-A {
+    color: red;
+}
+
+.path-mod-behaviour .attreport .contrast {
+    background-color: #eaeaea;
+}
+
+.path-mod-behaviour .attreport .center {
+    text-align: center;
+}
+
+.path-mod-behaviour .attreport .left {
+    text-align: left;
+}
+
+.path-mod-behaviour .attreport .bottom {
+    vertical-align: bottom;
+}
+
+.path-mod-behaviour .attreport .nowrap {
+    white-space: nowrap;
+}
+
+.path-mod-behaviour .attreport .narrow {
+    width: 1px;
+}
+
+.path-mod-behaviour .attreport img.userpicture {
+    max-width: inherit;
+}
+
+.path-mod-behaviour .student-password {
+    font-size: x-large;
+    text-align: center;
+}
+.path-mod-behaviour .ungraded {
+    font-size: smaller;
+    font-style: italic;
+}
+#page-mod-behaviour-sessions .statusgroup .statusdesc {
+    margin-right: 12px;
+}
+
+#page-mod-behaviour-view .averagebehaviour {
+    font-weight: bold;
+}
+
+#page-mod-behaviour-preferences .form-control {
+    width: inherit;
+    display: inherit;
+}
+
+@media (max-width: 767px) {
+    .path-mod-behaviour .remarkscol {
+        display: none;
+    }
+
+    .path-mod-behaviour .statusgroup .form-check-inline {
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    #page-mod-behaviour-view .colatt {
+        display: none;
+    }
+
+    .path-mod-behaviour .attfiltercontrols,
+    .path-mod-behaviour .attwidth {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .path-mod-behaviour .desccol {
+        display: none;
+    }
+
+    .path-mod-behaviour .pointscol {
+        display: none;
+    }
+
+    .path-mod-behaviour .attfiltercontrols #currentdate {
+        display: none;
+    }
+
+    #page-mod-behaviour-view .colsessionscompleted,
+    #page-mod-behaviour-view .colpointssessionscompleted {
+        display: none;
+    }
+}
+
+#page-mod-behaviour-report div[role=main] {
+    position: relative;
+}
+
+#page-mod-behaviour-report .behaviourreporttable {
+    overflow-x: scroll;
+    overflow-y: visible;
+    padding: 0;
+}
+
+#page-mod-behaviour-report .behaviourreporttable .headcol {
+    position: sticky;
+    width: 200px;
+    left: 0;
+    vertical-align: top;
+    background: white;
+    border-top-width: 1px;
+}
+
+#page-mod-behaviour-report .behaviourreporttable .headcol input[type='checkbox'] {
+    margin-right: 4px;
+
+}
+
+.behaviourreporttable img.icon {
+    padding-left: 5px;
+}
+#page-mod-behaviour-password .qrcodevalid,
+#page-mod-behaviour-password .qrcodeheader {
+    font-size: larger;
+}

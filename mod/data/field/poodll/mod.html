@@ -1,0 +1,49 @@
+<?php use \datafield_poodll\constants; ?>
+<table width="100%" cellpadding="5">
+    <tr>
+        <td class="c0"><label for="name"><?php echo get_string('fieldname', 'data'); ?></label></td>
+        <td class="c1"><input class="fieldname" type="text" name="name" id="name" value="<?php p($this->field->name); ?>" /></td>
+    </tr>
+    <tr>
+        <td class="c0"><label for="description"><?php echo get_string('fielddescription', 'data'); ?></label></td>
+        <td class="c1">
+            <input class="fielddescription" type="text" name="description" id="description"
+            value="<?php p($this->field->description); ?>" />
+        </td>
+    </tr>
+    <tr>
+        <td class="c0"><label for="param4"><?php echo get_string('responsetype', 'datafield_poodll'); ?></label></td>
+        <td class="c1">
+           <?php
+                $choices = array(constants::REC_AUDIO=>'audio',
+                		constants::REC_VIDEO=>'video',
+                		constants::REC_WHITEBOARDFULL=>'whiteboard',
+                		constants::REC_SNAPSHOT=>'snapshot');
+                	
+                echo html_writer::select($choices, 
+                			'param4', 
+                			isset($this->field->param4) ? $this->field->param4 : constants::REC_AUDIO,
+                			false, 
+                			array('id' => 'param4')
+                			);
+            ?>        
+        </td>
+    </tr>
+    <tr>
+        <td class="c0"><label for="param5"><?php echo get_string('maxbytes', 'datafield_poodll'); ?></label></td>
+        <td class="c1">
+            <input class="c1" type="text" name="param5" id="param5"
+                   value="<?php if (isset($this->field->param5)) { p($this->field->param5); } else { echo '0'; } ?>" />
+            <?php echo get_string('maxbytes_desc', 'datafield_poodll'); ?>
+        </td>
+    </tr>
+	<tr>
+        <td class="c0"><label for="param6"><?php echo get_string('backimageurl', 'datafield_poodll'); ?></label></td>
+        <td class="c1">
+            <input class="c1" type="text" name="param6" id="param6"
+                   value="<?php if (isset($this->field->param6)) { p($this->field->param6); } else { echo ''; } ?>" />
+            <?php echo get_string('backimageurl_desc', 'datafield_poodll'); ?>
+        </td>
+    </tr>
+</table>
+

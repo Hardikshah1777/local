@@ -1,0 +1,24 @@
+body .navbar .navbar-brand {
+    background: #ffffff;
+    color: #1a4393;
+}
+
+a {
+    color: #1a4393 !important;
+}
+
+/*Hide 21st Century skills profile field section*/
+fieldset#id_category_34 {
+    display: block !important;
+}
+
+/*Hide the employee number edit field from edit profile */
+div#fitem_id_profile_field_Employeeno {
+    display: none !important;
+}
+
+#page-footer a {
+    border-color: #1a4393 !important;
+    background-color: #1a4393 !important;
+}
+

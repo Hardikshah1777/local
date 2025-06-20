@@ -1,0 +1,178 @@
+<form id="progressreportform" action="{{{ url }}}" method="POST" >
+    <h2 class="mb-3 text-center">{{ name }}</h2>
+    {{#save}}<h5 class="text-right bold">{{#str}}finalmark,mod_progressreport{{/str}} {{finalmark}}</h5>{{/save}}
+    <div class="row mb-2 border">
+        <input type="hidden" class="form-control" name="confirmindexes" id="confirmindexes" value="">
+        {{#field}}
+            <div class="col-6 border">
+                <div class="row m-1 p-1">
+                    <label > {{ field }} </label>
+                    <input type="text" class="form-control" name="name[{{id}}]" id="{{id}}" value="{{value}}" {{#attempt}}disabled{{/attempt}} {{^instructorname}}readonly{{/instructorname}}>
+                    <input type="hidden" class="form-control" name="userfieldid[{{id}}]" id="userfieldid{{id}}" value="{{id}}">
+                    <input type="hidden" class="form-control" name="userid" id="userid" value="{{userid}} ">
+                    <input type="hidden" class="form-control" name="progressrepotid" id="progressrepotid" value="{{progressrepotid}}">
+                    <input type="hidden" class="form-control" name="progressreportuserid" id="progressreportuserid" value="{{progressreportuserid}}">
+                    <input type="hidden" class="form-control" name="sesskey" id="sesskey" value="{{config.sesskey}}">
+                </div>
+            </div>
+        {{/field}}
+    </div>
+
+    <div class="row mb-2 border">
+        <div class="col-12">
+            <h5 class="ml-2 bold mt-1">{{#str}}marketcriteria,mod_progressreport{{/str}}</h5>
+        </div>
+
+        {{#market}}
+            <div class="col-3 border pt-1 pb-1">
+               {{number}}. {{ name }}
+            </div>
+        {{/market}}
+    </div>
+
+    {{#attempt}}
+        <div class="row mb-2 border">
+            <div class="col-12">
+                <h5 class="ml-2 bold mt-1">{{#str}}lessondate,mod_progressreport{{/str}}</h5>
+            </div>
+
+            {{#lesson}}
+                <div class="col-3 border pt-1 pb-1">
+                    {{#str}}lesson,mod_progressreport{{/str}} {{no}} : {{lessondate}}
+                </div>
+            {{/lesson}}
+        </div>
+    {{/attempt}}
+    <div class="row" xmlns="http://www.w3.org/1999/html">
+        <div class="col-12 border p-1 ">
+            <div class="sectionheader  m-2">
+                <div class="row border ml-0 mr-0">
+                    <div class="col-5">
+
+                    </div>
+                    <div class="col-7 border">
+                        <h5 class="bold text-center pt-2">{{#str}}lessons,mod_progressreport{{/str}}</h5>
+                    </div>
+                </div>
+            </div>
+            {{#sections}}
+                <div class="section-lesson-header  m-2">
+                    <div class="row ">
+                        <div class="col-5">
+                            <div class="section-title border" style="margin-right: -19px;">
+                                <h5 class="text-left p-1 mb-0 ml-2 bold">{{name}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex" style="padding-left: 2px;">
+                            {{#lesson}}
+                                <div class='section-lesson border {{marketweight}} text-center pt-1'>
+                                    <b>{{ no }}</b>
+                                </div>
+                            {{/lesson}}
+                        </div>
+                    </div>
+                    {{#skills}}
+                        <div class="row  border ml-0 mr-0">
+                            <div class="col-5 d-flex border-right " style="height: 33px; padding-top: 5px;">
+                                {{name}}&nbsp;
+                                {{#validation}}<div style="color:red; font-size: 18px;"> * </div>{{/validation}} &nbsp;
+                                {{#haserror}}
+                                    <div style="color: red;" id="errors{{id}}">required</div>
+                                {{/haserror}}
+                                <input type="hidden" name="skillid[{{id}}]" id="skillid[{{id}}]" value="{{id}}">
+                            </div>
+                            <div class="col-7 d-flex p-0">
+                                {{#lesson}}
+                                    <div class="section-lesson border-right {{marketweight}} text-center pt-1 d-flex">
+                                        <select  data-lessonid="{{no}}" data-skillid="{{skillid}}"  class="form-control p-0" name="market[{{skillid}}][{{no}}]" id="market_{{skillid}}_{{no}}" {{#attempt}}disabled {{/attempt}}>
+                                            <option  value="0">{{#str}}select{{/str}}</option>
+                                            {{#market}}
+                                                <option class="text-center" value="{{id}}" {{#selected}} selected {{/selected}}>{{number}}</option>
+                                            {{/market}}
+                                        </select>
+                                    </div>
+                                {{/lesson}}
+                            </div>
+                        </div>
+                    {{/skills}}
+                </div>
+            {{/sections}}
+            <div class="row  border m-2">
+                <div class="col-5 d-flex border-right " style="padding-top: 5px;">
+                    <h6 class="bold">{{#str}}average,mod_progressreport{{/str}}</h6>
+                </div>
+                <div class="col-7 d-flex p-0">
+                    {{#lesson}}
+                        <div class="section-lesson border-right {{marketweight}} text-center pt-1 ">
+                            <b><span data-lessonaverage="{{no}}">{{ average }}</span></b>
+                        </div>
+                    {{/lesson}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-1 mt-2 m-1">
+        <label for="notes"><b>{{#str}}notes,mod_progressreport{{/str}}</b></label>
+        <textarea  class="form-control" name="notes" id="notes" {{#attempt}}disabled{{/attempt}}>{{ notes }} {{postcomments}}</textarea>
+    </div>
+    {{^attempt}}
+        <div class="row mt-2 ml-2">
+            <button type="submit" name="save" id="save" class="btn btn-primary">{{#str}} save,mod_progressreport {{/str}}</button> &nbsp;
+            <button type="button" name="confirm" id="confirm" class="btn btn-primary" >{{#str}} submit,mod_progressreport {{/str}}</button>
+        </div>
+    {{/attempt}}
+</form>
+
+
+<script>
+    (function () {
+        const form = document.querySelector('#progressreportform');
+        form.addEventListener('change' , (e) => {
+            let lessonid = e.target.getAttribute('data-lessonid');
+            if (!lessonid) {
+                return true;
+            }
+            lessonid = parseInt(lessonid);
+            const lessongrade = form.querySelector('[data-lessonaverage="'+lessonid+'"]');
+            const lessonelements = [...form.elements]
+                    .filter(el => parseInt(el.dataset.lessonid) === lessonid);
+            const grades = [];
+
+            lessonelements.forEach(el => {
+                const val = parseInt(el.options.selectedIndex);
+                if (val > 0) {
+                    grades.push(val);
+                }
+            });
+            let avg = 0;
+            if (grades.length) {
+                avg = grades.reduce(
+                        (previousValue, currentValue) => previousValue + currentValue,
+                        0
+                ) / grades.length;
+            }
+            if(lessongrade){
+                lessongrade.innerText = avg.toFixed(1);
+            }
+        });
+    })()
+</script>
+<script>
+    {{#js}}
+        require(['jquery', 'core/templates', 'core/modal_factory', 'mod_progressreport/modal', 'core/modal_events'], function($, Templates, ModalFactory, ModalLogin, ModalEvents) {
+            var trigger = $('#confirm');
+            ModalFactory.create({
+                type: ModalLogin.type,
+            }, trigger).then(modal => {
+                modal.getRoot().on(ModalEvents.save, function() {
+                    const confirm = document.getElementById('confirmindexes');
+                    confirm.value = 1;
+                });
+            });
+        });
+    {{/js}}
+</script>
+
+
+
+

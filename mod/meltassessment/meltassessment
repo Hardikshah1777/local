@@ -1,0 +1,103 @@
+<?php
+
+use mod_meltassessment\constants;
+use mod_meltassessment\output\field;
+use mod_meltassessment\output\market;
+use mod_meltassessment\output\meltassessment_form;
+use mod_meltassessment\output\section;
+use mod_meltassessment\output\skill;
+
+define('SAVE', 1);
+define('REQUIRED',1);
+include_once('../../config.php');
+require_once($CFG->dirroot . '/mod/meltassessment/locallib.php');
+
+$id = optional_param('id', 0, PARAM_INT); // Course Module ID
+$meltassessmentuserid = optional_param('meltassessmentuserid', 0, PARAM_INT);
+
+$meltassessmentuser = $DB->get_record('meltassessment_user',['id' => $meltassessmentuserid]);
+$userid = $meltassessmentuser->userid;
+$meltassessmentid = $meltassessmentuser->meltassessmentid;
+$attempt = optional_param('attempt',0,PARAM_INT);
+
+$redirecturl = new moodle_url('/mod/meltassessment/view.php', ['id' => $id]);
+
+if ($id) {
+    if (!$cm = get_coursemodule_from_id('meltassessment', $id)) {
+        print_error('invalidcoursemodule');
+    }
+
+    $meltassessment = $DB->get_record('meltassessment', array('id' => $cm->instance), '*', MUST_EXIST);
+}
+
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+require_course_login($course, true, $cm);
+$context = context_module::instance($cm->id);
+
+$url = new moodle_url('/mod/meltassessment/editmeltassessment_form.php', array('id' => $cm->id));
+$PAGE->set_url($url);
+$PAGE->set_title($course->shortname . ': ' . $meltassessment->name);
+$PAGE->set_heading($course->fullname);
+$PAGE->set_activity_record($meltassessment);
+
+$userdata = core_user::get_user($userid);
+
+$meltassessmentform = new meltassessment_form();
+$meltassessmentform->meltassessmentuserid = $meltassessmentuserid;
+$meltassessmentform->notes = $meltassessmentuser->notes;
+$meltassessmentform->save = $meltassessmentuser->save;
+$meltassessment = $DB->get_record('meltassessment', ['id' => $meltassessmentid]);
+$meltassessmentnuserinfo = $DB->get_records('meltassessment_field', ['meltassessmentid' => $meltassessmentid]);
+
+$meltassessmentform->userid = $userdata->id;
+$meltassessmentform->moduleid = $id;
+$meltassessmentform->meltassessmentid = $meltassessment->id;
+$meltassessmentform->meltassessmentname = $meltassessment->name;
+$meltassessmentform->meltassessmenturl = new moodle_url('/mod/meltassessment/editmeltassessment_form.php',
+        ['userid' => $userid, 'meltassessmentid' => $meltassessmentid, 'id' => $id]);
+$meltassessmentform->lesson = $meltassessmentuser->nolesson;
+$meltassessmentform->attempt = $attempt;
+
+foreach ($meltassessmentnuserinfo as $userinfo) {
+    $userfielddata = new field($userinfo->field, $userinfo->fieldvalue, $userid);
+    $userfielddata->id = $userinfo->id;
+    $userfielddata->meltassessmentid = $meltassessmentuserid;
+    $userfielddata->attemptuser = $meltassessmentuser->attempt;
+    $meltassessmentform->add_field($userfielddata);
+}
+
+$meltassessmentmarkets = get_meltassessment_market($meltassessmentid);
+$i = 0;
+foreach ($meltassessmentmarkets as $meltassessmentmarket) {
+    $i++;
+    $market = new market($meltassessmentmarket->id, $meltassessmentmarket->name);
+    $meltassessmentform->add_market($market);
+    $market->number = $i;
+}
+
+$averages = $DB->get_records('meltassessment_user_lesson',['meltassessmentuserid' => $meltassessmentuserid]);
+$meltassessmentform->average = $averages;
+
+
+$meltassessmentsections = get_meltassessment_section($meltassessmentid);
+foreach ($meltassessmentsections as $meltassessmentsec) {
+    $section = new section($meltassessmentsec->id, $meltassessmentsec->name);
+    $meltassessmentform->add_section($section);
+    $skills = get_meltassessment_sections_skill($meltassessmentsec->id);
+    foreach ($skills as $skill) {
+        $skillnew = new skill($skill->id, $skill->name);
+        $section->add_skill($skillnew);
+        $skillnew->nolesson = $meltassessmentuser->nolesson;
+        $skillnew->meltassessmentuserid = $meltassessmentuser->id;
+        $skillnew->validation($skill->validation);
+    }
+}
+
+$meltassessmentdatas = $DB->get_records('meltassessment_user_skill', ['meltassessmentuserid'=>$meltassessmentuser->id],'','*');
+$meltassessmentform->set_meltassessmentdata($meltassessmentdatas);
+
+echo $OUTPUT->header();
+echo $OUTPUT->render($meltassessmentform);
+echo $OUTPUT->footer();
+
+

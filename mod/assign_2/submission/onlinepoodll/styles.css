@@ -1,0 +1,55 @@
+
+button.assignsubmission_onlinepoodll_deletesubmissionbutton {
+    margin-top: 10px;
+    max-width: 180px;
+}
+
+.assignsubmission_onlinepoodll_currentsubmission {
+    display: grid;
+}
+.assignsubmission_onlinepoodll_togglecontainer .toggletext {
+    padding: 5px;
+}
+.assignsubmission_onlinepoodll_togglecontainer {
+    margin-bottom: 8px;
+}
+
+.assignsubmission_onlinepoodll_video_cont {
+    position: relative;
+    height: 0;
+    max-width: 480px;
+}
+
+.assignsubmission_onlinepoodll_video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.assignsubmission_onlinepoodll_audio {
+    width: 100%;
+}
+
+.assignsubmission_onlinepoodll_audio_cont {
+    width: 100%;
+    max-width: 480px;
+}
+
+@supports (padding-top: min(510px,150%)) {
+    .assignsubmission_onlinepoodll_video_cont {
+        padding-bottom: min(360px,75%);
+    }
+}
+@supports not (padding-top: min(510px,150%)) {
+    .assignsubmission_onlinepoodll_video_cont {
+        padding-bottom: 360px;
+    }
+}
+
+@media screen and (max-width: 667px) {
+    .assignsubmission_onlinepoodll_video_cont {
+        padding-bottom: 75%;
+    }
+}

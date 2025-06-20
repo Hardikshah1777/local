@@ -1,0 +1,123 @@
+[data-modaltheme="adaptable"] {
+    --primary: #00796b;
+}
+[data-modaltheme="adaptable"] .modal-header {
+    background-color: var(--primary);
+    color: var(--white);
+}
+[data-modaltheme="adaptable"] .modal-header .modal-title {
+    color: var(--white);
+    margin: 0 auto;
+    font-weight: 900 !important;
+}
+form.authmodal .col-md-3 {
+    flex: 28%;
+    max-width: 50%;
+}
+
+form.authmodal .col-md-3 label.col-form-label.d-inline {
+    float: left;
+}
+
+form.authmodal .col-md-9 {
+    flex: 50%;
+}
+
+[data-modaltheme="adaptable"] .modal-content {
+    position: relative;
+}
+
+[data-modaltheme="adaptable"] .modal-content .loading-icon {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.authmodeon .toast-wrapper {
+    z-index: 5000;
+    margin-top: 1rem;
+}
+
+.toast-wrapper {
+    max-width: 350px;
+    z-index: 1051;
+}
+
+.toast {
+    max-width: 350px;
+    overflow: hidden;
+    font-size: .875rem;
+    background-color: rgba(255, 255, 255, .85);
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+}
+
+.toast:not(:last-child) {
+    margin-bottom: .75rem;
+}
+
+.toast.showing {
+    opacity: 1;
+}
+
+.toast.show {
+    display: block;
+    opacity: 1;
+}
+
+.toast.hide {
+    display: none;
+}
+
+.toast-header {
+    display: flex;
+    align-items: center;
+    padding: .25rem .75rem;
+    color: #6c757d;
+    background-color: rgba(255, 255, 255, .85);
+    background-clip: padding-box;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.toast-body {
+    padding: .75rem;
+}
+
+.toast-wrapper {
+    max-width: 350px;
+    max-height: 0;
+    z-index: 5000;
+}
+
+.toast-wrapper > :first-child {
+    margin-top: 1rem;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.bg-dark {
+    background-color: #343a40;
+}

@@ -1,0 +1,92 @@
+<?php
+$string['pluginname'] = 'Registration';
+$string['couponcode'] = 'Coupon Code';
+$string['couponenable'] = ' Coupon Enable';
+$string['enable'] = 'Enable';
+$string['disable'] = 'Disable';
+$string['submit'] = 'Submit';
+$string['deleteconfirmation'] = 'Are you sure you want to delete {$a}?';
+$string['delete'] = 'Delete';
+$string['update'] = 'Coupon Update Successfully';
+$string['added'] = 'Coupon Added Successfully';
+$string['add'] = 'Add';
+$string['addcoupon'] = 'Add Coupon';
+$string['editcoupon'] = 'Edit Coupon';
+$string['adduser'] = 'New User';
+$string['emailrequired'] = 'Email address is required';
+$string['invalidemail'] = 'Email address is Invalid';
+$string['subject'] = 'Registration Email';
+$string['message'] = '<p>Hi {$a->firstname}, </p>
+<p>To access your course, please login at <a href=https://training.teflgraduate.com>https://training.teflgraduate.com</a> with the following details:</p>
+<p>Username : {$a->username}<br>
+Password : {$a->password}</p>
+<p>Should you need technical support, please email info@teflgraduate.com.</p> 
+<p>Enjoy your course! </p>
+<p>TEFL Support team<br>
+TEFL Graduate</p>';
+$string['notenable'] = 'Coupon code is not enable';
+$string['invalidcouponcode'] = 'Coupon code is not valid';
+$string['missingemail'] = 'missing email';
+$string['missingcouponcode'] = 'Missing couponcode';
+$string['emailalreadyexist'] = 'Email address is already exist';
+$string['couponalreadyused'] = 'Coupon is already used';
+$string['firstnamerequired'] = 'First name is required';
+$string['lastnamerequired'] = 'Last name is required';
+$string['firstname'] = 'First Name ';
+$string['lastname'] = 'Last Name ';
+$string['selectcourse'] = 'Course ';
+$string['duration'] = 'Duration';
+$string['usercreated'] = 'Congratulations! You have successfully registered. Shortly, you will receive an email with your
+login details. If the email does not arrive, please check your Junk/Spam folder before contacting info@teflgraduate.com.';
+$string['status'] = 'Status';
+$string['fullname'] = 'Used By';
+$string['course'] = 'Course';
+$string['action'] = 'Action';
+$string['couponcoderequired'] = 'Coupon Code is required';
+$string['codeused'] = 'Coupon is used';
+$string['codeexist'] = 'Coupon code is exist';
+$string['codedeletemsg'] = 'Coupon deleted';
+$string['courseselect'] = 'Course not selected';
+$string['durationrequired'] = 'Duration is required';
+$string['edit'] = 'Edit';
+$string['phone1'] = 'Phone number';
+$string['phone1required'] = 'Phone number is required';
+$string['invalidnumber'] = 'Phone number is invalid';
+$string['adminsubject'] = 'Coupon code used';
+$string['adminmessage'] = '<p>Coupon code {$a->couponcode} is used by {$a->firstname} {$a->lastname}</p>';
+$string['couponlist'] = 'Coupon list';
+$string['RegisteredUser'] = 'Registered User';
+$string['telephone'] = 'Telephone ';
+$string['email'] = 'Email ';
+$string['file']='File';
+$string['csvdelimiter']='CSV separator';
+$string['encoding']='Encoding';
+$string['rowpreviewnum']='Preview rows';
+$string['uploadcoupons']='Upload coupons ';
+$string['examplecsv']='Example text file ';
+$string['uploadcoupon']='Upload Coupon ';
+$string['uucsvline']='CSV line';
+$string['uploadcouponspreview']='Upload Coupons Preview';
+$string['duplicatecouponcode']='Duplicate Coupon Code';
+$string['missingcouponcode']='Missing Coupon Code';
+$string['missingvisible']='Missing Visible';
+$string['missingcourse']='Missing Course';
+$string['missingduration']='Missing Duration';
+$string['visible']='Visible';
+$string['course']='Course';
+$string['couponcodeexist']='Already Coupon Code exist';
+$string['couponcodcreated']='Coupon created';
+$string['couponcodskipped']='Coupon skipped';
+$string['uploadcouponresult']='Upload coupon results';
+$string['files']='File Required';
+$string['invaliddata'] = 'Invalid data : {$a}';
+$string['coursenotexist'] = 'Course not exist';
+$string['couponuse'] = 'Coupon Use';
+$string['one'] = 'Single user';
+$string['many'] = 'Multiple user';
+$string['users'] = 'User list';
+$string['userslist'] = 'User list for {$a->data}';
+$string['usercount'] = 'Usage Count';
+$string['firstname/lastname'] = 'Firstname/Lastname';
+$string['registeruser'] = 'Coupon report';
+$string['group'] = 'Group';

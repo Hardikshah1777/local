@@ -1,0 +1,37 @@
+<div class="skillsectionwrapper">
+    {{#sections}}
+            <div class="row p-2 sectionwrapper" data-id="{{ id }}" data-name="{{ name }}"  data-sqid="{{ datasqid }}"  >
+                <div class="border  p-4 w-100 ">
+                    <div class="section-title bg-gray p-2 border-bottom d-flex">
+                        <i class="icon fa fa-arrows fa-fw  iconsmall mt-2 ml-2 mr-0" data-drag-type="move" style="cursor: move;"> </i>
+                        <h4>
+                            <button class="btn btn-link font-weight-bold" data-toggle="collapse" data-target="#collapse{{id}}" aria-expanded="true" aria-controls="collapse{$sectionid}">
+                                {{name}}
+                            </button>
+
+                            <a href={{{ editurl }}} class="ml-1" style="font-size: 18px;"><i class="fa fa-cog"></i></a>
+                            {{{ sectiondeleteurl }}}
+                        </h4>
+                    </div>
+                    <div id="collapse{{id}}">
+                        <div class="skill text">
+                            {{#skills}}
+                                <div class="pt-3 pb-2 pl-4">
+                                    <i class="fa fa-arrow-right"></i>
+                                    {{name}}
+                                    <a href={{{ editurl }}} class="ml-1"><i class="fa fa-cog"></i></a>
+                                    {{{ deleteurl }}}
+                                </div>
+                            {{/skills}}
+                        </div>
+                        <div class="button float-right mt-2">
+                            <a href={{{ addskill }}} ><b> <i class="fa fa-plus"></i> {{#str}}addskill,mod_progressreport{{/str}}</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {{/sections}}
+</div>
+
+
+

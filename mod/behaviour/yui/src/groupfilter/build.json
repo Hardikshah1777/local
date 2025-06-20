@@ -1,0 +1,10 @@
+{
+    "name": "moodle-mod_behaviour-groupfilter",
+    "builds": {
+        "moodle-mod_behaviour-groupfilter": {
+            "jsfiles": [
+                "groupfilter.js"
+            ]
+        }
+    }
+}

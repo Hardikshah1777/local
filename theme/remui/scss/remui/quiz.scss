@@ -1,0 +1,44 @@
+
+.qnbutton {
+
+    .thispage,
+    .thispageholder {
+        border-color: transparent !important;
+    }
+
+    &.notyetanswered,
+    &.notanswered,
+    &.invalidanswer {
+        background-color: #e4eaec !important;
+        color: black !important;
+        
+        .thispage,
+        .thispageholder {
+            border-color: $color-grey-400 !important;
+        }
+    }
+
+    &.answersaved {
+        background-color: $primary !important;
+    }
+
+    &.correct {
+        background-color: #46be8a !important;
+    }
+
+    &.partiallycorrect {
+        background-color: #f2a654 !important;
+    }
+
+    &.incorrect {
+        background-color: #f96868 !important;
+    }
+
+    &.requiresgrading {
+        background-color: #818a91 !important;
+    }
+
+    &.complete {
+        background-color: #47b8c6 !important;
+    }
+}

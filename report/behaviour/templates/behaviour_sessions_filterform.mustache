@@ -1,0 +1,34 @@
+<div id="behaviour_filterform">
+    <form method="post" class="mform mb-2 offset-2">
+        <div class="row">
+            <div class="form-group mb-2 col-4">
+                <label for="label_coursemodule" class="justify-content-start align-self-start">{{#str}} coursemodules, report_behaviour {{/str}}</label>
+                <div class="d-flex flex-column">
+                    <select name="cmid" id="cmid" class="form-control">
+                        <option value="">{{#str}}choose, core{{/str}}</option>
+                        {{#cmoption}}
+                            <option value="{{value}}" {{#selectedcm}}selected{{/selectedcm}}>{{key}}</option>
+                        {{/cmoption}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group mb-2 col-4">
+                <label for="label_timeselected" class="justify-content-start align-self-start">{{#str}} timeselect, report_behaviour {{/str}}</label>
+                <div class="d-flex flex-column">
+                    <input type="date" class="form-control" name="timeselected" id="timeselected" {{#isweekend}} step="{{step}}" value="{{sundaydate}}" {{/isweekend}}>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group mb-2 col-2">
+                <button class="btn btn-primary" type="submit" name="savefilter" id="savefilter">{{#str}}filter, core{{/str}}</button>
+                <button class="btn btn-primary" type="button" name="cancelfilter" id="cancelfilter">{{#str}}cancel, core{{/str}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+{{#js}}
+    require(['report_behaviour/session_filterform'], amd => amd.initTable())
+{{/js}}

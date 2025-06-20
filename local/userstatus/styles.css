@@ -1,0 +1,51 @@
+#participantsform[data-enhanced="true"] .c1:not(.header) {
+    /*display: flex;*/
+    justify-content: space-between;
+    align-items: center;
+}
+#participantsform [data-statusid] {
+    /*display: block;*/
+    /*float: right;*/
+}
+#participantsform [data-statusid="1"] {
+    background-color: #81ecec;
+}
+
+#participantsform [data-statusid="2"] {
+    background-color: #74b9ff;
+}
+
+#participantsform [data-statusid="3"] {
+    background-color: #a29bfe;
+}
+
+#participantsform [data-statusid="4"] {
+    background-color: #dfe6e9;
+}
+
+#participantsform [data-statusid="5"] {
+    background-color: #00b894;
+}
+
+#participantsform [data-statusid="6"] {
+    background-color: #0984e3;
+}
+
+#participantsform [data-statusid="7"] {
+    background-color: #b2bec3;
+}
+
+#participantsform [data-statusid="8"] {
+    background-color: #fdcb6e;
+}
+
+#participantsform [data-statusid="9"] {
+    background-color: #fd79a8;
+}
+select#formactioncustom {
+    max-width: 160px;
+}
+
+select#statuschanger {
+    max-width: 160px;
+}

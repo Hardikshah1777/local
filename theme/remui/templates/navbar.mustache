@@ -1,0 +1,78 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    Page navbar.
+}}
+<nav class="navbar fixed-top navbar-light navbar-expand" aria-label="{{#str}}sitemenubar, admin{{/str}}">
+    <div class="navbar-brand p-0 m-0 d-none d-md-flex align-items-center">
+        {{# output.should_display_navbar_logo }}
+            <a class="header-logo" href="{{{ config.wwwroot }}}" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
+                <img src="{{ logourl }}" class="navbar-brand-logo logo">
+                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini">
+                <span class="navbar-brand-logo icononly"><i class="fa fa-{{siteicon}}"></i></span>
+                <span class="navbar-brand-logo font-weight-bold iconsitename">
+                    <i class="fa fa-{{siteicon}}"></i>&nbsp;
+                    {{{ sitename }}}
+                </span>
+            </a>
+        {{/ output.should_display_navbar_logo }}
+        {{^ output.should_display_navbar_logo }}
+            {{{ sitename }}}
+        {{/ output.should_display_navbar_logo }}
+    </div>
+
+    <div class="navbar-options w-100 d-flex h-100 px-2">
+        <button class="navbar-toggler aabtn d-block d-md-none my-1 mr-2" data-toggler="drawers" data-action="toggle" data-target="theme_boost-drawers-primary">
+            <span class="navbar-toggler-icon"></span>
+            <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
+        </button>
+        {{#primarymoremenu}}
+            <div class="primary-navigation wdm-custom-menus">
+                {{> core/moremenu}}
+            </div>
+        {{/primarymoremenu}}
+
+        <ul class="navbar-nav d-none d-md-flex my-1 px-1">
+            <!-- page_heading_menu -->
+            {{{ output.page_heading_menu }}}
+        </ul>
+
+        <div id="usernavigation" class="navbar-nav ml-auto right-menu">
+            {{# output.search_box }}
+                {{{ output.search_box }}}
+                <!--<div class="divider border-left h-75 align-self-center mx-1"></div>-->
+            {{/output.search_box}}
+            {{#langmenu}}
+                {{> theme_remui/language_menu }}
+                <!--<div class="divider border-left h-75 align-self-center mx-1"></div>-->
+            {{/langmenu}}
+            {{{ output.navbar_plugin_output }}}
+            <div class="d-flex align-items-stretch usermenu-container nav-item {{#icondesign}}no-bghover{{/icondesign}}" data-region="usermenu">
+                {{#usermenu}}
+                    {{> core/user_menu }}
+                {{/usermenu}}
+            </div>
+            
+            {{{ output.render_customizer_nav }}}
+
+            {{{ output.edit_switch }}}
+        </div>
+    </div>
+</nav>
+
+{{> theme_boost/primary-drawer-mobile }}
+{{{ output.show_license_notice }}}

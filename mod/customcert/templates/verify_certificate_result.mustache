@@ -1,0 +1,101 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_customcert/verify_certificate_result
+
+    The certificate verification result
+
+    Classes required for JS:
+    * None
+
+    Data attibutes required for JS:
+    * All data attributes are required
+
+    Context variables required for this template:
+    * userprofileurl The URL to the user's profile
+    * userfullname The fullname of the user
+    * courseurl The URL of the course
+    * coursefullname The full name of the course
+    * certificatename The name of the certificate
+
+    Example context (json):
+    {
+        "userprofileurl": "http://www.example.com",
+        "userfullname": "Mark Smith",
+        "courseurl": "http://www.example.com",
+        "coursefullname": "Computing 101",
+        "certificatename": "Ability to write 'Hello world' in Java."
+    }
+}}
+<div class="row">
+<div class="col-md-2">
+        <div class="modulecss userdetailsection">
+                <div class="">
+                    <p>{{#userpicture}}{{{ userpicture }}}{{/userpicture}}</p>
+                    <h4 class="bold"><a href="{{{userprofileurl}}}">{{userfullname}}</a></h4>
+                </div>
+
+                <p><span class="blue_color">Email:</span><br>{{email}}</p>
+                <p><span class="blue_color">Country:</span><br>{{country}}</p>
+                {{{downloadlink}}}
+                <div class="qrcode">
+                <span class="blue_color">
+                Your Verification Link:
+                </span>
+                    {{{qrcodehtml}}}
+                </div>
+
+        </div><br>
+</div>
+    <div class="col-md-10">
+        <h1 class="bold"><i class="fa fa-check-circle" style="color: green; margin-right: 10px;"></i>Learner Achievement Verification</h3>
+        <p>This is to certify that the management of Saint Peter`s College has decided to award <strong>{{userfullname}}</strong> living in United Kingdom the certificate of completion in {{coursefullname}}.</p>
+        <h5 class="bold blue_color">{{#str}}courseresult, customcert{{/str}}</h5>
+        <div class="modulecss">
+            <p class="classnamerow"><strong>{{#str}}course, customcert{{/str}}:</strong> <a class="s_value" href="{{{courseurl}}}">{{coursefullname}}</a></p>
+            <div class="row">
+                <div class="col-4"><strong>{{#str}}duration, customcert{{/str}}:</strong> <span class="s_value">{{duration}}</span></div>
+                <div class="col-4"><strong>{{#str}}certno, customcert{{/str}}:</strong> <span class="s_value">{{code}}</span></div>
+            </div><br/>
+           <div class="">
+               {{#startdate}}<p> <strong>{{#str}}coursestarted, customcert{{/str}}</strong>  {{.}}  </p>{{/startdate}}
+            {{#ccdate}}
+                <p><strong>{{#str}}grade, customcert{{/str}}:</strong> <span class="s_value">{{grade}} / {{maxgrade}} on ({{.}})  </span>  </p>
+
+            {{/ccdate}}
+            {{#olddate}}<p class="mb-0">{{#str}}trainingreceivedon, customcert, {{.}}{{/str}}</p>{{/olddate}}
+            {{#recompletiondate}}
+                <p>{{#str}}trainingdueon, customcert, {{.}}{{/str}}</p>
+            {{/recompletiondate}}
+           </div>
+        </div><br>
+
+
+        <h5 class="bold blue_color">{{#str}}coursedescription, customcert{{/str}}</h5>
+        <div class="modulecss">
+           <p>{{summary}}</p>
+        </div> <br>
+        <h5 class="bold blue_color">{{#str}}modulesection, customcert{{/str}}</h5>
+        <div class="modulecss">
+            {{#modules}}
+                <p><strong>{{#str}}module, customcert, {{index}}{{/str}} :</strong> {{name}}</p>
+            {{/modules}}
+        </div>
+        <br>
+    </div>
+</div>
+

@@ -1,0 +1,17 @@
+.block_temco_dashboard .flexible th.header.c4,
+.block_temco_dashboard .flexible th.header.c5 {
+    background-color: unset !important;
+    text-align: unset !important;
+}
+.block_temco_dashboard .bg-success{
+    background-color: #468847 !important;
+    color: white;
+}
+.block_temco_dashboard .bg-danger{
+    background-color: #b94a48 !important;
+    color: white;
+}
+.block_temco_dashboard .bg-warning{
+    background-color: #f89406 !important;
+    color: white;
+}

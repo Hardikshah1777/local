@@ -1,0 +1,9 @@
+#aboutme .list-group .media li {
+    float: left;
+    width: 23%;
+    list-style-type: none;
+    text-align: center;
+}
+#page-login-index .login-container h2.login-heading {
+    font-size: .857rem;
+}
