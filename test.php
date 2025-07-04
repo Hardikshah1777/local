@@ -57,7 +57,116 @@ echo $OUTPUT->header();
 //$table->out(30, false);
 
 ?>
-<html lang="en">
+    <div class="row w-25 ">
+        <form id="myForm" onsubmit="return validateForm()">
+            <label>Name: <input type="text" id="name" name="name"></label><br>
+            <p id="errorname" style="color: red;"></p>
+            <label>Email: <input type="text" id="email" name="email"></label><br>
+            <p id="erroremail" style="color: red;"></p>
+            <button type="submit" class="btn btn-info">Submit</button>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const errorname = document.getElementById("errorname");
+            const erroremail = document.getElementById("erroremail");
+            errorname.innerText = "";
+            erroremail.innerText = "";
+
+            if (!name || !email) {
+                if (!name) {
+                    errorname.innerText = "Please fill out name field.";
+                } else {
+                    errorname.innerText = "";
+                }
+
+                if (!email) {
+                    erroremail.innerText = "Please fill out email field.";
+                } else {
+                    erroremail.innerText = "";
+                }
+
+                return false;
+            }
+
+
+            if (!email.includes("@") && !email.includes(".")) {
+                erroremail.innerText = "Please enter a valid email.";
+                return false;
+            }
+
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+    <div class="p-4 mt-4" style=" background: #efefef;">
+        <div id="timer" style="font-size: 20px; color: #343a40;"></div>
+        <div id="timer2" style="font-size: 20px; color: #343a40;"></div>
+    </div>
+    <script>
+        let seconds = 1;
+        let timerDisplay = document.getElementById("timer");
+        let timerDisplay2 = document.getElementById("timer2");
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+
+            const hDisplay = hours > 0 ? hours + " hour" + (hours > 1 ? "s" : "") + " " : "";
+            const mDisplay = minutes > 0 ? minutes + " minute" + (minutes > 1 ? "s" : "") + " " : "";
+            const sDisplay = remainingSeconds + " second" + (remainingSeconds !== 1 ? "s" : "");
+
+            return hDisplay + mDisplay + sDisplay;
+        }
+
+        function updateTimer() {
+            timerDisplay.innerText = `Time passed: ${formatTime(seconds)}`;
+            timerDisplay2.innerText = new Date();
+            seconds++;
+            setTimeout(updateTimer, 1000);
+        }
+
+        updateTimer();
+    </script>
+    <div id="quiz" class="mt-4">
+        <p>What is the capital of France?</p>
+        <label><input type="radio" name="q1" value="London"> London</label><br>
+        <label><input type="radio" name="q1" value="Paris"> Paris</label><br>
+        <label><input type="radio" name="q1" value="Berlin"> Berlin</label><br>
+        <button onclick="checkAnswer()" class="btn btn-secondary">Submit</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            let options = document.getElementsByName("q1");
+            let selected;
+            for (let opt of options) {
+                if (opt.checked) selected = opt.value;
+            }
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            let result = document.getElementById("result");
+            if (selected === "Paris") {
+                result.innerText = "✅ Correct!";
+                result.style.color = "green";
+            } else {
+                result.innerText = "❌ Incorrect. Try again.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+
+    <button onclick="alert('Welcome to Moodle!')" class="btn btn-dark">Click Me</button>
+
+    <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,255 +176,259 @@ echo $OUTPUT->header();
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </head>
-<body>
+    <body>
 
-<div class="d-flex ">
-    <div id="level" class="pt-2 pr-2">Level: 0</div>
-    <button class="btn btn-primary mb-3" id="addLevelButton" onclick="addLevel()">Add Level</button>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-// axios.get('https://jsonplaceholder.typicode.com/posts/1')
-// .then(response => { console.log(response.data); })
-// .catch(error => { console.error('Error fetching data:', error); });
+    <div class="d-flex mt-4">
+        <div id="level" class="pt-2 pr-2">Level: 0</div>
+        <button class="btn btn-primary mb-3" id="addLevelButton" onclick="addLevel()">Add Level</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // axios.get('https://jsonplaceholder.typicode.com/posts/1')
+        // .then(response => { console.log(response.data); })
+        // .catch(error => { console.error('Error fetching data:', error); });
 
-console.log('----------------------------------------------------------------- 1');
-// axios.post('https://jsonplaceholder.typicode.com/posts/3', {
-//     title: 'New Post', body: 'Hello, world!', userId:   1 })
-// .then(response => { console.log('Created:', response.data); })
-// .catch(error => { console.error('Error creating post:', error); });
+        console.log('----------------------------------------------------------------- 1');
+        // axios.post('https://jsonplaceholder.typicode.com/posts/3', {
+        //     title: 'New Post', body: 'Hello, world!', userId:   1 })
+        // .then(response => { console.log('Created:', response.data); })
+        // .catch(error => { console.error('Error creating post:', error); });
 
-console.log('-----------------------------------------------------------------  2');
+        console.log('-----------------------------------------------------------------  2');
 
-// const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
-// console.log(response.data);
+        // const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+        // console.log(response.data);
 
-console.log('-----------------------------------------------------------------   3');
+        console.log('-----------------------------------------------------------------   3');
 
-// const res = await axios.get('https://jsonplaceholder.typicode.com/users');
-// this.users = res.data;
-// function fetchData() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => resolve("Data received!"), 1000);
-//     });
-// }
+        // const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+        // this.users = res.data;
+        // function fetchData() {
+        //     return new Promise((resolve) => {
+        //         setTimeout(() => resolve("Data received!"), 1000);
+        //     });
+        // }
 
-async function getData() {
-    console.log("Fetching...");
-    const result = await fetchData();
-    console.log(result);
-}
-
-getData();
-
-</script>
-<script>
-    const levelDisplay = document.getElementById('level');
-    let level = 0;
-    function addLevel() {
-        level++;
-        window.console.log(`Level: ${level}`);
-        levelDisplay.textContent = `Level: ${level}`;
-    }
-</script>
-
-<div id="root"></div>
-
-<script type="text/babel">
-    class GreetingApp extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                message: 'Hello, ',
-                inputText: ''
-            };
-        }
-        handleInputChange = (event) => {
-            this.setState({ inputText: event.target.value });
-        }
-        changeMessage1 = () => {
-            if (this.state.inputText.trim() !== '') {
-                this.setState({ message: 'Hello, ' + this.state.inputText + '', inputText: '' });
-            } else {
-                alert('Please enter your name! 111');
-            }
-        }
-        render() {
-            return (
-                <div className="w-100 mb-4">
-                    <h2>{this.state.message}</h2>
-                    <input type="text" value={this.state.inputText} onChange={this.handleInputChange} placeholder="Enter your name" className="float-left form-control w-25 mr-4"/>
-                    <button onClick={this.changeMessage1} className="btn btn-primary">Submit 1</button>
-                </div>
-            );
-        }
-    }
-    ReactDOM.render(<GreetingApp />, document.getElementById('root'));
-</script>
-
-<div id="app">
-    <h3>{{ message }}</h3>
-    <input v-model="inputText" placeholder="Enter your name" class="form-control w-25 mr-4 float-left"/>
-    <button @click="changeMessage" class="btn btn-info">Submit 2 </button>
-</div>
-
-<script>
-var app = new Vue({
-    el: '#app',
-    data: { message: 'Hi,', inputText: '' },
-    methods: {
-        changeMessage() {
-            const name = this.inputText.trim();
-            if (name) {
-                this.message = `Hi, ${name}`;
-                // this.message = this.message.split('').reverse().join('');
-                this.inputText = '';
-            } else {
-                alert('Please enter your name!');
-            }
-        }
-    }
-});
-
-</script>
-
-
-<script>
-
-    async function exportTableToPDF(filename) {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        const table = document.querySelector("table");
-
-        if (!table) {
-            Swal.fire({
-                icon: 'error',
-                title: 'No table found',
-                text: 'Please make sure there is a table on the page.',
-                confirmButtonText: 'OK',
-                allowOutsideClick:false,
-                allowEscapeKey:false,
-            });
-            return;
+        async function getData() {
+            console.log("Fetching...");
+            const result = await fetchData();
+            console.log(result);
         }
 
-        doc.autoTable({ html: table });
-
-        doc.save(filename);
-
-        Swal.fire({
-            title: 'Export Successful',
-            text: 'The data has been exported as a PDF!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-            //showCancelButton: false,
-            showConfirmButton: false,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor:'#d33',
-            iconColor:'#d33',
-            timer: 2000,
-            // toast: true,
-            timerProgressBar:true,
-            allowOutsideClick:true,
-            allowEscapeKey:false,
-            allowEnterKey:true,
-        });
-    }
-
-    function handlePDFExport() {
-        Swal.fire({
-            title: 'Export Data',
-            text: 'Are you sure you want to export the data?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Export',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                exportTableToPDF('Export Data.pdf');
-            }
-        });
-    }
-
-    function exportTableToCSV(filename) {
-        var csv = [];
-        var rows = document.querySelectorAll('table tr');
-
-        rows.forEach(function(row) {
-            var rowData = [];
-            row.querySelectorAll('th, td').forEach(function(cell) {
-                rowData.push(cell.innerText);
-            });
-            csv.push(rowData.join(','));
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Welcome to my Moodle theme!");
         });
 
-        var csvContent = csv.join('\n');
-        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        getData();
 
-        if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, filename);
-        } else {
-            var link = document.createElement("a");
-            if (link.download !== undefined) {
-                var url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", filename);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                // Show SweetAlert dialog after export
-                Swal.fire({
-                    title: 'Export Successful',
-                    text: 'The data has been exported successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    timer: 2000,
-                });
-            }
+    </script>
+    <script>
+        const levelDisplay = document.getElementById('level');
+        let level = 0;
+        function addLevel() {
+            level++;
+            window.console.log(`Level: ${level}`);
+            levelDisplay.textContent = `Level: ${level}`;
         }
-    }
+    </script>
 
-    function handleExport() {
-        Swal.fire({
-            title: 'Export Data',
-            text: 'Are you sure you want to export the data?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Export',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                exportTableToCSV('Export Data.csv');
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class GreetingApp extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    message: 'Hello, ',
+                    inputText: ''
+                };
             }
-        });
-    }
-
-    function sortTableByName() {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.querySelector("table");
-        switching = true;
-        while (switching) {
-            switching = false;
-            rows = table.rows;
-            for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("TD")[0];
-                y = rows[i + 1].getElementsByTagName("TD")[0];
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
+            handleInputChange = (event) => {
+                this.setState({ inputText: event.target.value });
+            }
+            changeMessage1 = () => {
+                if (this.state.inputText.trim() !== '') {
+                    this.setState({ message: 'Hello, ' + this.state.inputText + '', inputText: '' });
+                } else {
+                    alert('Please enter your name! 111');
                 }
             }
-            if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
+            render() {
+                return (
+                    <div className="w-100 mb-4">
+                        <h2>{this.state.message}</h2>
+                        <input type="text" value={this.state.inputText} onChange={this.handleInputChange} placeholder="Enter your name" className="float-left form-control w-25 mr-4"/>
+                        <button onClick={this.changeMessage1} className="btn btn-primary">Submit 1</button>
+                    </div>
+                );
             }
         }
-    }
-</script>
-<div class="testtable d-none">
+        ReactDOM.render(<GreetingApp />, document.getElementById('root'));
+    </script>
+
+    <div id="app">
+        <h3>{{ message }}</h3>
+        <input v-model="inputText" placeholder="Enter your name" class="form-control w-25 mr-4 float-left"/>
+        <button @click="changeMessage" class="btn btn-info">Submit 2 </button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: { message: 'Hi,', inputText: '' },
+            methods: {
+                changeMessage() {
+                    const name = this.inputText.trim();
+                    if (name) {
+                        this.message = `Hi, ${name}`;
+                        // this.message = this.message.split('').reverse().join('');
+                        this.inputText = '';
+                    } else {
+                        alert('Please enter your name!');
+                    }
+                }
+            }
+        });
+
+    </script>
+
+
+    <script>
+
+        async function exportTableToPDF(filename) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const table = document.querySelector("table");
+
+            if (!table) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No table found',
+                    text: 'Please make sure there is a table on the page.',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick:false,
+                    allowEscapeKey:false,
+                });
+                return;
+            }
+
+            doc.autoTable({ html: table });
+
+            doc.save(filename);
+
+            Swal.fire({
+                title: 'Export Successful',
+                text: 'The data has been exported as a PDF!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                //showCancelButton: false,
+                showConfirmButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor:'#d33',
+                iconColor:'#d33',
+                timer: 2000,
+                // toast: true,
+                timerProgressBar:true,
+                allowOutsideClick:true,
+                allowEscapeKey:false,
+                allowEnterKey:true,
+            });
+        }
+
+        function handlePDFExport() {
+            Swal.fire({
+                title: 'Export Data',
+                text: 'Are you sure you want to export the data?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Export',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    exportTableToPDF('Export Data.pdf');
+                }
+            });
+        }
+
+        function exportTableToCSV(filename) {
+            var csv = [];
+            var rows = document.querySelectorAll('table tr');
+
+            rows.forEach(function(row) {
+                var rowData = [];
+                row.querySelectorAll('th, td').forEach(function(cell) {
+                    rowData.push(cell.innerText);
+                });
+                csv.push(rowData.join(','));
+            });
+
+            var csvContent = csv.join('\n');
+            var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) {
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    // Show SweetAlert dialog after export
+                    Swal.fire({
+                        title: 'Export Successful',
+                        text: 'The data has been exported successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 2000,
+                    });
+                }
+            }
+        }
+
+        function handleExport() {
+            Swal.fire({
+                title: 'Export Data',
+                text: 'Are you sure you want to export the data?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Export',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    exportTableToCSV('Export Data.csv');
+                }
+            });
+        }
+
+        function sortTableByName() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.querySelector("table");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+    <div class="testtable d-none">
         <table border="1" class="flexible table table-striped table-hover generaltable generalbox">
             <tr>
                 <th onclick="sortTableByName()">Name</th>
@@ -337,8 +450,8 @@ var app = new Vue({
         <button onclick="handlePDFExport()" class="btn btn-info">Export to PDF</button>
     </div>
 
-</body>
-</html>
+    </body>
+    </html>
 <?php
 
 echo $OUTPUT->footer();
