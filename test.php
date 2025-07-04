@@ -57,6 +57,115 @@ echo $OUTPUT->header();
 //$table->out(30, false);
 
 ?>
+<div class="row w-25 ">
+    <form id="myForm" onsubmit="return validateForm()">
+        <label>Name: <input type="text" id="name" name="name"></label><br>
+        <p id="errorname" style="color: red;"></p>
+        <label>Email: <input type="text" id="email" name="email"></label><br>
+        <p id="erroremail" style="color: red;"></p>
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+</div>
+<script>
+    function validateForm() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const errorname = document.getElementById("errorname");
+        const erroremail = document.getElementById("erroremail");
+        errorname.innerText = "";
+        erroremail.innerText = "";
+
+        if (!name || !email) {
+            if (!name) {
+                errorname.innerText = "Please fill out name field.";
+            } else {
+                errorname.innerText = "";
+            }
+
+            if (!email) {
+                erroremail.innerText = "Please fill out email field.";
+            } else {
+                erroremail.innerText = "";
+            }
+
+            return false;
+        }
+
+
+        if (!email.includes("@") && !email.includes(".")) {
+            erroremail.innerText = "Please enter a valid email.";
+            return false;
+        }
+
+        alert("Form submitted successfully!");
+        return true;
+    }
+</script>
+<div class="p-4 mt-4" style=" background: #efefef;">
+    <div id="timer" style="font-size: 20px; color: #343a40;"></div>
+    <div id="timer2" style="font-size: 20px; color: #343a40;"></div>
+</div>
+<script>
+let seconds = 1;
+let timerDisplay = document.getElementById("timer");
+let timerDisplay2 = document.getElementById("timer2");
+
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const hDisplay = hours > 0 ? hours + " hour" + (hours > 1 ? "s" : "") + " " : "";
+    const mDisplay = minutes > 0 ? minutes + " minute" + (minutes > 1 ? "s" : "") + " " : "";
+    const sDisplay = remainingSeconds + " second" + (remainingSeconds !== 1 ? "s" : "");
+
+    return hDisplay + mDisplay + sDisplay;
+}
+
+function updateTimer() {
+    timerDisplay.innerText = `Time passed: ${formatTime(seconds)}`;
+    timerDisplay2.innerText = new Date();
+    seconds++;
+    setTimeout(updateTimer, 1000);
+}
+
+updateTimer();
+</script>
+<div id="quiz" class="mt-4">
+    <p>What is the capital of France?</p>
+    <label><input type="radio" name="q1" value="London"> London</label><br>
+    <label><input type="radio" name="q1" value="Paris"> Paris</label><br>
+    <label><input type="radio" name="q1" value="Berlin"> Berlin</label><br>
+    <button onclick="checkAnswer()" class="btn btn-secondary">Submit</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    function checkAnswer() {
+        let options = document.getElementsByName("q1");
+        let selected;
+        for (let opt of options) {
+            if (opt.checked) selected = opt.value;
+        }
+
+        if (!selected) {
+            alert("Please select an answer.");
+            return;
+        }
+
+        let result = document.getElementById("result");
+        if (selected === "Paris") {
+            result.innerText = "✅ Correct!";
+            result.style.color = "green";
+        } else {
+            result.innerText = "❌ Incorrect. Try again.";
+            result.style.color = "red";
+        }
+    }
+</script>
+
+<button onclick="alert('Welcome to Moodle!')" class="btn btn-dark">Click Me</button>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -69,7 +178,7 @@ echo $OUTPUT->header();
     </head>
 <body>
 
-<div class="d-flex ">
+<div class="d-flex mt-4">
     <div id="level" class="pt-2 pr-2">Level: 0</div>
     <button class="btn btn-primary mb-3" id="addLevelButton" onclick="addLevel()">Add Level</button>
 </div>
@@ -105,6 +214,10 @@ async function getData() {
     const result = await fetchData();
     console.log(result);
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("Welcome to my Moodle theme!");
+});
 
 getData();
 
