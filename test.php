@@ -1,6 +1,7 @@
 <?php
 
 require_once 'config.php';
+require_once $CFG->libdir . '/tablelib.php';
 
 $context = context_system::instance();
 $url = new moodle_url('/test.php');
@@ -10,7 +11,50 @@ $PAGE->set_context($context);
 $PAGE->set_title('Test');
 require_login();
 
+class getusers extends table_sql{
+    public function __construct($uniqueid)
+    {
+        parent::__construct($uniqueid);
+    }
+
+    public function col_timecreated($row) {
+        return !empty($row->timecreated) ? userdate($row->timecreated, get_string('strftimedate', 'langconfig')) : '-';
+    }
+
+    public function col_lastaccess($row) {
+        return !empty($row->lastaccess) ? userdate($row->lastaccess, get_string('strftimedate', 'langconfig')) : '-';
+    }
+}
+
+//$sql = "CALL GetUsers()";
+//$results = $DB->get_records_sql($sql, ['id' => 5]);
+//foreach ($results as $row) {
+//    echo $row->id.' '.$row->firstname.' '.$row->lastname. "<br>";
+//}
+
+$table = new getusers('getusers');
+$table->set_sql('*', '{user}','1 = 1');
+
+$col = [
+    'fullname' => get_string('fullname'),
+    'email' => get_string('email'),
+    'department' => get_string('department', ),
+    'city' => get_string('city'),
+    'country' => get_string('country'),
+    'timecreated' => get_string('timecreated'),
+    'lastaccess' => get_string('lastaccess'),
+    'phone1' => get_string('phone1'),
+];
+
+$table->define_columns(array_keys($col));
+$table->define_headers(array_values($col));
+$table->sortable(false);
+$table->collapsible(false);
+$table->define_baseurl($url);
+$table->set_attribute('class', 'generaltable generalbox');
+
 echo $OUTPUT->header();
+//$table->out(30, false);
 
 ?>
 <html lang="en">
@@ -24,16 +68,53 @@ echo $OUTPUT->header();
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </head>
 <body>
-<div class="<!--d-flex--> d-none">
-    <div id="level" class="pt-2 pr-2">Level: 1</div>
+
+<div class="d-flex ">
+    <div id="level" class="pt-2 pr-2">Level: 0</div>
     <button class="btn btn-primary mb-3" id="addLevelButton" onclick="addLevel()">Add Level</button>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+// axios.get('https://jsonplaceholder.typicode.com/posts/1')
+// .then(response => { console.log(response.data); })
+// .catch(error => { console.error('Error fetching data:', error); });
 
+console.log('----------------------------------------------------------------- 1');
+// axios.post('https://jsonplaceholder.typicode.com/posts/3', {
+//     title: 'New Post', body: 'Hello, world!', userId:   1 })
+// .then(response => { console.log('Created:', response.data); })
+// .catch(error => { console.error('Error creating post:', error); });
+
+console.log('-----------------------------------------------------------------  2');
+
+// const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+// console.log(response.data);
+
+console.log('-----------------------------------------------------------------   3');
+
+// const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+// this.users = res.data;
+// function fetchData() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve("Data received!"), 1000);
+//     });
+// }
+
+async function getData() {
+    console.log("Fetching...");
+    const result = await fetchData();
+    console.log(result);
+}
+
+getData();
+
+</script>
 <script>
     const levelDisplay = document.getElementById('level');
-    let level = 1;
+    let level = 0;
     function addLevel() {
         level++;
+        window.console.log(`Level: ${level}`);
         levelDisplay.textContent = `Level: ${level}`;
     }
 </script>
@@ -61,7 +142,7 @@ echo $OUTPUT->header();
         }
         render() {
             return (
-                <div className="w-100 mb-4 d-none">
+                <div className="w-100 mb-4">
                     <h2>{this.state.message}</h2>
                     <input type="text" value={this.state.inputText} onChange={this.handleInputChange} placeholder="Enter your name" className="float-left form-control w-25 mr-4"/>
                     <button onClick={this.changeMessage1} className="btn btn-primary">Submit 1</button>
@@ -72,33 +153,32 @@ echo $OUTPUT->header();
     ReactDOM.render(<GreetingApp />, document.getElementById('root'));
 </script>
 
-<div id="app" class="mb-3 w-100 d-none">
+<div id="app">
     <h3>{{ message }}</h3>
-    <input v-model="inputText" type="text" placeholder="Enter your name" class="form-control w-25 mr-4 float-left">
-    <button @click="changeMessage" class="btn btn-primary">Submit 2</button>
+    <input v-model="inputText" placeholder="Enter your name" class="form-control w-25 mr-4 float-left"/>
+    <button @click="changeMessage" class="btn btn-info">Submit 2 </button>
 </div>
 
 <script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            message: 'Hi, ',
-            inputText: ''
-        },
-        methods: {
-            changeMessage: function() {
-                if (this.inputText.trim() !== '') {
-                    this.message = 'Hi, ' + this.inputText, this.inputText = '';
-                } else {
-                    alert('Please enter your name! 222');
-                }
+var app = new Vue({
+    el: '#app',
+    data: { message: 'Hi,', inputText: '' },
+    methods: {
+        changeMessage() {
+            const name = this.inputText.trim();
+            if (name) {
+                this.message = `Hi, ${name}`;
+                // this.message = this.message.split('').reverse().join('');
+                this.inputText = '';
+            } else {
+                alert('Please enter your name!');
             }
         }
-    });
+    }
+});
+
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
 <script>
 
@@ -122,7 +202,7 @@ echo $OUTPUT->header();
 
         doc.autoTable({ html: table });
 
-        // doc.save(filename);
+        doc.save(filename);
 
         Swal.fire({
             title: 'Export Successful',
@@ -157,7 +237,6 @@ echo $OUTPUT->header();
             }
         });
     }
-
 
     function exportTableToCSV(filename) {
         var csv = [];
@@ -236,25 +315,28 @@ echo $OUTPUT->header();
         }
     }
 </script>
-    <table border="1" class="flexible table table-striped table-hover generaltable generalbox d-none">
-        <tr>
-            <th onclick="sortTableByName()">Name</th>
-            <th>Age</th>
-            <th>Email</th>
-        </tr>
-        <tr>
-            <td>John Doe</td>
-            <td>30</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Jane Smith</td>
-            <td>25</td>
-            <td>jane@example.com</td>
-        </tr>
-    </table>
-    <button onclick="handleExport()" class="btn btn-primary">Export to CSV</button>
-    <button onclick="handlePDFExport()" class="btn btn-info">Export to PDF</button>
+<div class="testtable d-none">
+        <table border="1" class="flexible table table-striped table-hover generaltable generalbox">
+            <tr>
+                <th onclick="sortTableByName()">Name</th>
+                <th>Age</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>30</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>25</td>
+                <td>jane@example.com</td>
+            </tr>
+        </table>
+        <button onclick="handleExport()" class="btn btn-primary">Export to CSV</button>
+        <button onclick="handlePDFExport()" class="btn btn-info">Export to PDF</button>
+    </div>
+
 </body>
 </html>
 <?php
