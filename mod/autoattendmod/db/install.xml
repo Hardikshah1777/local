@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/autoattendmod/db" VERSION="20120415" COMMENT="XMLDB file for Auto Attend module"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="autoattendmod" COMMENT="Module for support Automatic Attendance block">
+      <FIELDS>
+        <FIELD NAME="id"            TYPE="int"  LENGTH="10"    NOTNULL="true"  UNSIGNED="true"             SEQUENCE="true"                            NEXT="course"/>
+        <FIELD NAME="course"        TYPE="int"  LENGTH="10"    NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="id"            NEXT="name"/>
+        <FIELD NAME="name"          TYPE="char" LENGTH="255"   NOTNULL="true"  SEQUENCE="false"                              PREVIOUS="course"        NEXT="intro"/>
+        <FIELD NAME="intro"         TYPE="text" LENGTH="small" NOTNULL="true"  SEQUENCE="false"                              PREVIOUS="name"          NEXT="introformat"/>
+        <FIELD NAME="introformat"   TYPE="int"  LENGTH="4"     NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="intro"         NEXT="namepattern"/>
+        <FIELD NAME="namepattern"   TYPE="char" LENGTH="16"    NOTNULL="true"           DEFAULT="fullname" SEQUENCE="false"  PREVIOUS="introformat"   NEXT="emailenable"/>
+        <FIELD NAME="emailenable"   TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="namepattern"   NEXT="allreports"/>
+        <FIELD NAME="allreports"    TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="emailenable"   NEXT="emailkey"/>
+        <FIELD NAME="emailkey"      TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="allreports"    NEXT="emailuser"/>
+        <FIELD NAME="emailuser"     TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="emailkey"      NEXT="summertime"/>
+        <FIELD NAME="summertime"    TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="emailuser"     NEXT="excelver"/>
+        <FIELD NAME="excelver"      TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="summertime"    NEXT="homeroom"/>
+        <FIELD NAME="homeroom"      TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="1" SEQUENCE="false"  PREVIOUS="excelver"      NEXT="localhostname"/>
+        <FIELD NAME="localhostname" TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="homeroom"      NEXT="dispinfo"/>
+        <FIELD NAME="dispinfo "     TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="1" SEQUENCE="false"  PREVIOUS="localhostname" NEXT="predisptime"/>
+        <FIELD NAME="predisptime  " TYPE="int"  LENGTH="5"     NOTNULL="true"  UNSIGNED="true" DEFAULT="5" SEQUENCE="false"  PREVIOUS="dispinfo"      NEXT="feedback"/>
+        <FIELD NAME="feedback"      TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="1" SEQUENCE="false"  PREVIOUS="predisptime"   NEXT="backupblock"/>
+        <FIELD NAME="backupblock"   TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="feedback"      NEXT="dbversion"/>
+        <FIELD NAME="dbversion"     TYPE="int"  LENGTH="2"     NOTNULL="true"  UNSIGNED="true" DEFAULT="2" SEQUENCE="false"  PREVIOUS="backupblock"   NEXT="timemodified"/>
+        <FIELD NAME="timemodified"  TYPE="int"  LENGTH="10"    NOTNULL="true"  UNSIGNED="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="dbversion"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
