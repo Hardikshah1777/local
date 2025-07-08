@@ -23,6 +23,6 @@ class coursecompletion_mail
 
         $subject = get_string('coursecompletedsubject', 'local_test3');
         $message = get_string('coursecompletedbody', 'local_test3', $a);
-        email_to_user($touser, $from, $subject, $message, $message);
+        //email_to_user($touser, $from, $subject, $message, $message);
     }
 }
