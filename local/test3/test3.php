@@ -50,28 +50,29 @@ $js = <<<JS
 
 $('.img').on('click', function (e) {
     e.preventDefault();
+    const imgElement = this;
     Swal.fire({
         title: 'Confirmation',
-        text: 'Are you sure you want to download ?',
+        text: 'Are you sure you want to download?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Export',
         cancelButtonText: 'Cancel'
     }).then((result) => {
         if (result.isConfirmed) {
-            const url1 = document.getElementById('imgid');            
-            const url = url1.src + '?forcedownload=1';
-            location.replace(url);
-        }else if (result.dismiss === Swal.DismissReason.cancel) {
+            const url = imgElement.src + '?forcedownload=1';
+            location.href = url;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
-                title: 'Cancled',
-                text: 'The download was cancelled',                
-                toast:true,
-                timer: 3000,
-            })
+                title: 'Cancelled',
+                text: 'The download was cancelled',
+                toast: true,
+                timer: 3000,                
+            });
         }
     });
 });
+
 
 JS;
 
