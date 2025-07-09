@@ -22,7 +22,7 @@
      * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
 
-    namespace customcertelement_date;
+//    namespace customcertelement_date;
 
     defined('MOODLE_INTERNAL') || die();
 
