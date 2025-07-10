@@ -33,8 +33,8 @@ class userlist extends table_sql {
     public $search;
 
     public function col_profile($row) {
-        global $OUTPUT, $USER;
-        return $OUTPUT->user_picture( $row /*$USER*/, ['size' => 35,/*'link' => false, 'alttext' => false*/]);
+        global $OUTPUT;
+        return $OUTPUT->user_picture( $row , ['size' => 40,'link' => true, 'alttext' => false]);
     }
 
     public function col_timecreated($row) {
