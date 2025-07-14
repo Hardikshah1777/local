@@ -1,0 +1,52 @@
+/***
+* Inspirational quotes.
+***/
+.inspirationalquotesblock {
+    min-height: 150px;
+    height: 150px;
+    max-height: 300px;
+    background-color: $primary;
+
+    .iconstart {
+        color: rgba(255, 255, 255, 7%);
+        font-size: 2em;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .iconend {
+        color: rgba(255, 255, 255, 7%);
+        font-size: 2em;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .quote-author {
+        color: #ffffffba;
+        font-style: italic;
+        font-size: 0.8375rem;
+    }
+}
+
+/***
+* LSMwithAI mark.
+***/
+p.lmswithai {
+    color: #c1c1c1;
+    font-size: 0.7rem;
+
+    span {
+        padding-right: 5px;
+    }
+}
+
+/***
+* Footer.
+***/
+#page-footer {
+    a {
+        color: #c1c1c1;
+    }
+}
