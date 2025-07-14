@@ -62,16 +62,16 @@ if ($context->contextlevel == CONTEXT_COURSE) {
 
 $block_settings = [];
 $setting_names = [
-    'sourceoftruth', 
-    'prompt', 
-    'username', 
-    'assistantname', 
-    'apikey', 
-    'model', 
-    'temperature', 
-    'maxlength', 
-    'topp', 
-    'frequency', 
+    'sourceoftruth',
+    'prompt',
+    'username',
+    'assistantname',
+    'apikey',
+    'model',
+    'temperature',
+    'maxlength',
+    'topp',
+    'frequency',
     'presence'
 ];
 foreach ($setting_names as $setting) {
