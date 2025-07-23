@@ -9,10 +9,16 @@
 <script>
 	$(document).ready(function(){
 		$("#myModal").modal('show');
+        $("#subscribe .btn").on("click", function() {
+            $("#myModal").modal('show');
+        });
 	});
 </script>
 </head>
 <body>
+<div class="subscribe d-flex justify-content-around mt-5" id="subscribe">
+    <button type="submit" class="btn btn-primary">Subscribe</button>
+</div>
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
