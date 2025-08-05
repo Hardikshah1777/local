@@ -15,6 +15,7 @@ export const handletoast = () => {
                 type: 'success',
                 closeButton: false,
                 autohide: true,
+                timer : 2000,
             });
         }
     });
