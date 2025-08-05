@@ -1,6 +1,5 @@
 <?php
 
-use core\task\scheduled_task;
 
 namespace local_test1\task;
 

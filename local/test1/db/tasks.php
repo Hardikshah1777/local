@@ -2,9 +2,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks =[
+$tasks = [
     [
-        'classname' => '\local_test1\task\test1task',
+        'classname' => 'local_test1\task\test1task',
         'blocking' => 0,
         'minute' => '*',
         'hour' => '*',

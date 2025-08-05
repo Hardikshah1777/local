@@ -31,7 +31,7 @@ if (!$touser) {
     exit;
 }
 $fullname = fullname($touser);
-$emailresult = email_to_user($touser,$fromuser,"Test js mail","<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
+$emailresult = 1;//email_to_user($touser,$fromuser,"Test js mail","<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
 echo json_encode(['success' => $emailresult, 'username' => $fullname]);
 
 //email_to_user($touser, $fromuser, 'mail_subject', 'mail_body','','','',
