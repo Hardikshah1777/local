@@ -71,15 +71,13 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
         const user = JSON.parse(this.getAttribute('data-user'));
         const tr = this.closest('tr');
         if (!tr) {
-            window.error("Row not found");
+            console.error("Row not found");
             return;
         }
 
-        const headers = ['', "Name", "Email", "City", "Date"];
-        const rowData = Array.from(tr.children).map(td => td.textContent.trim());
+        const headers = ["Name", "Email", "City", "Date"];
+        const rowData = Array.from(tr.children).map(td => td.textContent.trim()).slice(1);
 
-        const tempTable = document.createElement('table');
-        tempTable.appendChild(tr.cloneNode(true));
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
@@ -87,11 +85,25 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
         doc.setFontSize(16);
         doc.text(title, 70, 15);
 
-        doc.autoTable({ head: [headers],
-            body: [rowData],
-            startY: 20,
+        doc.autoTable({ head: [headers], body: [rowData], startY: 20 });
+
+        const filename = user.firstname + ' ' + user.lastname + '.pdf';
+
+        const blob = doc.output('blob'); // sync
+        const formData = new FormData();
+        formData.append('pdf', blob, filename);
+        formData.append('userid', user.id);
+
+        fetch(M.cfg.wwwroot +'/local/test1/testmail.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json())
+            .then(result => {
+                console.log('PDF sent to server for email to user : ', result.username);
+            }).catch(error => {
+            console.error('Error sending PDF to server:', error);
         });
-        let filename = user.firstname + ' ' + user.lastname + '.pdf';
+
         doc.save(filename);
     });
 });

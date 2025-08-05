@@ -1,6 +1,8 @@
 <?php
 
 require_once '../../config.php';
+require_once($CFG->libdir.'/moodlelib.php');
+require_once($CFG->libdir.'/messagelib.php');
 
 $userid   = optional_param('uid', '', PARAM_INT);
 $search   = optional_param('search', '', PARAM_TEXT);
@@ -22,23 +24,41 @@ $touser = core_user::get_user($userid);
 //$mail_subject = get_string('mailsubject','local_test1');
 //$mail_body = get_string('mailbody','local_test1', $touser);
 
-if (!isset($data->userid)) {
-    echo json_encode(['success' => false, 'message' => 'No user ID provided']);
-    exit;
-}
-if (!$touser) {
-    echo json_encode(['success' => false, 'message' => 'User not found']);
-    exit;
-}
-$fullname = fullname($touser);
-$emailresult = 1;//email_to_user($touser,$fromuser,"Test js mail","<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
-echo json_encode(['success' => $emailresult, 'username' => $fullname]);
+//if (!isset($data->userid) && isset($_FILES['pdf'])) {
+//    echo json_encode(['success' => false, 'message' => 'No user ID provided']);
+//    exit;
+//} else if (!$touser && isset($_FILES['pdf'])) {
+//    echo json_encode(['success' => false, 'message' => 'User not found']);
+//    exit;
+//} else {
+//    $emailresult = 1;//email_to_user($touser,$fromuser,"Test js mail","<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
+//    echo json_encode(['success' => $emailresult, 'username' => fullname($fullname)]);
+//    exit;
+//}
 
-//email_to_user($touser, $fromuser, 'mail_subject', 'mail_body','','','',
-//            '','','','',true,true);
-//redirect(new moodle_url('/local/test1/index.php', ['search'=> $search]), 'Mail sent to '. fullname($touser),0,\core\output\notification::NOTIFY_SUCCESS);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
+    $userid = required_param('userid', PARAM_INT);
+    $file = $_FILES['pdf'];
+
+    if ($file['error'] === UPLOAD_ERR_OK) {
+        $tempPath = $file['tmp_name'];
+        $filename = $file['name'];
+        $filecontents = file_get_contents($tempPath);
+
+        $touser = core_user::get_user($userid);
+        $fromuser = core_user::get_support_user();
+
+        $subject = "User Information PDF";
+        $body = "Attached is the PDF containing the user data.";
+
+        $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $filecontents, $filename, mime_content_type($tempPath),'','','',true,true);
+        echo json_encode(['success' => $emailresult, 'username' => fullname($touser)]);
+    } else {
+        echo "File upload error.";
+    }
+} else {
+    echo "Invalid request.";
+}
 
 //echo $OUTPUT->header();
-//    if (email_to_user($touser, $fromuser, mail_subject, $mail_body)) {
-//    }
 //echo $OUTPUT->footer();
