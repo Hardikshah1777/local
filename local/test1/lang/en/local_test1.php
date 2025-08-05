@@ -7,11 +7,14 @@ $string['title'] = 'Test 1';
 $string['nodatatoexport'] = 'No data to export';
 $string['confirmuserdelete'] = 'Are you sure to delete user?';
 $string['mailsubject'] = 'Thanks for purchasing with Investit!';
+$string['email'] = 'Send mail';
+$string['pdf'] = 'Export PDF';
+$string['csv'] = 'Export CSV';
 $string['mailbody'] = '<body style="margin:0;padding:0;word-spacing:normal;background-color:#EFEEEE;">
 <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">   
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">       
         <tr>
-            <td align="center" style="padding: 30px;">
+            <td align="center" style="padding: 30px;" >
                 <table style="width:100%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:24px;color:#2F4141; background-color: #d1d1d1;">
                     <tr>
                         <td align="center" style="padding: 20px;background-color:#ffffff;border-bottom: 1px solid;">
