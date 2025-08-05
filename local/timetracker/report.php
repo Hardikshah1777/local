@@ -9,7 +9,7 @@ require_capability('local/timetracker:viewreport', context_system::instance(), $
 
 $title = get_string('pluginname', 'local_timetracker');
 $heading = get_string('report', 'local_timetracker');
-$url = '/local/timetracker/report.php';  
+$url = '/local/timetracker/report.php';
 $baseurl = new moodle_url($url);
 
 $PAGE->set_url($url);
@@ -43,11 +43,11 @@ $PAGE->navbar->add($title, $baseurl);
 $PAGE->navbar->add($heading, new moodle_url($PAGE->url));
 
 echo $OUTPUT->header();
-	 $sql = "SELECT tl.id,u.firstname,u.lastname,c.fullname,sum(tl.timemodified-tl.timecreated) as total FROM {timetracker_log} tl
+	 $sql = "SELECT tl.id, u.firstname, u.username,u.lastname, c.fullname, u.email, sum(tl.timemodified-tl.timecreated) as total FROM {timetracker_log} tl
 				JOIN {user} u on u.id=tl.userid
 				JOIN {course} c on c.id=tl.courseid
 				GROUP BY tl.userid,tl.courseid ORDER BY u.firstname ASC,c.fullname ASC";
-				
+
    $local_timetrackers = $DB->get_records_sql($sql);
   // print_r($local_timetrackers);
   // $local_timetrackers = $DB->get_records('timetracker_log');
@@ -55,7 +55,7 @@ echo $OUTPUT->header();
     if(!empty($local_timetrackers)){
         $table = new html_table();
         $table->tablealign="left";
-        $table->head  = array(get_string('user'),get_string('course'),'Timespent');
+        $table->head  = array(get_string('user'), get_string('username'), get_string('email'), get_string('course'),'Timespent');
         $table->align = array('centre');
         $table->width = '50%';
         $table->attributes['class'] = 'generaltable';
@@ -68,10 +68,10 @@ echo $OUTPUT->header();
 			$minutes = floor(($init / 60) % 60);
 			$seconds = $init % 60;
 			$duration = $hours.':'. $minutes.':'. $seconds;
-        $table->data[] = array($log->firstname,$log->fullname,$duration);
+        $table->data[] = array($log->firstname.' '.$log->lastname, $log->username, $log->email, $log->fullname, $duration);
     }
-    echo html_writer::table($table);        
+    echo html_writer::table($table);
     }
-   
+
 echo $OUTPUT->footer();
 

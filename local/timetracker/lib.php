@@ -17,6 +17,7 @@ function local_timetracker_extend_navigation(global_navigation $nav) {
 
 function local_timetracker_standard_after_main_region_html() {
     global $PAGE, $USER;
+    echo '<script src = https://code.jquery.com/jquery-3.6.0.min.js></script>';
     if ($PAGE->pagelayout == 'embedded') {
         $PAGE->requires->js('/local/timetracker/js/lock.js');
         if (!is_siteadmin($USER->id) && is_students()) {
@@ -29,25 +30,25 @@ function local_timetracker_standard_after_main_region_html() {
 function is_students() {
         global $DB, $USER;
 		$user = $DB->get_records('role_assignments',array('roleid'=>5,'userid'=>$USER->id));
-        
+
         if ($user) {
             return true;
         } else {
             return false;
         }
     }
-    
+
 function unlock_notification($id){
 	global $DB,$USER;
-	
+
 	$url = new moodle_url('/local/timetracker/unlock.php',array('id'=>$id));
 	$lock = $DB->get_record('timetracker_lock',array('id' => $id));
 	$userto = get_admin();
 	$userfrom = $DB->get_record('user',array('id' => $USER->id));
-	
+
 	$a =new stdclass();
 	$a->name = fullname($userfrom);
-	
+
 	$message = new \core\message\message();
 	$message->courseid = SITEID;
 	$message->component = 'local_timetracker';
