@@ -2,6 +2,7 @@
 
 
 $string['search'] = 'Search';
+$string['pluginname'] = 'Test 1';
 $string['heading'] = 'Test 1';
 $string['title'] = 'Test 1';
 $string['nodatatoexport'] = 'No data to export';
@@ -10,6 +11,7 @@ $string['mailsubject'] = 'Thanks for purchasing with Investit!';
 $string['email'] = 'Send mail';
 $string['pdf'] = 'Export PDF';
 $string['csv'] = 'Export CSV';
+$string['test1task'] = 'Test 1 Cron Task';
 $string['mailbody'] = '<body style="margin:0;padding:0;word-spacing:normal;background-color:#EFEEEE;">
 <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">   
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">       
