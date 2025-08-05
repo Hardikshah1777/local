@@ -34,8 +34,9 @@ require_once($CFG->dirroot.'/webservice/lib.php');
 $id     = optional_param('id', $USER->id, PARAM_INT);    // User id; -1 if creating new user.
 $course = optional_param('course', SITEID, PARAM_INT);   // Course id (defaults to Site).
 $returnto = optional_param('returnto', null, PARAM_ALPHA);  // Code determining where to return to after save.
+$localurl = optional_param('localtest1', null, PARAM_ALPHA);  // Code determining where to return to after save.
 
-$PAGE->set_url('/user/editadvanced.php', array('course' => $course, 'id' => $id));
+$PAGE->set_url('/user/editadvanced.php', array('course' => $course, 'id' => $id, 'localtest1' => $localurl));
 
 $course = $DB->get_record('course', array('id' => $course), '*', MUST_EXIST);
 
@@ -312,6 +313,9 @@ if ($userform->is_cancelled()) {
             redirect($returnurl, get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
         }
     } else {
+        if (!empty($localurl)){
+            redirect("$CFG->wwwroot/local/test1/index.php", get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
+        }
         \core\session\manager::gc(); // Remove stale sessions.
         redirect("$CFG->wwwroot/$CFG->admin/user.php", get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
     }
