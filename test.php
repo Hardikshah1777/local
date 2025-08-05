@@ -106,7 +106,7 @@ echo $OUTPUT->header();
         <div id="timer2" style="font-size: 20px; color: #343a40;"></div>
     </div>
     <script>
-        let seconds = 1;
+        let seconds = 0;
         let timerDisplay = document.getElementById("timer");
         let timerDisplay2 = document.getElementById("timer2");
 
@@ -164,7 +164,7 @@ echo $OUTPUT->header();
         }
     </script>
 
-    <button onclick="alert('Welcome to Moodle!')" class="btn btn-dark">Click Me</button>
+    <button onclick="alert('Welcome to Demo site!')" class="btn btn-dark">Click Me</button>
 
     <html lang="en">
     <head>
@@ -187,39 +187,46 @@ echo $OUTPUT->header();
         // axios.get('https://jsonplaceholder.typicode.com/posts/1')
         // .then(response => { console.log(response.data); })
         // .catch(error => { console.error('Error fetching data:', error); });
-
-        console.log('----------------------------------------------------------------- 1');
-        // axios.post('https://jsonplaceholder.typicode.com/posts/3', {
-        //     title: 'New Post', body: 'Hello, world!', userId:   1 })
-        // .then(response => { console.log('Created:', response.data); })
-        // .catch(error => { console.error('Error creating post:', error); });
-
-        console.log('-----------------------------------------------------------------  2');
-
-        // const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
-        // console.log(response.data);
-
-        console.log('-----------------------------------------------------------------   3');
-
-        // const res = await axios.get('https://jsonplaceholder.typicode.com/users');
-        // this.users = res.data;
-        // function fetchData() {
-        //     return new Promise((resolve) => {
-        //         setTimeout(() => resolve("Data received!"), 1000);
-        //     });
+        //
+        //
+        // axios.get('https://jsonplaceholder.typicode.com/posts/3', {
+        //     title: 'New Post', body: 'Hello, world!', userId:   3
+        // }).then(response => { console.log('Created...:', response.data); })
+        //     .catch(error => { console.error('Error creating post:', error); });
+        //
+        // console.log('-----------------------------------------------------------------  2');
+        //
+        // async function fetchData() {
+        //     const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+        //     console.log(response.data);
         // }
+        // fetchData();
 
-        async function getData() {
-            console.log("Fetching...");
-            const result = await fetchData();
-            console.log(result);
-        }
+        // console.log('-----------------------------------------------------------------   3');
+        // async function fetchData2() {
+        //     const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+        //     this.users = res.data;
+        //
+        //     // function fetchData() {
+        //         return new Promise((resolve) => {
+        //             console.log(this.users);
+        //             setTimeout(() => resolve("Data received!"), 1000);
+        //         });
+        //     // }
+        // }
+        // fetchData2();
 
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Welcome to my Moodle theme!");
-        });
-
-        getData();
+        // async function getData() {
+        //     console.log("Fetching...");
+        //     const result = await fetchData();
+        //     console.log(result);
+        // }
+        //
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     console.log("Welcome to my theme!");
+        // });
+        //
+        // getData();
 
     </script>
     <script>
@@ -235,6 +242,95 @@ echo $OUTPUT->header();
     <div id="root"></div>
 
     <script type="text/babel">
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('https://randomuser.me/api/');
+                console.log(response);
+                return response.data;
+            } catch (error) {
+                console.error('Failed to fetch user profile', error);
+                throw error;
+            }
+        }
+        fetchUserProfile();
+        const api = axios.create({
+            baseURL: 'https://randomuser.me/api/',
+            withCredentials: true, // if cookies are used
+        });
+
+        let isRefreshing = false;
+        let failedQueue = [];
+
+        const processQueue = (error, token = null) => {
+            failedQueue.forEach(prom => {
+                if (error) {
+                    prom.reject(error);
+                } else {
+                    prom.resolve(token);
+                }
+            });
+            failedQueue = [];
+        };
+
+        // REQUEST INTERCEPTOR
+        api.interceptors.request.use(
+            (config) => {
+                const token = localStorage.getItem('bgcolor');
+                if (token) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
+                return config;
+            },
+            (error) => Promise.reject(error)
+        );
+
+        api.interceptors.response.use(
+            response => response,
+            async error => {11
+                const originalRequest = error.config;
+
+                if (error.response?.status === 401 && !originalRequest._retry) {
+                    if (isRefreshing) {
+                        return new Promise(function (resolve, reject) {
+                            failedQueue.push({ resolve, reject });
+                        }).then(token => {
+                            originalRequest.headers.Authorization = 'Bearer ' + token;
+                            return api(originalRequest);
+                        }).catch(err => {
+                            return Promise.reject(err);
+                        });
+                    }
+
+                    originalRequest._retry = true;
+                    isRefreshing = true;
+
+                    try {
+                        const res = await axios.post('https://randomuser.me/api/', {
+                            refreshToken: localStorage.getItem('refreshToken'),
+                        });
+
+                        const newToken = res.data.accessToken;
+                        localStorage.setItem('accessToken', newToken);
+                        api.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+
+                        processQueue(null, newToken);
+                        return api(originalRequest);
+                    } catch (err) {
+                        processQueue(err, null);
+                        // Optional: redirect to login
+                        localStorage.removeItem('bgcolor');
+                        localStorage.removeItem('refreshToken');
+                        window.location.href = '/login';
+                        return Promise.reject(err);
+                    } finally {
+                        isRefreshing = false;
+                    }
+                }
+
+                return Promise.reject(error);
+            }
+        );
+
         class GreetingApp extends React.Component {
             constructor(props) {
                 super(props);
@@ -282,6 +378,9 @@ echo $OUTPUT->header();
                     if (name) {
                         this.message = `Hi, ${name}`;
                         // this.message = this.message.split('').reverse().join('');
+                        // this.message = this.message.toUpperCase();
+                        // this.message = this.message.toLowerCase();
+                        // this.message = this.message.split('').sort().join('');
                         this.inputText = '';
                     } else {
                         alert('Please enter your name!');

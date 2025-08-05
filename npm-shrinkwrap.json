@@ -10,11 +10,14 @@
       "license": "ISC",
       "dependencies": {
         "@babel/eslint-parser": "^7.17.0",
-        "axios": "^1.10.0",
+        "axios": "^1.6.8",
+        "datatables.net": "^2.3.2",
+        "datatables.net-dt": "^2.3.2",
         "jspdf": "^3.0.1",
         "jspdf-autotable": "^5.0.2",
         "react-toastify": "^10.0.5",
-        "sass": "^1.78.0"
+        "sass": "^1.78.0",
+        "sweetalert": "^2.1.2"
       },
       "devDependencies": {
         "@babel/core": "7.17.5",
@@ -2638,9 +2641,9 @@
       }
     },
     "node_modules/axios": {
-      "version": "1.10.0",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-1.10.0.tgz",
-      "integrity": "sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw==",
+      "version": "1.6.8",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz",
+      "integrity": "sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==",
       "dependencies": {
         "follow-redirects": "^1.15.6",
         "form-data": "^4.0.0",
@@ -4466,6 +4469,23 @@
         "uuid": "^3.3.3"
       }
     },
+    "node_modules/datatables.net": {
+      "version": "2.3.2",
+      "resolved": "https://registry.npmjs.org/datatables.net/-/datatables.net-2.3.2.tgz",
+      "integrity": "sha512-31TzwIQM0+pr2ZOEOEH6dsHd/WSAl5GDDGPezOHPI3mM2NK4lcDyOoG8xXeWmSbVfbi852LNK5C84fpp4Q+qxg==",
+      "dependencies": {
+        "jquery": ">=1.7"
+      }
+    },
+    "node_modules/datatables.net-dt": {
+      "version": "2.3.2",
+      "resolved": "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-2.3.2.tgz",
+      "integrity": "sha512-2heAMe0AVqJ8nt9wE35ArLtL1zP7N7qnhM3u52bLcJfi4NStxyBsHScVggTHVQPj7r9O+qirAxox1Xcr+Bm4Dw==",
+      "dependencies": {
+        "datatables.net": "2.3.2",
+        "jquery": ">=1.7"
+      }
+    },
     "node_modules/date-now": {
       "version": "0.1.4",
       "resolved": "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz",
@@ -5068,6 +5088,11 @@
       "funding": {
         "url": "https://github.com/sponsors/ljharb"
       }
+    },
+    "node_modules/es6-object-assign": {
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/es6-object-assign/-/es6-object-assign-1.1.0.tgz",
+      "integrity": "sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw=="
     },
     "node_modules/escalade": {
       "version": "3.2.0",
@@ -8681,6 +8706,11 @@
         "node": ">=8"
       }
     },
+    "node_modules/jquery": {
+      "version": "3.7.1",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz",
+      "integrity": "sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg=="
+    },
     "node_modules/js-base64": {
       "version": "2.6.4",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.6.4.tgz",
@@ -11615,6 +11645,11 @@
       "integrity": "sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==",
       "dev": true
     },
+    "node_modules/promise-polyfill": {
+      "version": "6.1.0",
+      "resolved": "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-6.1.0.tgz",
+      "integrity": "sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ=="
+    },
     "node_modules/promise-retry": {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/promise-retry/-/promise-retry-2.0.1.tgz",
@@ -13383,6 +13418,15 @@
       "resolved": "https://registry.npmjs.org/svg-tags/-/svg-tags-1.0.0.tgz",
       "integrity": "sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=",
       "dev": true
+    },
+    "node_modules/sweetalert": {
+      "version": "2.1.2",
+      "resolved": "https://registry.npmjs.org/sweetalert/-/sweetalert-2.1.2.tgz",
+      "integrity": "sha512-iWx7X4anRBNDa/a+AdTmvAzQtkN1+s4j/JJRWlHpYE8Qimkohs8/XnFcWeYHH2lMA8LRCa5tj2d244If3S/hzA==",
+      "dependencies": {
+        "es6-object-assign": "^1.1.0",
+        "promise-polyfill": "^6.0.2"
+      }
     },
     "node_modules/sweetalert2": {
       "version": "11.22.1",
@@ -16409,9 +16453,9 @@
       "optional": true
     },
     "axios": {
-      "version": "1.10.0",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-1.10.0.tgz",
-      "integrity": "sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw==",
+      "version": "1.6.8",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz",
+      "integrity": "sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==",
       "requires": {
         "follow-redirects": "^1.15.6",
         "form-data": "^4.0.0",
@@ -17855,6 +17899,23 @@
         "uuid": "^3.3.3"
       }
     },
+    "datatables.net": {
+      "version": "2.3.2",
+      "resolved": "https://registry.npmjs.org/datatables.net/-/datatables.net-2.3.2.tgz",
+      "integrity": "sha512-31TzwIQM0+pr2ZOEOEH6dsHd/WSAl5GDDGPezOHPI3mM2NK4lcDyOoG8xXeWmSbVfbi852LNK5C84fpp4Q+qxg==",
+      "requires": {
+        "jquery": ">=1.7"
+      }
+    },
+    "datatables.net-dt": {
+      "version": "2.3.2",
+      "resolved": "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-2.3.2.tgz",
+      "integrity": "sha512-2heAMe0AVqJ8nt9wE35ArLtL1zP7N7qnhM3u52bLcJfi4NStxyBsHScVggTHVQPj7r9O+qirAxox1Xcr+Bm4Dw==",
+      "requires": {
+        "datatables.net": "2.3.2",
+        "jquery": ">=1.7"
+      }
+    },
     "date-now": {
       "version": "0.1.4",
       "resolved": "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz",
@@ -18351,6 +18412,11 @@
         "is-date-object": "^1.0.1",
         "is-symbol": "^1.0.2"
       }
+    },
+    "es6-object-assign": {
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/es6-object-assign/-/es6-object-assign-1.1.0.tgz",
+      "integrity": "sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw=="
     },
     "escalade": {
       "version": "3.2.0",
@@ -21037,6 +21103,11 @@
         }
       }
     },
+    "jquery": {
+      "version": "3.7.1",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz",
+      "integrity": "sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg=="
+    },
     "js-base64": {
       "version": "2.6.4",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.6.4.tgz",
@@ -23323,6 +23394,11 @@
       "integrity": "sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==",
       "dev": true
     },
+    "promise-polyfill": {
+      "version": "6.1.0",
+      "resolved": "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-6.1.0.tgz",
+      "integrity": "sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ=="
+    },
     "promise-retry": {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/promise-retry/-/promise-retry-2.0.1.tgz",
@@ -24725,6 +24801,15 @@
       "resolved": "https://registry.npmjs.org/svg-tags/-/svg-tags-1.0.0.tgz",
       "integrity": "sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=",
       "dev": true
+    },
+    "sweetalert": {
+      "version": "2.1.2",
+      "resolved": "https://registry.npmjs.org/sweetalert/-/sweetalert-2.1.2.tgz",
+      "integrity": "sha512-iWx7X4anRBNDa/a+AdTmvAzQtkN1+s4j/JJRWlHpYE8Qimkohs8/XnFcWeYHH2lMA8LRCa5tj2d244If3S/hzA==",
+      "requires": {
+        "es6-object-assign": "^1.1.0",
+        "promise-polyfill": "^6.0.2"
+      }
     },
     "sweetalert2": {
       "version": "11.22.1",

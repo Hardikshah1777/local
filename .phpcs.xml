@@ -87,6 +87,7 @@
   <exclude-pattern>media/player/videojs/ogvjs/</exclude-pattern>
   <exclude-pattern>media/player/videojs/amd/src/videojs-ogvjs-lazy.js</exclude-pattern>
   <exclude-pattern>mod/assign/feedback/editpdf/fpdi/</exclude-pattern>
+  <exclude-pattern>mod/assign/feedback/editpdfplus/fpdi/</exclude-pattern>
   <exclude-pattern>mod/behaviour/js/qrcode/</exclude-pattern>
   <exclude-pattern>mod/videotime/amd/src/player.js</exclude-pattern>
   <exclude-pattern>mod/videotime/appjs/player.js</exclude-pattern>
@@ -112,6 +113,7 @@
   <exclude-pattern>theme/adaptable/jquery/pace-min.js</exclude-pattern>
   <exclude-pattern>theme/adaptable/jquery/tickerme.js</exclude-pattern>
   <exclude-pattern>theme/adaptable/pix_plugins/</exclude-pattern>
+  <exclude-pattern>theme/degrade/_editor/</exclude-pattern>
   <exclude-pattern>theme/moove/fonts/</exclude-pattern>
   <exclude-pattern>theme/remui/scss/bootstrap/</exclude-pattern>
   <exclude-pattern>theme/remui/amd/src/bootstrap/alert.js</exclude-pattern>

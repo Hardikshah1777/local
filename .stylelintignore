@@ -90,6 +90,7 @@ media/player/videojs/amd/src/local/ogv/ogv.js
 media/player/videojs/ogvjs/
 media/player/videojs/amd/src/videojs-ogvjs-lazy.js
 mod/assign/feedback/editpdf/fpdi/
+mod/assign/feedback/editpdfplus/fpdi/
 mod/behaviour/js/qrcode/
 mod/videotime/amd/src/player.js
 mod/videotime/appjs/player.js
@@ -115,6 +116,7 @@ theme/adaptable/jquery/jquery-flexslider-min.js
 theme/adaptable/jquery/pace-min.js
 theme/adaptable/jquery/tickerme.js
 theme/adaptable/pix_plugins/
+theme/degrade/_editor/
 theme/moove/fonts/
 theme/remui/scss/bootstrap/
 theme/remui/amd/src/bootstrap/alert.js
