@@ -13,7 +13,7 @@ class test2table extends \table_sql
 
     public function init() {
         global $DB;
-        $search = optional_param('search','',PARAM_TEXT);
+        $search = optional_param('search','',PARAM_ALPHAEXT);
         $col = [
             'firstname' => 'First name',
             'lastname' => 'Last name',

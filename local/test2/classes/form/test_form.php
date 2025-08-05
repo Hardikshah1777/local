@@ -18,8 +18,13 @@ class test_form extends dynamic_form {
     {
         global $DB;
         $mform = $this->_form;
-        $test = ['0' => 'Choose','1' => 'test1','2' => 'test2','3' => 'test3',];
-        $mform->addElement( 'bsselect', 'search', 'Search', $test, []);
+//        $test = ['0' => 'Choose','1' => 'test1','2' => 'test2','3' => 'test3',];
+        $usersdata = $DB->get_records( 'local_test2', []);
+        $users[0] = get_string('choose');
+        foreach ($usersdata as $user){
+            $users[fullname($user)] = fullname($user);
+        }
+        $mform->addElement( 'text', 'search', 'Search', $users);
         $mform->setType('search', PARAM_ALPHAEXT);
 
         $this->add_action_buttons(false, get_string( 'submit'));
