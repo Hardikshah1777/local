@@ -72,7 +72,7 @@ class userlist extends \table_sql
             $editbtn = $OUTPUT->action_link($editurl, '', null, [], new \pix_icon( 't/edit', 'Edit' ));
         }
         $mailurl = new moodle_url('/local/userlist/index.php', ['userid' => $row->id]);
-        $mailbtn = $OUTPUT->action_link($mailurl, '', null, ['data-action' => 'sendmail', 'class' => 'maillink'],new \pix_icon('t/email', 'E-mail'));
+        $mailbtn = $OUTPUT->action_link($mailurl, '', null, ['data-action' => 'sendmail'],new \pix_icon('t/email', 'E-mail'));
 
         return $deletbtn . $editbtn . $mailbtn;
     }

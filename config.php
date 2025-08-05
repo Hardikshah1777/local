@@ -24,6 +24,7 @@ $CFG->smtpsecure = '';
 $CFG->smtpuser = '';
 $CFG->smtppass = '';
 
+//$CFG->wwwroot   = 'http://192.168.88.44/moodle4';
 $CFG->wwwroot   = 'http://localhost/moodle4';
 $CFG->dataroot  = '/var/www/Datafolder/moodle4';
 $CFG->admin     = 'admin';
