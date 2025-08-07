@@ -3,16 +3,17 @@
 require_once '../../config.php';
 require_once($CFG->libdir.'/moodlelib.php');
 require_once($CFG->libdir.'/messagelib.php');
+require_once($CFG->libdir.'/filelib.php');
 
 $userid   = optional_param('uid', '', PARAM_INT);
 $search   = optional_param('search', '', PARAM_TEXT);
 $url = new moodle_url( '/local/test1/testmail.php', ['search'=> $search]);
-$context = context_system::instance();
+$contextsys = context_system::instance();
 
 $PAGE->set_title(get_string('title', 'local_test1'));
 $PAGE->set_heading(get_string('heading', 'local_test1'));
 $PAGE->set_url($url);
-$PAGE->set_context($context);
+$PAGE->set_context($contextsys);
 require_admin();
 
 header('Content-Type: application/json');
@@ -42,22 +43,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
 
     if ($file['error'] === UPLOAD_ERR_OK) {
         $tempPath = $file['tmp_name'];
-        $filename = $file['name'];
-        $filecontents = file_get_contents($tempPath);
+        $filename = clean_param($file['name'], PARAM_FILE);
+        $mimetype = mime_content_type($tempPath);
+
+        // Move to a safe temporary location
+        $tempdir = make_temp_directory('userpdfs');
+        $finalpath = $tempdir . '/' . $filename;
+        if (!move_uploaded_file($tempPath, $finalpath)) {
+            echo json_encode(['success' => false, 'error' => 'Failed to move uploaded file.']);
+            exit;
+        }
 
         $touser = core_user::get_user($userid);
         $fromuser = core_user::get_support_user();
 
         $subject = "User Information PDF";
-        $body = "Attached is the PDF containing the user data.";
+        $body = "<p>Attached is the PDF containing your user information.</p>";
 
-        $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $filecontents, $filename, mime_content_type($tempPath),'','','',true,true);
-        echo json_encode(['success' => $emailresult, 'username' => fullname($touser)]);
+        $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
+
+        @unlink($finalpath);
+
+        echo json_encode([
+            'success' => $emailresult,
+            'username' => fullname($touser)
+        ]);
     } else {
-        echo "File upload error.";
+        echo json_encode(['success' => false, 'error' => 'File upload error.']);
     }
 } else {
-    echo "Invalid request.";
+    echo json_encode(['success' => false, 'error' => 'Invalid request.']);
 }
 
 //echo $OUTPUT->header();

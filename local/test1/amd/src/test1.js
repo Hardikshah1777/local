@@ -10,33 +10,33 @@ export const init = () => {
  * @param {boolean} isSuccess - Indicates success or failure.
  */
 function showToast(message, isSuccess = true) {
-    // const toast = document.getElementById('toast');
-    // toast.textContent = message;
-    // toast.style.backgroundColor = isSuccess ? '#b3ffae' : '#ffe0e0';
-    // toast.className = 'show d-flex justify-content-center p-2';
-    // setTimeout(() => {
-    //     toast.className = 'toast ';
-    // }, 2000);
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#b3ffae' : '#ffe0e0';
+    toast.className = 'show d-flex justify-content-center p-2';
+    setTimeout(() => {
+        toast.className = 'toast ';
+    }, 2000);
 
-    const title = isSuccess ? 'Send' : 'Not Send';
-    const icon = isSuccess ? 'success' : 'error';
-    Swal.fire({
-        title: 'Mail ' + title,
-        text: message,
-        icon: icon,
-        confirmButtonText: 'OK',
-        //showCancelButton: false,
-        showConfirmButton: false,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor:'#d33',
-        iconColor:'#d33',
-        timer: 3000,
-        // toast: true,
-        timerProgressBar:true,
-        allowOutsideClick:true,
-        allowEscapeKey:false,
-        allowEnterKey:true,
-    });
+    // const title = isSuccess ? 'Send' : 'Not Send';
+    // const icon = isSuccess ? 'success' : 'error';
+    // Swal.fire({
+    //     title: 'Mail ' + title,
+    //     text: message,
+    //     icon: icon,
+    //     confirmButtonText: 'OK',
+    //     //showCancelButton: false,
+    //     showConfirmButton: false,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor:'#d33',
+    //     iconColor:'#d33',
+    //     timer: 3000,
+    //     // toast: true,
+    //     timerProgressBar:true,
+    //     allowOutsideClick:true,
+    //     allowEscapeKey:false,
+    //     allowEnterKey:true,
+    // });
 }
 
 document.querySelectorAll('.maillink').forEach(link => {
@@ -71,7 +71,7 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
         const user = JSON.parse(this.getAttribute('data-user'));
         const tr = this.closest('tr');
         if (!tr) {
-            console.error("Row not found");
+            window.console.error("Row not found");
             return;
         }
 
@@ -99,9 +99,9 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
             body: formData
         }).then(response => response.json())
             .then(result => {
-                console.log('PDF sent to server for email to user : ', result.username);
+                window.console.log('PDF sent to server for email to user : ', result.username);
             }).catch(error => {
-            console.error('Error sending PDF to server:', error);
+                window.console.error('Error sending PDF to server:', error);
         });
 
         doc.save(filename);
