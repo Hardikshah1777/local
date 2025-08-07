@@ -64,10 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
 
         @unlink($finalpath);
 
-        echo json_encode([
-            'success' => $emailresult,
-            'username' => fullname($touser)
-        ]);
+        echo json_encode(['success' => $emailresult,'username' => fullname($touser)]);
     } else {
         echo json_encode(['success' => false, 'error' => 'File upload error.']);
     }
