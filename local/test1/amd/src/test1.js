@@ -1,8 +1,5 @@
-/* working */
-
 export const init = () => {
-    //alert('Test 1 js');
-    window.console.log('Test 1 js');
+    window.console.log('--------------- Test 1 js working ---------------');
 };
 /**
  * Description of showToast.
@@ -10,33 +7,38 @@ export const init = () => {
  * @param {boolean} isSuccess - Indicates success or failure.
  */
 function showToast(message, isSuccess = true) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.style.backgroundColor = isSuccess ? '#b3ffae' : '#ffe0e0';
-    toast.className = 'show d-flex justify-content-center p-2';
-    setTimeout(() => {
-        toast.className = 'toast ';
-    }, 2000);
-
-    // const title = isSuccess ? 'Send' : 'Not Send';
-    // const icon = isSuccess ? 'success' : 'error';
-    // Swal.fire({
-    //     title: 'Mail ' + title,
-    //     text: message,
-    //     icon: icon,
-    //     confirmButtonText: 'OK',
-    //     //showCancelButton: false,
-    //     showConfirmButton: false,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor:'#d33',
-    //     iconColor:'#d33',
-    //     timer: 3000,
-    //     // toast: true,
-    //     timerProgressBar:true,
-    //     allowOutsideClick:true,
-    //     allowEscapeKey:false,
-    //     allowEnterKey:true,
-    // });
+    // const toast = document.getElementById('toast');
+    // toast.textContent = message;
+    // toast.style.backgroundColor = isSuccess ? '#b3ffae' : '#ffe0e0';
+    // toast.className = 'show d-flex justify-content-center p-2';
+    // setTimeout(() => {
+    //     toast.className = 'toast ';
+    // }, 2000);
+    let title = isSuccess ? 'Mail Send' : 'Mail Not Send';
+    const icon = isSuccess ? 'success' : 'error';
+    let toast = false;
+    if (message.includes('CSV')) {
+        title = null;
+        toast = true;
+    }
+    Swal.fire({
+        title: title,
+        text: message,
+        icon: icon,
+        showConfirmButton: false,
+        confirmButtonText: 'OK',
+        showCancelButton: false,
+        cancelButtonText: 'Cancle',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor:'#d33',
+        iconColor:'#d33',
+        timer: 3000,
+        toast: toast,
+        timerProgressBar:true,
+        //allowOutsideClick:true,
+        allowEscapeKey:false,
+        //allowEnterKey:true,
+    });
 }
 
 document.querySelectorAll('.maillink').forEach(link => {
@@ -49,7 +51,7 @@ document.querySelectorAll('.maillink').forEach(link => {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
             },
-            body: JSON.stringify({ userid: userid })
+            body: JSON.stringify({ uid: userid })
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -83,7 +85,7 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
 
         const title = "User Information.";
         doc.setFontSize(16);
-        doc.text(title, 70, 15);
+        doc.text(title, 80, 15);
 
         doc.autoTable({ head: [headers], body: [rowData], startY: 20 });
 
@@ -99,9 +101,11 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
             body: formData
         }).then(response => response.json())
             .then(result => {
-                window.console.log('PDF sent to server for email to user : ', result.username);
+                window.console.log('PDF sent to user : ', result.username);
+                showToast('PDF sent to user : ' + result.username, true);
             }).catch(error => {
                 window.console.error('Error sending PDF to server:', error);
+                showToast('Error sending PDF in send mail', false);
         });
 
         doc.save(filename);
@@ -118,10 +122,10 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
             return;
         }
 
-        const headers = ["", "Name", "Email", "City", "Date"];
-        const rowData = Array.from(tr.children).map(td => td.textContent.trim());
+        const headers = ["Name", "Email", "City", "Date"];
+        const rowData = Array.from(tr.children).map(td => td.textContent.trim()).slice(1);
 
-        const csvContent = [ headers.join(','), rowData.join(',') ].join("\\n");
+        const csvContent = [ headers.join(','), rowData.join(',') ].join("\n");
 
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
@@ -132,6 +136,7 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
         a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
+        showToast('CSV Exported successfully...',true);
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     });
