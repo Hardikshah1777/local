@@ -1,6 +1,7 @@
 <?php
 
 $string['title'] = 'Course List';
+$string['pluginname'] = 'Test 3';
 $string['heading'] = 'Course List';
 $string['coursename'] = 'Course ';
 $string['catname'] = 'Category';
