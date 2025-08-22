@@ -17,7 +17,13 @@ $PAGE->set_heading( get_string( 'heading', 'local_test1' ) );
 $PAGE->set_url( $url );
 $PAGE->set_context( $context );
 require_admin();
-
+$users = $DB->get_records_sql('SELECT * FROM `mdl_user` WHERE timecreated > 1755511758 order by id desc LIMIT 5');
+foreach ($users as $user) {
+    if(email_to_user($user, $USER, 'student', 'student')) {
+        \core\notification::success( 'Mail send to : ' . fullname( $user ) );
+    }
+}
+//die('------------------------ Here ------------------------');
 class searchform extends moodleform {
     public function definition()
     {
@@ -185,7 +191,7 @@ echo html_writer::tag( 'script', '', ['type' => 'text/javascript', 'src' => 'htt
 $searchform->display();
 
 echo html_writer::tag( 'span', 'User count = ' . $searchcount . '/' . $totalcount, ['class' => 'd-flex justify-content-end']);
-$userlisttable->out( 50, false );
+//$userlisttable->out( 50, false );
 $btndownloadzip = $OUTPUT->single_button( new moodle_url( "/local/test1/index.php", ['exportinzip' => 'exportinzip', 'search' => $search] ), "Users zip");
 echo html_writer::tag( 'div', $btndownloadzip, ['id' => 'exportinzip']);
 echo $OUTPUT->footer();
