@@ -3,10 +3,11 @@ export const init = () => {
 };
 /**
  * Description of showToast.
- * @param {string} message - The message.
- * @param {boolean} isSuccess - Indicates success or failure.
+ * @param {string} message - The message for show in swal.
+ * @param {boolean} isSuccess - Indicates success or failure user email.
+ * @param {string} toasttype - Indicates pdf send in user email.
  */
-function showToast(message, isSuccess = true) {
+function showToast(message, isSuccess, toasttype) {
     // const toast = document.getElementById('toast');
     // toast.textContent = message;
     // toast.style.backgroundColor = isSuccess ? '#b3ffae' : '#ffe0e0';
@@ -14,12 +15,18 @@ function showToast(message, isSuccess = true) {
     // setTimeout(() => {
     //     toast.className = 'toast ';
     // }, 2000);
-    let title = isSuccess ? 'Mail Send' : 'Mail Not Send';
-    const icon = isSuccess ? 'success' : 'error';
+    let title = null;
+    if (toasttype.includes('isEmail')) {
+        title = isSuccess ? 'Mail Send' : 'Mail Not Send';
+    }
+    if (toasttype.includes('ispdf')) {
+        title = isSuccess ? 'Attachment Send' : 'Attachment Not Send';
+    }
+    let icon = isSuccess ? 'success' : 'error';
     let toast = false;
     if (message.includes('CSV')) {
-        title = null;
         toast = true;
+        icon = '';
     }
     Swal.fire({
         title: title,
@@ -55,14 +62,13 @@ document.querySelectorAll('.maillink').forEach(link => {
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showToast('Email sent successfully to ' + data.username, true);
-                    window.console.log('Email sent successfully to ' + data.username);
+                    showToast('Email successfully sent to ' + data.username, data.success, 'isEmail');
                 } else {
-                    showToast('Failed to send mail', false);
+                    showToast('Failed to send Email', data.success, 'isEmail');
                 }
             }).catch(error => {
             window.console.log(error);
-            showToast('An error occurred while sending the email.', false);
+                showToast('An error occurred while sending the email.', false, 'isEmail');
         });
     });
 });
@@ -101,14 +107,16 @@ document.querySelectorAll('.downloadpdf').forEach(link => {
             body: formData
         }).then(response => response.json())
             .then(result => {
-                window.console.log('PDF sent to user : ', result.username);
-                showToast('PDF sent to user : ' + result.username, true);
+                if (result.success) {
+                    showToast('PDF sent to ' + result.username, result.success, 'ispdf');
+                    doc.save(filename);
+                } else {
+                    showToast('Failed to send PDF ', result.success, 'ispdf');
+                }
             }).catch(error => {
-                window.console.error('Error sending PDF to server:', error);
-                showToast('Error sending PDF in send mail', false);
+                window.console.log(error);
+                showToast('Error sending PDF in send mail', false, 'ispdf');
         });
-
-        doc.save(filename);
     });
 });
 
@@ -136,7 +144,7 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
         a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
-        showToast('CSV Exported successfully...',true);
+        showToast('CSV Exported successfully...',true, 'iscsv');
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     });
