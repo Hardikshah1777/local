@@ -24,7 +24,8 @@ $touser = core_user::get_user($uid);
 $mail_subject = get_string('mailsubject','local_test1');
 $mail_body = get_string('mailbody','local_test1', $touser);
 $fullname = fullname($touser);
-
+$maillogs = new stdClass();
+$maillogs->sendtime = time();
 if (!isset($uid) && !isset($_FILES['pdf'])) {
     echo json_encode(['success' => false, 'message' => 'No user ID provided']);
     exit;
@@ -33,7 +34,16 @@ if (!isset($uid) && !isset($_FILES['pdf'])) {
     exit;
 } else {
     if (!isset($_FILES['pdf'])) {
-        $emailresult = email_to_user( $touser, $fromuser, "Test js mail", "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>" );
+        $emailresult = email_to_user( $touser,
+                                      $fromuser,
+                              "Test js mail",
+                              "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
+        if ($emailresult) {
+            $maillogs->type = 'Simple Email';
+            $maillogs->mailer = $USER->id;
+            $maillogs->userid = $touser->id;
+            $DB->insert_record('local_test1_mail_log', $maillogs);
+        }
         echo json_encode(['success' => $emailresult, 'username' => $fullname]);
         exit;
     }
@@ -63,7 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
         $body = "<p>Attached is the PDF containing your user information.</p>";
 
         $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
-
+        if ($emailresult) {
+            $maillogs->type = 'Attachment Email';
+            $maillogs->mailer = $USER->id;
+            $maillogs->userid = $touser->id;
+            $DB->insert_record('local_test1_mail_log', $maillogs);
+        }
         @unlink($finalpath);
 
         echo json_encode(['success' => $emailresult,'username' => fullname($touser)]);
@@ -73,6 +88,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request.']);
 }
-
 //echo $OUTPUT->header();
 //echo $OUTPUT->footer();
