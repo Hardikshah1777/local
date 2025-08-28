@@ -9,7 +9,7 @@ require_once($CFG->libdir . '/tablelib.php');
 
 $search = optional_param('search', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHANUM);
-$delete = optional_param('delete', '', PARAM_INT);
+$delete = optional_param('delete', 0, PARAM_INT);
 $exportinzip = optional_param('exportinzip', '', PARAM_ALPHA);
 
 $url = new moodle_url('/local/test1/index.php', ['search' => $search]);
@@ -27,7 +27,7 @@ if (!empty($delete)) {
     redirect( $url );
 }
 
-$searchform = new searchform($url);
+$searchform = new searchform($url->out(false));
 $userlisttable = new userlist('userlist');
 $where = '';
 $params = [];

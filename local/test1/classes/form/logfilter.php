@@ -2,6 +2,7 @@
 
 namespace local_test1\form;
 use moodleform;
+require_once($CFG->libdir . '/formslib.php');
 
 class logfilter extends moodleform
 {
@@ -10,8 +11,8 @@ class logfilter extends moodleform
         global $DB;
 
         $mform = $this->_form;
-        $userid = $this->_customdata;
-        $alltypes = $DB->get_records_menu('local_test1_mail_log', ['userid'=> $userid['userid']]);
+        $customdata = $this->_customdata;
+        $alltypes = $DB->get_records_menu('local_test1_mail_log', ['userid'=> $customdata['userid']]);
         if (count($alltypes) <= 1) {
             return;
         }
@@ -19,7 +20,6 @@ class logfilter extends moodleform
         foreach ($alltypes as $type) {
             $types[$type] = $type;
         }
-
         $mform->addElement( 'select', 'type', get_string( 'selecttype', 'local_test1' ), $types, ['multiple' => false, 'onchange' => 'this.form.elements.formupdater.click()']);
         $mform->setType( 'type', PARAM_TEXT);
 

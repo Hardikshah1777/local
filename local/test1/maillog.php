@@ -1,18 +1,17 @@
 <?php
 
 require_once '../../config.php';
-require_once($CFG->libdir . '/formslib.php');
 
 use local_test1\form\logfilter;
 use local_test1\table\maillog;
 
-$id = optional_param('id', '', PARAM_TEXT);
+$id = optional_param('id', 0, PARAM_INT);
 $download = optional_param('download', '', PARAM_ALPHANUM);
 $type = optional_param('type', '', PARAM_TEXT);
-$starttime = optional_param('starttime', '', PARAM_INT);
-$endtime = optional_param('endtime', '', PARAM_INT);
+$starttime = optional_param('starttime', 0, PARAM_INT);
+$endtime = optional_param('endtime', 0, PARAM_INT);
 
-$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id, 'type' => $type]);
+$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id]);
 $context = context_system::instance();
 
 if (!$DB->record_exists('user', ['id' =>$id ])){
@@ -24,15 +23,16 @@ $fullname = fullname($user);
 $PAGE->set_title('Mails Detail');
 $PAGE->set_url($url);
 $PAGE->set_context($context);
-require_admin();
+require_login();
 
 $params['userid'] = $id;
 $table = new maillog('maillog');
-$filterform = new logfilter($PAGE->url, ['userid' => $id]);
+$filterform = new logfilter($url->out(false), ['userid' => $id]);
+$filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 $where = '';
 
 if (!empty($type)) {
-    $where .= " AND (" . $DB->sql_like( 'ml.type', ':type', false). " ) ";
+    $where .= " AND (" . $DB->sql_like('ml.type', ':type', false). " ) ";
     $params['type'] .= $type;
 }
 
