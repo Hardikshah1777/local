@@ -12,6 +12,14 @@ $string['email'] = 'Send mail';
 $string['pdf'] = 'Export PDF';
 $string['csv'] = 'Export CSV';
 $string['test1task'] = 'Test 1 Cron Task';
+$string['name'] = 'Fullname';
+$string['mailer'] = 'Mailer';
+$string['type'] = 'Mail type';
+$string['sendtime'] = 'Send Time';
+$string['email1'] = 'Email';
+$string['selecttype'] = 'Select Type';
+$string['starttime'] = 'Start Time';
+$string['endtime'] = 'End Time';
 $string['mailbody'] = '<body style="margin:0;padding:0;word-spacing:normal;background-color:#EFEEEE;">
 <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">   
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">       

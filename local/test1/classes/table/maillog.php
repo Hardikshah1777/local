@@ -29,4 +29,9 @@ class maillog extends table_sql
     public function col_sendtime($row){
         return $row->sendtime ? userdate($row->sendtime) : '-';
     }
+
+    public function col_email($row) {
+        $user = \core_user::get_user($row->userid);
+        return $user->email;
+    }
 }

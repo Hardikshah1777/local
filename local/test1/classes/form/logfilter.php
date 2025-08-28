@@ -20,8 +20,11 @@ class logfilter extends moodleform
             $types[$type] = $type;
         }
 
-        $mform->addElement( 'select', 'type', get_string( 'search', 'local_test1' ), $types, ['multiple' => false, 'onchange' => 'this.form.elements.formupdater.click()']);
+        $mform->addElement( 'select', 'type', get_string( 'selecttype', 'local_test1' ), $types, ['multiple' => false, 'onchange' => 'this.form.elements.formupdater.click()']);
         $mform->setType( 'type', PARAM_TEXT);
+
+        $mform->addElement( 'date_selector', 'starttime', get_string( 'starttime', 'local_test1'), ['optional' => true], ['onchange' => 'this.form.elements.formupdater.click()']);
+        $mform->addElement( 'date_selector', 'endtime', get_string( 'endtime', 'local_test1'), ['optional' => true], ['onchange' => 'this.form.elements.formupdater.click()']);
 
         $mform->registerNoSubmitButton('formupdater');
         $mform->addElement('submit', 'formupdater', 'type', ['class' => 'd-none']);

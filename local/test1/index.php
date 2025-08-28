@@ -7,68 +7,68 @@ require_once '../../config.php';
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->libdir . '/tablelib.php');
 
-$search = optional_param( 'search', '', PARAM_TEXT );
-$download = optional_param( 'download', '', PARAM_ALPHANUM );
-$delete = optional_param( 'delete', '', PARAM_INT );
-$exportinzip = optional_param( 'exportinzip', '', PARAM_ALPHA );
+$search = optional_param('search', '', PARAM_TEXT);
+$download = optional_param('download', '', PARAM_ALPHANUM);
+$delete = optional_param('delete', '', PARAM_INT);
+$exportinzip = optional_param('exportinzip', '', PARAM_ALPHA);
 
-$url = new moodle_url( '/local/test1/index.php', ['search' => $search] );
+$url = new moodle_url('/local/test1/index.php', ['search' => $search]);
 $context = context_system::instance();
 
-$PAGE->set_title( get_string( 'title', 'local_test1' ) );
-$PAGE->set_heading( get_string( 'heading', 'local_test1' ) );
-$PAGE->set_url( $url );
-$PAGE->set_context( $context );
+$PAGE->set_title(get_string('title', 'local_test1'));
+$PAGE->set_heading(get_string('heading', 'local_test1'));
+$PAGE->set_url($url);
+$PAGE->set_context($context);
 require_admin();
 
-if (!empty( $delete )) {
+if (!empty($delete)) {
     $deluser = $DB->get_record( 'user', ['id' => $delete] );
     delete_user( $deluser );
     redirect( $url );
 }
 
-$searchform = new searchform( $url );
-$userlisttable = new userlist( 'userlist' );
+$searchform = new searchform($url);
+$userlisttable = new userlist('userlist');
 $where = '';
 $params = [];
 
-if (!empty( $search )) {
-    $search = trim( $search );
-    $where = " AND (" . $DB->sql_like( 'firstname', ':firstname', false ) .
-        " OR " . $DB->sql_like( 'lastname', ':lastname', false ) .
-        " OR " . $DB->sql_like( 'username', ':username', false ) .
-        " OR " . $DB->sql_like( 'email', ':email', false ) . ")";
+if (!empty($search)) {
+    $search = trim($search);
+    $where = " AND (" . $DB->sql_like('firstname', ':firstname', false) .
+        " OR " . $DB->sql_like('lastname', ':lastname', false) .
+        " OR " . $DB->sql_like('username', ':username', false) .
+        " OR " . $DB->sql_like('email', ':email', false) . ")";
     $params['firstname'] = $params['lastname'] = $params['username'] = $params['email'] = '%' . $search . '%';
 }
 
 $userlisttable->set_sql('id, username, firstname, lastname, email, city, timecreated',
     '{user}',
     'id > 2 AND deleted = 0 AND suspended = 0 ' . $where, $params);
-$searchcount = $DB->count_records_sql( 'SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2 ' . $where, $params );
-$totalcount = $DB->count_records_sql( 'SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2' );
+$searchcount = $DB->count_records_sql('SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2 ' . $where, $params );
+$totalcount = $DB->count_records_sql('SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2' );
 $col = [
     'profile' => '#',
-    'fullname' => get_string( 'fullname' ),
-    'email' => get_string( 'email' ),
-    'city' => get_string( 'city' ),
-    'timecreated' => get_string( 'date' ),
-    'action' => get_string( 'action' ),
+    'fullname' => get_string('fullname'),
+    'email' => get_string('email'),
+    'city' => get_string('city'),
+    'timecreated' => get_string('date'),
+    'action' => get_string('action'),
 ];
 
 $userlisttable->search = $search;
-$userlisttable->define_baseurl( $url );
-$userlisttable->define_headers( array_values( $col ) );
-$userlisttable->define_columns( array_keys( $col ) );
-$userlisttable->sortable( true );
+$userlisttable->define_baseurl($url);
+$userlisttable->define_headers(array_values($col));
+$userlisttable->define_columns(array_keys($col));
+$userlisttable->sortable(true);
 $userlisttable->sortable(true,'id',SORT_ASC);
-$userlisttable->no_sorting( 'profile' );
-$userlisttable->no_sorting( 'action');
-$userlisttable->collapsible( false );
-$userlisttable->show_download_buttons_at( [TABLE_P_BOTTOM] );
-$userlisttable->set_attribute( 'id', 'userlist' );
-$userlisttable->is_downloadable( false );
+$userlisttable->no_sorting('profile');
+$userlisttable->no_sorting('action');
+$userlisttable->collapsible(false);
+$userlisttable->show_download_buttons_at([TABLE_P_BOTTOM]);
+$userlisttable->set_attribute('id', 'userlist');
+$userlisttable->is_downloadable(false);
 
-if ($userlisttable->is_downloading( $download, 'Users', 'Users' )) {
+if ($userlisttable->is_downloading($download, 'Users', 'Users')) {
     unset( $userlisttable->headers[0] );
     unset( $userlisttable->headers[5] );
     unset( $userlisttable->columns['profile'] );

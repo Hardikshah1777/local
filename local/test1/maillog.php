@@ -9,6 +9,8 @@ use local_test1\table\maillog;
 $id = optional_param('id', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHANUM);
 $type = optional_param('type', '', PARAM_TEXT);
+$starttime = optional_param('starttime', '', PARAM_INT);
+$endtime = optional_param('endtime', '', PARAM_INT);
 
 $url = new moodle_url( '/local/test1/maillog.php', ['id' => $id, 'type' => $type]);
 $context = context_system::instance();
@@ -28,21 +30,35 @@ $params['userid'] = $id;
 $table = new maillog('maillog');
 $filterform = new logfilter($PAGE->url, ['userid' => $id]);
 $where = '';
+
 if (!empty($type)) {
-    $where = " AND (" . $DB->sql_like( 'ml.type', ':type', false). " ) ";
-    $params['type'] = $type;
+    $where .= " AND (" . $DB->sql_like( 'ml.type', ':type', false). " ) ";
+    $params['type'] .= $type;
 }
 
-$table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, u.firstname, u.lastname',
+if (!empty($starttime)) {
+    $timestart = strtotime($starttime['day'].'-'.$starttime['month'].'-'.$starttime['year']);
+    $where .= ' AND sendtime >= :timestart';
+    $params['timestart'] .= $timestart;
+}
+
+if (!empty($endtime)) {
+    $timeend = make_timestamp( $endtime['year'], $endtime['month'], $endtime['day'], 23, 59, 59 );
+    $where .= ' AND sendtime <= :timeend';
+    $params['timeend'] .= $timeend;
+}
+
+$table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, u.firstname, u.lastname, u.email',
                 '{local_test1_mail_log} ml
                        JOIN {user} u ON u.id = ml.userid',
                 'ml.userid = :userid '. $where, $params);
 
 $col = [
-  'name' => 'Fullname',
-  'mailer' => 'Mailer',
-  'type' => 'Mail type',
-  'sendtime' => 'Send time',
+  'name' => get_string('name','local_test1'),
+  'email' => get_string('email1','local_test1'),
+  'mailer' => get_string('mailer','local_test1'),
+  'type' => get_string('type','local_test1'),
+  'sendtime' => get_string('sendtime','local_test1'),
 ];
 
 $table->define_baseurl($url);
