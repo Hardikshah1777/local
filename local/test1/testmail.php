@@ -34,10 +34,10 @@ if (!isset($uid) && !isset($_FILES['pdf'])) {
     exit;
 } else {
     if (!isset($_FILES['pdf'])) {
-        $emailresult = email_to_user( $touser,
-                                      $fromuser,
-                              "Test js mail",
-                              "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
+        $emailresult = 1;//email_to_user( $touser,
+//                                      $fromuser,
+//                              "Test js mail",
+//                              "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
         if ($emailresult) {
             $maillogs->type = 'Simple Email';
             $maillogs->mailer = $USER->id;
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
         $subject = "User Information PDF";
         $body = "<p>Attached is the PDF containing your user information.</p>";
 
-        $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
+        $emailresult = 1;//email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
         if ($emailresult) {
             $maillogs->type = 'Attachment Email';
             $maillogs->mailer = $USER->id;

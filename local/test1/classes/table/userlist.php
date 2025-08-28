@@ -28,6 +28,9 @@ class userlist extends table_sql {
         $edituser1 = new moodle_url( '/user/editadvanced.php', ['id' => $row->id, 'localtest1' => 'localtest1'] );
         $edituser = $OUTPUT->action_link( $edituser1, new pix_icon( 't/edit', get_string( 'edit' ) ) );
 
+        $logurl = new moodle_url( '/local/test1/maillog.php', ['id' => $row->id]);
+        $viewlog = $OUTPUT->action_link($logurl, new pix_icon( 'e/preview', get_string( 'view')));
+
         //$mail = new moodle_url('/local/test1/testmail.php', ['data-uid' => $row->id, 'search'=> $this->search]);
         $email = $OUTPUT->action_link( '#', new pix_icon( 't/email', get_string( 'email', 'local_test1' ) ), null, ['data-uid' => $row->id, 'class' => 'maillink'] );
 
@@ -39,7 +42,7 @@ class userlist extends table_sql {
         $confirm = new confirm_action( get_string( 'confirmuserdelete', 'local_test1', $row ) );
         $deleteuser = $OUTPUT->action_link( $edituser2, new pix_icon( 't/delete', get_string( 'delete' ) ), $confirm );
 
-        return ($edituser . $email . $downloadpdf . $downloadcsv . $deleteuser);
+        return ($edituser . $viewlog . $email . $downloadpdf . $downloadcsv . $deleteuser);
     }
 
     function start_html() {
