@@ -11,7 +11,7 @@ $type = optional_param('type', '', PARAM_TEXT);
 $starttime = optional_param('starttime', 0, PARAM_INT);
 $endtime = optional_param('endtime', 0, PARAM_INT);
 
-$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id]);
+$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id, 'type' => $type]);
 $context = context_system::instance();
 
 if (!$DB->record_exists('user', ['id' =>$id ])){
@@ -80,5 +80,5 @@ echo '<div class="d-flex justify-content-between mb-2">
 </div>';
 
 $filterform->display();
-$table->out(50, false );
+$table->out(3, false );
 echo $OUTPUT->footer();

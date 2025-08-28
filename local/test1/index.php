@@ -29,6 +29,7 @@ if (!empty($delete)) {
 
 $searchform = new searchform($url->out(false));
 $userlisttable = new userlist('userlist');
+$searchform->set_data(['search' => $search]);
 $where = '';
 $params = [];
 
