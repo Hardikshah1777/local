@@ -30,5 +30,28 @@ function xmldb_local_test1_upgrade($oldversion)
         upgrade_plugin_savepoint( true, 2023112700.04, 'local', 'test1' );
     }
 
+    if ($oldversion < 2023112700.05) {
+
+        // Define field body to be added to local_test1_mail_log.
+        $table = new xmldb_table('local_test1_mail_log');
+        $field = new xmldb_field('subject', XMLDB_TYPE_CHAR, '100', null, null, null, null, 'userid');
+        // Conditionally launch add field body.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $table = new xmldb_table('local_test1_mail_log');
+        $field = new xmldb_field('body', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'subject');
+
+        // Conditionally launch add field subject.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Test1 savepoint reached.
+        upgrade_plugin_savepoint(true, 2023112700.05, 'local', 'test1');
+    }
+
+
     return true;
 }
