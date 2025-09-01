@@ -11,42 +11,59 @@ $type = optional_param('type', '', PARAM_TEXT);
 $starttime = optional_param('starttime', 0, PARAM_INT);
 $endtime = optional_param('endtime', 0, PARAM_INT);
 
-$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id, 'type' => $type]);
+$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id]);
 $context = context_system::instance();
 
-if (!$DB->record_exists('user', ['id' =>$id ])){
-    throw new exception('Invalid userid');
-}
-
-$user = core_user::get_user($id);
-$fullname = fullname($user);
 $PAGE->set_title('Mails Detail');
 $PAGE->set_url($url);
 $PAGE->set_context($context);
 require_login();
 
+if (!$DB->record_exists('user', ['id' =>$id ])) {
+    throw new exception('Invalid userid');
+}
+
+if (!empty($starttime) && is_array($starttime)) {
+    $timestart = strtotime($starttime['day'] . '-' . $starttime['month'] . '-' . $starttime['year']);
+} else {
+    if (array_key_exists('page', $_GET) || array_key_exists('tsort', $_GET)) {
+        $timestart = $starttime;
+    }
+}
+
+if (!empty($endtime) || is_array($endtime)) {
+    $timeend = is_array( $endtime ) ? make_timestamp( $endtime['year'], $endtime['month'], $endtime['day'], 23, 59, 59 ) : $endtime;
+}else {
+    if (array_key_exists('page', $_GET) || array_key_exists('tsort', $_GET)) {
+        $timeend = $timeend;
+    }
+}
+
+$where = '';
+if (!empty($type)) {
+    $where .= " AND (" . $DB->sql_like('ml.type', ':type', false). " ) ";
+    $params['type'] .= $type;
+    $url->param('type', $type);
+}
+
+if (!empty($timestart)) {
+    $where .= ' AND sendtime >= :timestart';
+    $params['timestart'] .= $timestart;
+    $url->param('starttime', $timestart);
+}
+
+if (!empty($timeend)) {
+    $where .= ' AND sendtime <= :timeend';
+    $params['timeend'] .= $timeend;
+    $url->param('endtime', $timeend);
+}
+
+$user = core_user::get_user($id);
+$fullname = fullname($user);
 $params['userid'] = $id;
 $table = new maillog('maillog');
 $filterform = new logfilter($url->out(false), ['userid' => $id]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
-$where = '';
-
-if (!empty($type)) {
-    $where .= " AND (" . $DB->sql_like('ml.type', ':type', false). " ) ";
-    $params['type'] .= $type;
-}
-
-if (!empty($starttime)) {
-    $timestart = strtotime($starttime['day'].'-'.$starttime['month'].'-'.$starttime['year']);
-    $where .= ' AND sendtime >= :timestart';
-    $params['timestart'] .= $timestart;
-}
-
-if (!empty($endtime)) {
-    $timeend = make_timestamp( $endtime['year'], $endtime['month'], $endtime['day'], 23, 59, 59 );
-    $where .= ' AND sendtime <= :timeend';
-    $params['timeend'] .= $timeend;
-}
 
 $table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, u.firstname, u.lastname, u.email',
                 '{local_test1_mail_log} ml
@@ -64,7 +81,9 @@ $col = [
 $table->define_baseurl($url);
 $table->define_headers(array_values($col));
 $table->define_columns(array_keys($col));
-$table->sortable(false);
+$table->sortable(true,'sendtime', SORT_DESC);
+$table->no_sorting('name');
+$table->no_sorting('email');
 $table->showdownloadbuttonsat = [TABLE_P_BOTTOM];
 $table->collapsible(false);
 $table->is_downloadable(false);
@@ -80,5 +99,5 @@ echo '<div class="d-flex justify-content-between mb-2">
 </div>';
 
 $filterform->display();
-$table->out(3, false );
+$table->out(50, false );
 echo $OUTPUT->footer();
