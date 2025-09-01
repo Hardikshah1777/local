@@ -20,6 +20,8 @@ $string['email1'] = 'Email';
 $string['selecttype'] = 'Select Type';
 $string['starttime'] = 'Start Time';
 $string['endtime'] = 'End Time';
+$string['resend'] = 'Re-send';
+$string['action'] = 'Action';
 $string['mailbody'] = '<body style="margin:0;padding:0;word-spacing:normal;background-color:#EFEEEE;">
 <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">   
     <table role="presentation" style="width:100%;border:none;border-spacing:0;">       

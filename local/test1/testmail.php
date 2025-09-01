@@ -42,6 +42,8 @@ if (!isset($uid) && !isset($_FILES['pdf'])) {
             $maillogs->type = 'Simple Email';
             $maillogs->mailer = $USER->id;
             $maillogs->userid = $touser->id;
+            $maillogs->subject = 'Test js Simple mail';
+            $maillogs->body = "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>";
             $DB->insert_record('local_test1_mail_log', $maillogs);
         }
         echo json_encode(['success' => $emailresult, 'username' => $fullname]);
@@ -77,6 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
             $maillogs->type = 'Attachment Email';
             $maillogs->mailer = $USER->id;
             $maillogs->userid = $touser->id;
+            $maillogs->subject = $subject;
+            $maillogs->body = $body;
             $DB->insert_record('local_test1_mail_log', $maillogs);
         }
         @unlink($finalpath);

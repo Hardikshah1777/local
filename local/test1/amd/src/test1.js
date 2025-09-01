@@ -149,3 +149,30 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
         URL.revokeObjectURL(url);
     });
 });
+
+require(['core/modal_factory'], function(ModalFactory) {
+    document.querySelectorAll('.viewmail').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const user = JSON.parse(this.getAttribute('data-user'));
+            let type = user?.type || ' ';
+            let title = user?.subject || 'No Subject';
+            let body = user?.body || 'Nothing to display';
+            title = 'Subject : ' + title;
+            if (type) {
+                type = '<b>Type : ' + type + ' </b> <br><hr>';
+            }
+            ModalFactory.create({
+                title: title,
+                body: type + ' ' + body,
+                large: true,
+                closeButton: false,
+                footer: 'footer',
+            }).then(function(modal) {
+                modal.getModal().addClass('custom-viewmail-modal');
+                modal.show();
+            });
+        });
+    });
+});

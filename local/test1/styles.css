@@ -1,0 +1,13 @@
+.custom-viewmail-modal .modal-header {
+    background-color:#c2c2c2
+}
+
+.custom-viewmail-modal .modal-body {
+    padding: 20px;
+    background-color:#e5e5e5
+}
+
+.modal-dialog[tabindex="0"]:focus {
+    box-shadow:none;
+}
+

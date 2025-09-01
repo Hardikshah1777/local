@@ -2,6 +2,7 @@
 
 namespace local_test1\table;
 
+use pix_icon;
 use table_sql;
 require_once($CFG->libdir . '/tablelib.php');
 
@@ -9,7 +10,7 @@ class maillog extends table_sql
 {
     public function __construct($uniqueid)
     {
-        parent::__construct( $uniqueid );
+        parent::__construct($uniqueid);
     }
 
     public function col_name($row) {
@@ -22,16 +23,22 @@ class maillog extends table_sql
         return fullname($user);
     }
 
-    public function col_type($row){
+    public function col_type($row) {
         return $row->type ? $row->type : '-';
     }
 
-    public function col_sendtime($row){
+    public function col_sendtime($row) {
         return $row->sendtime ? userdate($row->sendtime) : '-';
     }
 
     public function col_email($row) {
         $user = \core_user::get_user($row->userid);
         return $user->email;
+    }
+
+    public function col_action($row) {
+        global $OUTPUT;
+        $icon = $OUTPUT->action_link('#', new pix_icon('t/hide', get_string('view')), null, ['data-user' => json_encode($row), 'class' => 'viewmail']);
+        return $icon;
     }
 }

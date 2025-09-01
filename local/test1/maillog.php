@@ -17,6 +17,7 @@ $context = context_system::instance();
 $PAGE->set_title('Mails Detail');
 $PAGE->set_url($url);
 $PAGE->set_context($context);
+$PAGE->requires->js_call_amd('local_test1/test1', 'init');
 require_login();
 
 if (!$DB->record_exists('user', ['id' =>$id ])) {
@@ -65,7 +66,7 @@ $table = new maillog('maillog');
 $filterform = new logfilter($url->out(false), ['userid' => $id]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
-$table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, u.firstname, u.lastname, u.email',
+$table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, u.firstname, u.lastname, u.email',
                 '{local_test1_mail_log} ml
                        JOIN {user} u ON u.id = ml.userid',
                 'ml.userid = :userid '. $where, $params);
@@ -76,6 +77,7 @@ $col = [
   'mailer' => get_string('mailer','local_test1'),
   'type' => get_string('type','local_test1'),
   'sendtime' => get_string('sendtime','local_test1'),
+  'action' => get_string('action','local_test1'),
 ];
 
 $table->define_baseurl($url);
@@ -84,6 +86,7 @@ $table->define_columns(array_keys($col));
 $table->sortable(true,'sendtime', SORT_DESC);
 $table->no_sorting('name');
 $table->no_sorting('email');
+$table->no_sorting('action');
 $table->showdownloadbuttonsat = [TABLE_P_BOTTOM];
 $table->collapsible(false);
 $table->is_downloadable(false);
