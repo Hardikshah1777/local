@@ -84,7 +84,6 @@ if (!$data->logid) {
 
 }
 
-//if ($resendid) {
 if ($data->logid) {
     if ($resenddata = $DB->get_record('local_test1_mail_log', ['id' => $data->logid])) {
 
@@ -103,6 +102,6 @@ if ($data->logid) {
     }
     echo json_encode($response);
 }
-//}
+
 //echo $OUTPUT->header();
 //echo $OUTPUT->footer();
