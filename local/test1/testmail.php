@@ -98,7 +98,7 @@ if ($data->logid) {
         $subject = $resenddata->subject;
         $body = $resenddata->body;
         $emailresult = email_to_user($touser, $from, $subject, $body);
-        $response = ['success' => $emailresult];
+        $response = ['success' => $emailresult, 'fullname' => $fullname];
     } else {
         throw new exception('Invalid resendid');
     }

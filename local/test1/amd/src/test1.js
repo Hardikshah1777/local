@@ -201,7 +201,7 @@ document.querySelectorAll('.resendmail').forEach(link => {
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showToast('Mail Re-send to ' + user.firstname + ' ' + user.lastname, data.success, 'resendmail');
+                    showToast('Mail Re-send to ' + data.fullname, data.success, 'resendmail');
                 } else {
                     showToast('Mail Failed to Re-send', data.success, 'resendmail');
                 }
