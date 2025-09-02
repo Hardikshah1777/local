@@ -35,13 +35,12 @@ if (!$data->logid) {
         echo json_encode( ['success' => false, 'message' => 'User not found'] );
         exit;
     } else {
-        if (!isset( $_FILES['pdf'] )) {
+        if (!isset( $_FILES['pdf'])) {
+            $subject = "Test Simple mail";
             $touser->type = 'Simple mail';
-            $emailresult = email_to_user( $touser,
-                $fromuser,
-                "Test js mail",
-                "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>" );
-            echo json_encode( ['success' => $emailresult, 'username' => $fullname] );
+            $body = "<p>hii {$fullname}</p> <p>Test Simple mail from <span style='font-weight: bold'>/local/test1/testmail.php.</span> </p>";
+            $emailresult = email_to_user($touser, $fromuser, $subject, $body);
+            echo json_encode(['success' => $emailresult, 'username' => $fullname]);
             exit;
         }
     }
@@ -53,14 +52,14 @@ if (!$data->logid) {
 
         if ($file['error'] === UPLOAD_ERR_OK) {
             $tempPath = $file['tmp_name'];
-            $filename = clean_param( $file['name'], PARAM_FILE );
+            $filename = clean_param($file['name'], PARAM_FILE );
             $mimetype = mime_content_type( $tempPath );
 
             // Move to a safe temporary location
-            $tempdir = make_temp_directory( 'userpdfs' );
+            $tempdir = make_temp_directory('userpdfs');
             $finalpath = $tempdir . '/' . $filename;
-            if (!move_uploaded_file( $tempPath, $finalpath )) {
-                echo json_encode( ['success' => false, 'error' => 'Failed to move uploaded file.'] );
+            if (!move_uploaded_file($tempPath, $finalpath)) {
+                echo json_encode(['success' => false, 'error' => 'Failed to move uploaded file.'] );
                 exit;
             }
 
@@ -71,16 +70,16 @@ if (!$data->logid) {
             $body = "<p>Attached is the PDF containing your user information.</p>";
 
             $touser->type = 'Attachment Email';
-            $emailresult = email_to_user( $touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype );
+            $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
 
-            @unlink( $finalpath );
+            @unlink($finalpath);
 
-            echo json_encode( ['success' => $emailresult, 'username' => fullname( $touser )] );
+            echo json_encode(['success' => $emailresult, 'username' => fullname( $touser )]);
         } else {
-            echo json_encode( ['success' => false, 'error' => 'File upload error.'] );
+            echo json_encode(['success' => false, 'error' => 'File upload error.']);
         }
     } else {
-        echo json_encode( ['success' => false, 'error' => 'Invalid request.'] );
+        echo json_encode( ['success' => false, 'error' => 'Invalid request.']);
     }
 
 }

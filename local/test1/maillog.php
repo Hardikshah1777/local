@@ -61,7 +61,7 @@ if (!empty($timeend)) {
 $user = core_user::get_user($userid);
 $fullname = fullname($user);
 $params['userid'] = $userid;
-$table = new maillog('maillog');
+$table = new maillog('custommaillog');
 $filterform = new logfilter($url->out(false), ['userid' => $userid]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
