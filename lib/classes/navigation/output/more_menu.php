@@ -59,6 +59,7 @@ class more_menu implements renderable, templatable {
      * @return array Data for rendering a template
      */
     public function export_for_template(renderer_base $output): array {
+        global $PAGE;
         $data = [
             'navbarstyle' => $this->navbarstyle,
             'istablist' => $this->istablist,
@@ -83,6 +84,8 @@ class more_menu implements renderable, templatable {
             $data['nodecollection'] = $this->content;
         } else {
             $data['nodearray'] = (array) $this->content;
+            $languagemenu = new \core\output\language_menu($PAGE);
+            $data['customlangmenu'] = $languagemenu->export_for_template($output);
         }
         $data['moremenuid'] = uniqid();
 
