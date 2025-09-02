@@ -2,6 +2,7 @@
 
 namespace local_test1\table;
 
+use moodle_url;
 use pix_icon;
 use table_sql;
 require_once($CFG->libdir . '/tablelib.php');
@@ -31,6 +32,10 @@ class maillog extends table_sql
         return $row->sendtime ? userdate($row->sendtime) : '-';
     }
 
+    public function col_resendtime($row) {
+        return $row->sendtime ? userdate($row->sendtime) : '-';
+    }
+
     public function col_email($row) {
         $user = \core_user::get_user($row->userid);
         return $user->email;
@@ -39,6 +44,10 @@ class maillog extends table_sql
     public function col_action($row) {
         global $OUTPUT;
         $icon = $OUTPUT->action_link('#', new pix_icon('t/hide', get_string('view')), null, ['data-user' => json_encode($row), 'class' => 'viewmail']);
-        return $icon;
+
+        $resendurl = new moodle_url( '/local/test1/maillog.php', ['userid' => $row->userid, 'resendid' => $row->id]);
+        $resend= $OUTPUT->action_link($resendurl, new pix_icon('e/restore_last_draft', get_string('resend', 'local_test1')), null, ['class' => 'resendmail']);
+
+        return $icon . $resend;
     }
 }

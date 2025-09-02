@@ -19,7 +19,7 @@ header('Content-Type: application/json');
 $raw = file_get_contents("php://input");
 $data = json_decode($raw);
 $uid = intval($data->uid);
-$fromuser = core_user::get_support_user();
+$fromuser = $USER;
 $touser = core_user::get_user($uid);
 $mail_subject = get_string('mailsubject','local_test1');
 $mail_body = get_string('mailbody','local_test1', $touser);
@@ -34,18 +34,11 @@ if (!isset($uid) && !isset($_FILES['pdf'])) {
     exit;
 } else {
     if (!isset($_FILES['pdf'])) {
-        $emailresult = 1;//email_to_user( $touser,
-//                                      $fromuser,
-//                              "Test js mail",
-//                              "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
-        if ($emailresult) {
-            $maillogs->type = 'Simple Email';
-            $maillogs->mailer = $USER->id;
-            $maillogs->userid = $touser->id;
-            $maillogs->subject = 'Test js Simple mail';
-            $maillogs->body = "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>";
-            $DB->insert_record('local_test1_mail_log', $maillogs);
-        }
+        $touser->type = 'Simple mail';
+        $emailresult = email_to_user( $touser,
+                                      $fromuser,
+                              "Test js mail",
+                              "<p>hii {$fullname}</p> <p>Test js mail from <b>/local/test1/testmail.php.</b> </p>");
         echo json_encode(['success' => $emailresult, 'username' => $fullname]);
         exit;
     }
@@ -74,15 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
         $subject = "User Information PDF";
         $body = "<p>Attached is the PDF containing your user information.</p>";
 
-        $emailresult = 1;//email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
-        if ($emailresult) {
-            $maillogs->type = 'Attachment Email';
-            $maillogs->mailer = $USER->id;
-            $maillogs->userid = $touser->id;
-            $maillogs->subject = $subject;
-            $maillogs->body = $body;
-            $DB->insert_record('local_test1_mail_log', $maillogs);
-        }
+        $touser->type = 'Attachment Email';
+        $emailresult = email_to_user($touser, $fromuser, $subject, $body, $body, $finalpath, $filename, $mimetype);
+
         @unlink($finalpath);
 
         echo json_encode(['success' => $emailresult,'username' => fullname($touser)]);

@@ -52,6 +52,35 @@ function xmldb_local_test1_upgrade($oldversion)
         upgrade_plugin_savepoint(true, 2023112700.05, 'local', 'test1');
     }
 
+    if ($oldversion < 2023112700.06) {
+
+        // Define field resend to be added to local_test1_mail_log.
+        $table = new xmldb_table('local_test1_mail_log');
+        $field = new xmldb_field('resend', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'userid');
+
+        // Conditionally launch add field resend.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Test1 savepoint reached.
+        upgrade_plugin_savepoint(true, 2023112700.06, 'local', 'test1');
+    }
+
+    if ($oldversion < 2023112700.07) {
+
+        // Define field resendtime to be added to local_test1_mail_log.
+        $table = new xmldb_table('local_test1_mail_log');
+        $field = new xmldb_field('resendtime', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'sendtime');
+
+        // Conditionally launch add field resendtime.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Test1 savepoint reached.
+        upgrade_plugin_savepoint(true, 2023112700.07, 'local', 'test1');
+    }
 
     return true;
 }

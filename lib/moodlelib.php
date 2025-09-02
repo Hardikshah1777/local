@@ -6307,13 +6307,28 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $mail->addBCC('bccmailtest@demo.com');
     }
     if ($mail->send()) {
-        $user->type = $subject;
-        $user->mailer = $from->id;
-        $user->userid = $user->id;
-        $user->subject = $subject;
-        $user->body = $messagetext;
-        $user->sendtime = time();
-        $DB->insert_record('local_test1_mail_log', $user);
+
+        $type = $user->type ? $user->type : $subject;
+
+        $maillog = new stdClass();
+        $maillog->id = $user->updateid;
+        $maillog->type = $type;
+
+        if (!empty($user->updateid) && $data = $DB->get_record('local_test1_mail_log', ['id' => $user->updateid, 'userid' => $user->id])) {
+            $resend = empty($data->resend) ? ' : Resend ' : '';
+            $maillog->subject = $subject . $resend;
+            $maillog->resend = $data->resend + 1;
+            $maillog->resendtime = time();
+            $DB->update_record('local_test1_mail_log', $maillog);
+        } else {
+            $maillog->mailer = $from->id;
+            $maillog->userid = $user->id;
+            $maillog->subject = $subject;
+            $maillog->body = $messagetext;
+            $maillog->resend = 0;
+            $maillog->sendtime = time();
+            $DB->insert_record('local_test1_mail_log', $maillog);
+        }
         set_send_count($user);
         if (!empty($mail->SMTPDebug)) {
             echo '</pre>';

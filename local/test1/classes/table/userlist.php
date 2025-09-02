@@ -28,7 +28,7 @@ class userlist extends table_sql {
         $edituser1 = new moodle_url( '/user/editadvanced.php', ['id' => $row->id, 'localtest1' => 'localtest1'] );
         $edituser = $OUTPUT->action_link( $edituser1, new pix_icon( 't/edit', get_string( 'edit' ) ) );
 
-        $logurl = new moodle_url( '/local/test1/maillog.php', ['id' => $row->id]);
+        $logurl = new moodle_url( '/local/test1/maillog.php', ['userid' => $row->id]);
         $viewlog = $OUTPUT->action_link($logurl, new pix_icon( 'e/preview', get_string( 'view')));
 
         //$mail = new moodle_url('/local/test1/testmail.php', ['data-uid' => $row->id, 'search'=> $this->search]);

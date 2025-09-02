@@ -5,13 +5,14 @@ require_once '../../config.php';
 use local_test1\form\logfilter;
 use local_test1\table\maillog;
 
-$id = optional_param('id', 0, PARAM_INT);
+$userid = optional_param('userid', 0, PARAM_INT);
 $download = optional_param('download', '', PARAM_ALPHANUM);
 $type = optional_param('type', '', PARAM_TEXT);
 $starttime = optional_param('starttime', 0, PARAM_INT);
 $endtime = optional_param('endtime', 0, PARAM_INT);
+$resendid = optional_param('resendid', 0, PARAM_INT);
 
-$url = new moodle_url( '/local/test1/maillog.php', ['id' => $id]);
+$url = new moodle_url( '/local/test1/maillog.php', ['userid' => $userid]);
 $context = context_system::instance();
 
 $PAGE->set_title('Mails Detail');
@@ -20,8 +21,27 @@ $PAGE->set_context($context);
 $PAGE->requires->js_call_amd('local_test1/test1', 'init');
 require_login();
 
-if (!$DB->record_exists('user', ['id' =>$id ])) {
+if (!$DB->record_exists('user', ['id' => $userid ])) {
     throw new exception('Invalid userid');
+}
+
+if ($resendid) {
+    if ($resenddata = $DB->get_record('local_test1_mail_log', ['id' => $resendid])) {
+
+        $touser = core_user::get_user($resenddata->userid);
+        $from = core_user::get_support_user($resenddata->mailer);
+
+        $touser->type = $resenddata->type;
+        $touser->resend = $resenddata->resend;
+        $touser->updateid = $resenddata->id;
+        $subject = $resenddata->subject;
+        $body = $resenddata->body;
+        email_to_user($touser, $from, $subject, $body);
+        $resendmsg = 'Mail Resend to : '. fullname($touser);
+        redirect($url, $resendmsg);
+    } else {
+        throw new exception('Invalid resendid');
+    }
 }
 
 if (!empty($starttime) && is_array($starttime)) {
@@ -59,14 +79,14 @@ if (!empty($timeend)) {
     $url->param('endtime', $timeend);
 }
 
-$user = core_user::get_user($id);
+$user = core_user::get_user($userid);
 $fullname = fullname($user);
-$params['userid'] = $id;
+$params['userid'] = $userid;
 $table = new maillog('maillog');
-$filterform = new logfilter($url->out(false), ['userid' => $id]);
+$filterform = new logfilter($url->out(false), ['userid' => $userid]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
-$table->set_sql('ml.id, ml.userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, u.firstname, u.lastname, u.email',
+$table->set_sql('ml.id, ml.userid as userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, ml.sendtime, u.firstname, u.lastname, u.email',
                 '{local_test1_mail_log} ml
                        JOIN {user} u ON u.id = ml.userid',
                 'ml.userid = :userid '. $where, $params);
@@ -77,6 +97,7 @@ $col = [
   'mailer' => get_string('mailer','local_test1'),
   'type' => get_string('type','local_test1'),
   'sendtime' => get_string('sendtime','local_test1'),
+  'resendtime' => get_string('resendtime','local_test1'),
   'action' => get_string('action','local_test1'),
 ];
 

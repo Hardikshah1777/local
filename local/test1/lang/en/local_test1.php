@@ -16,6 +16,7 @@ $string['name'] = 'Fullname';
 $string['mailer'] = 'Mailer';
 $string['type'] = 'Mail type';
 $string['sendtime'] = 'Send Time';
+$string['resendtime'] = 'Resend Time';
 $string['email1'] = 'Email';
 $string['selecttype'] = 'Select Type';
 $string['starttime'] = 'Start Time';
