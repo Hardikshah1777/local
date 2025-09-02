@@ -16,18 +16,26 @@ function showToast(message, isSuccess, toasttype) {
     //     toast.className = 'toast ';
     // }, 2000);
     let title = null;
+    let toast = false;
+    let icon = isSuccess ? 'success' : 'error';
+
     if (toasttype.includes('isEmail')) {
         title = isSuccess ? 'Mail Send' : 'Mail Not Send';
     }
     if (toasttype.includes('ispdf')) {
         title = isSuccess ? 'Attachment Send' : 'Attachment Not Send';
     }
-    let icon = isSuccess ? 'success' : 'error';
-    let toast = false;
+    if (toasttype.includes('resendmail')) {
+        title = isSuccess ? 'Mail Re-Send' : 'Mail Not Send';
+        toast = true;
+        icon = '';
+    }
+
     if (message.includes('CSV')) {
         toast = true;
         icon = '';
     }
+
     Swal.fire({
         title: title,
         text: message,
@@ -173,6 +181,33 @@ require(['core/modal_factory'], function(ModalFactory) {
                 modal.getModal().addClass('custom-viewmail-modal');
                 modal.show();
             });
+        });
+    });
+});
+
+document.querySelectorAll('.resendmail').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const user = JSON.parse(this.getAttribute('data-user'));
+        let logid1 = user.id;
+
+        fetch(M.cfg.wwwroot +'/local/test1/testmail.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ logid: logid1 }),
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('Mail Re-send to ' + user.firstname + ' ' + user.lastname, data.success, 'resendmail');
+                } else {
+                    showToast('Mail Failed to Re-send', data.success, 'resendmail');
+                }
+            }).catch(error => {
+                    window.console.log(error);
+                    showToast('An error occurred while Re-sending the mail',false, 'resendmail');
         });
     });
 });

@@ -43,10 +43,12 @@ class maillog extends table_sql
 
     public function col_action($row) {
         global $OUTPUT;
-        $icon = $OUTPUT->action_link('#', new pix_icon('t/hide', get_string('view')), null, ['data-user' => json_encode($row), 'class' => 'viewmail']);
 
-        $resendurl = new moodle_url( '/local/test1/maillog.php', ['userid' => $row->userid, 'resendid' => $row->id]);
-        $resend= $OUTPUT->action_link($resendurl, new pix_icon('e/restore_last_draft', get_string('resend', 'local_test1')), null, ['class' => 'resendmail']);
+        $icon = $OUTPUT->action_link('#', new pix_icon('t/hide', get_string('view')),
+            null, ['data-user' => json_encode($row), 'class' => 'viewmail']);
+
+        $resend= $OUTPUT->action_link('#', new pix_icon('e/restore_last_draft', get_string('resend', 'local_test1')),
+            null, ['data-user' => json_encode($row), 'class' => 'resendmail']);
 
         return $icon . $resend;
     }

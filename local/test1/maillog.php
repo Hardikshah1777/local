@@ -10,7 +10,6 @@ $download = optional_param('download', '', PARAM_ALPHANUM);
 $type = optional_param('type', '', PARAM_TEXT);
 $starttime = optional_param('starttime', 0, PARAM_INT);
 $endtime = optional_param('endtime', 0, PARAM_INT);
-$resendid = optional_param('resendid', 0, PARAM_INT);
 
 $url = new moodle_url( '/local/test1/maillog.php', ['userid' => $userid]);
 $context = context_system::instance();
@@ -24,26 +23,6 @@ require_login();
 if (!$DB->record_exists('user', ['id' => $userid ])) {
     throw new exception('Invalid userid');
 }
-
-if ($resendid) {
-    if ($resenddata = $DB->get_record('local_test1_mail_log', ['id' => $resendid])) {
-
-        $touser = core_user::get_user($resenddata->userid);
-        $from = $USER;
-
-        $touser->type = $resenddata->type;
-        $touser->resend = $resenddata->resend;
-        $touser->updateid = $resenddata->id;
-        $subject = $resenddata->subject;
-        $body = $resenddata->body;
-        email_to_user($touser, $from, $subject, $body);
-        $resendmsg = 'Mail Resend to : '. fullname($touser);
-        redirect($url, $resendmsg);
-    } else {
-        throw new exception('Invalid resendid');
-    }
-}
-
 if (!empty($starttime) && is_array($starttime)) {
     $timestart = strtotime($starttime['day'] . '-' . $starttime['month'] . '-' . $starttime['year']);
 } else {
