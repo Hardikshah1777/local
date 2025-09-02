@@ -6324,7 +6324,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
             $maillog->mailer = $from->id;
             $maillog->userid = $user->id;
             $maillog->subject = $subject;
-            $maillog->body = $messagetext;
+            $maillog->body = text_to_html($messagetext);
             $maillog->resend = 0;
             $maillog->sendtime = time();
             $DB->insert_record('local_test1_mail_log', $maillog);
