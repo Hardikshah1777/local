@@ -29,7 +29,7 @@ if ($resendid) {
     if ($resenddata = $DB->get_record('local_test1_mail_log', ['id' => $resendid])) {
 
         $touser = core_user::get_user($resenddata->userid);
-        $from = core_user::get_support_user($resenddata->mailer);
+        $from = $USER;
 
         $touser->type = $resenddata->type;
         $touser->resend = $resenddata->resend;
@@ -86,7 +86,7 @@ $table = new maillog('maillog');
 $filterform = new logfilter($url->out(false), ['userid' => $userid]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
-$table->set_sql('ml.id, ml.userid as userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, ml.sendtime, u.firstname, u.lastname, u.email',
+$table->set_sql('ml.id, ml.userid as userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, ml.sendtime, ml.resendtime, u.firstname, u.lastname, u.email',
                 '{local_test1_mail_log} ml
                        JOIN {user} u ON u.id = ml.userid',
                 'ml.userid = :userid '. $where, $params);

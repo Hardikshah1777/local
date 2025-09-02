@@ -6,7 +6,7 @@ function xmldb_local_test1_upgrade($oldversion)
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2023112700.04) {
+    if ($oldversion < 2023112700) {
 
         // Define table local_test1_mail_log to be created.
         $table = new xmldb_table( 'local_test1_mail_log');
@@ -16,7 +16,11 @@ function xmldb_local_test1_upgrade($oldversion)
         $table->add_field( 'type', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null );
         $table->add_field( 'mailer', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null );
         $table->add_field( 'userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null );
-        $table->add_field( 'sendtime', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null );
+        $table->add_field( 'subject', XMLDB_TYPE_CHAR, '255', null, null, null, null );
+        $table->add_field( 'body', XMLDB_TYPE_CHAR, '255', null, null, null, null );
+        $table->add_field( 'resend', XMLDB_TYPE_INTEGER, '10', null, null, null, 0);
+        $table->add_field( 'sendtime', XMLDB_TYPE_INTEGER, '10', null, null, null, null );
+        $table->add_field( 'resendtime', XMLDB_TYPE_INTEGER, '10', null, null, null, '0' );
 
         // Adding keys to table local_test1_mail_log.
         $table->add_key( 'primary', XMLDB_KEY_PRIMARY, ['id'] );
@@ -27,59 +31,7 @@ function xmldb_local_test1_upgrade($oldversion)
         }
 
         // Test1 savepoint reached.
-        upgrade_plugin_savepoint( true, 2023112700.04, 'local', 'test1' );
-    }
-
-    if ($oldversion < 2023112700.05) {
-
-        // Define field body to be added to local_test1_mail_log.
-        $table = new xmldb_table('local_test1_mail_log');
-        $field = new xmldb_field('subject', XMLDB_TYPE_CHAR, '100', null, null, null, null, 'userid');
-        // Conditionally launch add field body.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        $table = new xmldb_table('local_test1_mail_log');
-        $field = new xmldb_field('body', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'subject');
-
-        // Conditionally launch add field subject.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Test1 savepoint reached.
-        upgrade_plugin_savepoint(true, 2023112700.05, 'local', 'test1');
-    }
-
-    if ($oldversion < 2023112700.06) {
-
-        // Define field resend to be added to local_test1_mail_log.
-        $table = new xmldb_table('local_test1_mail_log');
-        $field = new xmldb_field('resend', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'userid');
-
-        // Conditionally launch add field resend.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Test1 savepoint reached.
-        upgrade_plugin_savepoint(true, 2023112700.06, 'local', 'test1');
-    }
-
-    if ($oldversion < 2023112700.07) {
-
-        // Define field resendtime to be added to local_test1_mail_log.
-        $table = new xmldb_table('local_test1_mail_log');
-        $field = new xmldb_field('resendtime', XMLDB_TYPE_INTEGER, '10', null, null, null, '0', 'sendtime');
-
-        // Conditionally launch add field resendtime.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Test1 savepoint reached.
-        upgrade_plugin_savepoint(true, 2023112700.07, 'local', 'test1');
+        upgrade_plugin_savepoint( true, 2023112700, 'local', 'test1' );
     }
 
     return true;

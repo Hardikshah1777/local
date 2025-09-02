@@ -33,7 +33,7 @@ class maillog extends table_sql
     }
 
     public function col_resendtime($row) {
-        return $row->sendtime ? userdate($row->sendtime) : '-';
+        return $row->resendtime ? userdate($row->resendtime) : '-';
     }
 
     public function col_email($row) {

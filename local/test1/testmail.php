@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf'])) {
         }
 
         $touser = core_user::get_user($userid);
-        $fromuser = core_user::get_support_user();
+        $fromuser = $USER;
 
         $subject = "User Information PDF";
         $body = "<p>Attached is the PDF containing your user information.</p>";

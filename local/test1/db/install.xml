@@ -9,12 +9,12 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="type" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="mailer" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of mail sender"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of user whose got mail."/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of user (mail receiver)."/>
         <FIELD NAME="resend" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="subject" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="body" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="sendtime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Time when mail send to user"/>
-        <FIELD NAME="resendtime" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="sendtime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Store Time when mail send to user"/>
+        <FIELD NAME="resendtime" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Store Time when mail Re-send to user"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
