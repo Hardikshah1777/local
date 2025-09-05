@@ -842,11 +842,9 @@ class quiz_statistics_report extends quiz_default_report {
                 unset($questions[$qs]);
                 continue;
             }
-            $questionids[] = $question->id;
         }
-        $fullquestions = question_load_questions($questionids);
         foreach ($questions as $qno => $question) {
-            $q = $fullquestions[$question->id];
+            $q = question_bank::load_question_data($question->id);
             $q->maxmark = $question->maxmark;
             $q->slot = $question->slot;
             $q->number = $question->number;

@@ -84,6 +84,9 @@ class quiz_statistics_table extends flexible_table {
         $columns[] = 'name';
         $headers[] = get_string('questionname', 'quiz');
 
+        $columns[] = 'idnumber';
+        $headers[] = get_string('idnumber');
+
         $columns[] = 's';
         $headers[] = get_string('attempts', 'quiz_statistics');
 
@@ -295,6 +298,10 @@ class quiz_statistics_table extends flexible_table {
         }
 
         return $name;
+    }
+
+    protected function col_idnumber($questionstat) {
+        return $questionstat->question->idnumber;
     }
 
     /**
