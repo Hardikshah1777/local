@@ -81,9 +81,11 @@
         <!-- page_heading_menu -->
         {{{ output.page_heading_menu }}}
     </ul>
-    {{#customlangmenu}}
-        {{> theme_boost/language_menu }}
-    {{/customlangmenu}}
+    <div class="customlangmenu d-none">
+        {{#customlangmenu}}
+            {{> theme_boost/language_menu }}
+        {{/customlangmenu}}
+    </div>
     <div id="usernavigation" class="navbar-nav ml-auto">
         {{# output.search_box }}
             {{{ output.search_box }}}
