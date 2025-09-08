@@ -85,7 +85,7 @@ class more_menu implements renderable, templatable {
         } else {
             $data['nodearray'] = (array) $this->content;
             $languagemenu = new \core\output\language_menu($PAGE);
-            $data['customlangmenu'] = $languagemenu->export_for_template($output);
+            $data['customlangmenu1'] = $languagemenu->export_for_template($output);
         }
         $data['moremenuid'] = uniqid();
 
