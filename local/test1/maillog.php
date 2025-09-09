@@ -65,7 +65,7 @@ $table = new maillog('custommaillog');
 $filterform = new logfilter($url->out(false), ['userid' => $userid]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
-$table->set_sql('ml.id, ml.userid as userid, ml.mailer, ml.type, ml.sendtime, ml.subject, ml.body, ml.sendtime, ml.resendtime, u.firstname, u.lastname, u.email',
+$table->set_sql('ml.id,u.firstname, u.lastname, u.email, ml.userid as userid, ml.mailer, ml.type, ml.subject, ml.body, ml.sendtime, ml.resendtime',
                 '{local_test1_mail_log} ml
                        JOIN {user} u ON u.id = ml.userid',
                 'ml.userid = :userid '. $where, $params);

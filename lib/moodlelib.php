@@ -6318,7 +6318,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
             $resend = empty($data->resend) ? ' : Resend ' : '';
             $maillog->subject = $subject . $resend;
             $maillog->resend = $data->resend + 1;
-            $maillog->resendtime = time();
+            $maillog->resendtime = $data->resendtime ? $data->resendtime.', '.time() : time();
             $DB->update_record('local_test1_mail_log', $maillog);
         } else {
             $maillog->mailer = $from->id;

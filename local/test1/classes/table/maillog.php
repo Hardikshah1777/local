@@ -32,8 +32,20 @@ class maillog extends table_sql
         return $row->sendtime ? userdate($row->sendtime) : '-';
     }
 
-    public function col_resendtime($row) {
-        return $row->resendtime ? userdate($row->resendtime) : '-';
+    public function col_resendtime($row)
+    {
+        if (!empty($row->resendtime)) {
+            $timestemps = explode(', ', $row->resendtime);
+            $calendarlink = '';
+            foreach ($timestemps as $timestemp) {
+                $resendtime = userdate($timestemp) . " ,<br><br> ";
+                $calendarlink .= \html_writer::link(new moodle_url('/calendar/view.php', ['view' => 'month', 'time' => $timestemp]), $resendtime,
+                    ['class' => 'text-body text-decoration-none', 'target' => '_blank']);
+            }
+            return $calendarlink;
+        }else{
+            return '-';
+        }
     }
 
     public function col_email($row) {
