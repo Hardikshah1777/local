@@ -91,7 +91,8 @@ $table->showdownloadbuttonsat = [TABLE_P_BOTTOM];
 $table->collapsible(false);
 $table->is_downloadable(false);
 if ($table->is_downloading($download, $fullname.' Mails', ' Mails logs')) {
-    unset( $userlisttable->columns['action'] );
+    unset($table->headers[6]);
+    unset($table->columns['action']);
     $table->out(50, false);
 }
 echo $OUTPUT->header();
