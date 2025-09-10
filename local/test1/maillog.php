@@ -31,11 +31,11 @@ if (!empty($starttime) && is_array($starttime)) {
     }
 }
 
-if (!empty($endtime) || is_array($endtime)) {
+if (!empty($endtime) && is_array($endtime)) {
     $timeend = is_array( $endtime ) ? make_timestamp( $endtime['year'], $endtime['month'], $endtime['day'], 23, 59, 59 ) : $endtime;
 }else {
     if (array_key_exists('page', $_GET) || array_key_exists('tsort', $_GET)) {
-        $timeend = $timeend;
+        $timeend = $endtime;
     }
 }
 
