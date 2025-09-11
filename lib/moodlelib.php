@@ -6314,11 +6314,24 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $maillog->id = $user->updateid;
         $maillog->type = $type;
 
+        require_once($CFG->dirroot . '/calendar/lib.php');
+        $event = new stdClass();
+        $event->format = FORMAT_HTML;
+        $event->userid = $user->id;
+        $event->modulename = '';
+        $event->instance = 0;
+        $event->eventtype = 'user';
+        $event->visible = 1;
+
         if (!empty($user->updateid) && $data = $DB->get_record('local_test1_mail_log', ['id' => $user->updateid, 'userid' => $user->id])) {
             $resend = empty($data->resend) ? ' : Resend ' : '';
             $maillog->subject = $subject . $resend;
             $maillog->resend = $data->resend + 1;
             $maillog->resendtime = $data->resendtime ? $data->resendtime.', '.time() : time();
+            $event->name = $maillog->subject .' - '.$maillog->resend;
+            $event->description = text_to_html($data->body);
+            $event->timestart = time();
+            calendar_event::create($event);
             $DB->update_record('local_test1_mail_log', $maillog);
         } else {
             $maillog->mailer = $from->id;
@@ -6327,6 +6340,10 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
             $maillog->body = text_to_html($messagetext);
             $maillog->resend = 0;
             $maillog->sendtime = time();
+            $event->name = $subject;
+            $event->description = text_to_html($messagetext);
+            $event->timestart = time();
+            calendar_event::create($event);
             $DB->insert_record('local_test1_mail_log', $maillog);
         }
         set_send_count($user);
