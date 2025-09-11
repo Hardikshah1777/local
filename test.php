@@ -175,6 +175,8 @@ echo $OUTPUT->header();
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     </head>
     <body>
 
@@ -412,7 +414,11 @@ echo $OUTPUT->header();
                 return;
             }
 
-            doc.autoTable({ html: table });
+            const title = "User Information.";
+            doc.setFontSize(16);
+            doc.text(title, 80, 15);
+
+            doc.autoTable({ html: table , startY: 20});
 
             doc.save(filename);
 
@@ -527,7 +533,7 @@ echo $OUTPUT->header();
             }
         }
     </script>
-    <div class="testtable d-none">
+    <div class="testtable">
         <table border="1" class="flexible table table-striped table-hover generaltable generalbox">
             <tr>
                 <th onclick="sortTableByName()">Name</th>
