@@ -25,8 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Test';
-$string['modulename'] = 'Test';
+$string['pluginname'] = 'Test 2025';
+$string['modulename'] = 'Test 2025';
 $string['testname'] = 'Name';
 $string['testfieldset'] = 'Field';
 $string['testsettings'] = 'Settings';
+$string['printintro'] = 'Status';
+$string['printintroexplain'] = 'Show the status enable or disable';
+$string['module'] = 'Module';
+$string['createdate'] = 'Create Date';

@@ -29,5 +29,7 @@ if ($hassiteconfig) {
     // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
     if ($ADMIN->fulltree) {
         // TODO: Define the plugin settings page - {@link https://docs.moodle.org/dev/Admin_settings}.
+        $settings->add(new admin_setting_configcheckbox('mod_test/status',
+            get_string('printintro', 'test'), get_string('printintroexplain', 'test'), 1));
     }
 }

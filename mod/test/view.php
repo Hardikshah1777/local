@@ -26,6 +26,7 @@ require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 
 use mod_test\event\course_module_viewed;
+use mod_test\table\alltestmod;
 
 // Course module id.
 $id = optional_param('id', 0, PARAM_INT);
@@ -51,12 +52,27 @@ $event = \mod_test\event\course_module_viewed::create( ['objectid' => $moduleins
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('test', $moduleinstance);
 $event->trigger();
-
-$PAGE->set_url('/mod/test/view.php', array('id' => $cm->id));
+$url = new moodle_url('/mod/test/view.php', array('id' => $cm->id));
+$PAGE->set_url($url);
 $PAGE->set_title(format_string($moduleinstance->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
+$col = [
+    'shortname' => get_string('course'),
+    'modname' => get_string('module', 'test'),
+    'timecreated' => get_string('createdate', 'test'),
+];
+
+$table = new alltestmod('alltestmod');
+$table->set_sql('t.id, t.name as modname, t.timecreated, c.id as courseid, c.shortname',
+                '{test} t LEFT JOIN {course} c ON c.id = t.course',
+                '1');
+$table->define_headers(array_values($col));
+$table->define_columns(array_keys($col));
+$table->sortable(false);
+$table->collapsible(false);
+$table->define_baseurl($url);
 
 echo $OUTPUT->header();
-
+$table->out(30, false);
 echo $OUTPUT->footer();
