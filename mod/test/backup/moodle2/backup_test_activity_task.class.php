@@ -28,9 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 // More information about the backup process: {@link https://docs.moodle.org/dev/Backup_API}.
 // More information about the restore process: {@link https://docs.moodle.org/dev/Restore_API}.
 
-require_once($CFG->dirroot.'//mod/test/backup/moodle2/backup_test_stepslib.php');
-require_once($CFG->dirroot.'//mod/test/backup/moodle2/backup_test_settingslib.php');
-
+require_once($CFG->dirroot.'/mod/test/backup/moodle2/backup_test_stepslib.php');
 /**
  * Provides all the settings and steps to perform a complete backup of mod_test.
  */
@@ -60,10 +58,6 @@ class backup_test_activity_task extends backup_activity_task {
         global $CFG;
 
         $base = preg_quote($CFG->wwwroot, '/');
-
-        // Link to the list of choices.
-        $search = "/(".$base."\//mod\/test\/index.php\?id\=)([0-9]+)/";
-        $content = preg_replace($search, '$@TESTINDEX*$2@$', $content);
 
         // Link to choice view by moduleid.
         $search = "/(".$base."\//mod\/test\/view.php\?id\=)([0-9]+)/";

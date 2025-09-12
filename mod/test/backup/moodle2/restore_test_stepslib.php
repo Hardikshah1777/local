@@ -40,15 +40,29 @@ class restore_test_activity_structure_step extends restore_activity_structure_st
      */
     protected function define_structure() {
         $paths = array();
-        $userinfo = $this->get_setting_value('userinfo');
-
+        $test = new restore_path_element('test', '/activity/test');
+        $paths[] = $test;
         return $this->prepare_activity_structure($paths);
+    }
+
+
+    protected function process_test($data) {
+        global $DB;
+
+        $data = (object)$data;
+        $data->course = $this->get_courseid();
+        $data->timecreated = time();
+        $data->timemodified = '';
+
+        // insert the evaluation record
+        $newitemid = $DB->insert_record('test', $data);
+        $this->apply_activity_instance($newitemid);
     }
 
     /**
      * Defines post-execution actions.
      */
     protected function after_execute() {
-        return;
+        $this->add_related_files('mod_test', 'intro', null);
     }
 }

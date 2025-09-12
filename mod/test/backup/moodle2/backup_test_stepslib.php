@@ -39,21 +39,10 @@ class backup_test_activity_structure_step extends backup_activity_structure_step
      * @return backup_nested_element The structure wrapped by the common 'activity' element.
      */
     protected function define_structure() {
-        $userinfo = $this->get_setting_value('userinfo');
+        $testkmodule = new backup_nested_element('test', ['id'], ['course','name','timecreated','timemodified','intro','introformat']);
+        $testkmodule->set_source_table('test', ['id' => backup::VAR_ACTIVITYID]);
+        $testkmodule->annotate_files('mod_test', 'intro', null);
 
-        // Replace with the attributes and final elements that the element will handle.
-        $attributes = null;
-        $finalelements = null;
-        $root = new backup_nested_element('mod_test', $attributes, $finalelements);
-
-        // Build the tree with these elements with $root as the root of the backup tree.
-
-        // Define the source tables for the elements.
-
-        // Define id annotations.
-
-        // Define file annotations.
-
-        return $this->prepare_activity_structure($root);
+        return $this->prepare_activity_structure($testkmodule);
     }
 }

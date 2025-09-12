@@ -59,7 +59,7 @@ class restore_test_activity_task extends restore_activity_task {
     public static function define_decode_contents() {
         $contents = array();
 
-        // Define the contents.
+        $contents[] = new restore_decode_content('test', array('intro'), 'id');
 
         return $contents;
     }
@@ -72,7 +72,7 @@ class restore_test_activity_task extends restore_activity_task {
     public static function define_decode_rules() {
         $rules = array();
 
-        // Define the rules.
+        $rules[] = new restore_decode_rule('TESTVIEWBYID', '/mod/test/view.php?id=$1', 'course_module');
 
         return $rules;
     }
