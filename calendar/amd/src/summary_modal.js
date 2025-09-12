@@ -61,6 +61,9 @@ function(
      */
     var ModalEventSummary = function(root) {
         Modal.call(this, root);
+        if (root && root.children().length > 0) {
+            root.children().first().addClass('modal-lg');
+        }
     };
 
     ModalEventSummary.TYPE = 'core_calendar-event_summary';
