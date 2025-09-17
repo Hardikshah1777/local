@@ -18,7 +18,7 @@ class test1task extends \core\task\scheduled_task
 //        mtrace('cron working by cmd: php admin/tool/task/cli/schedule_task.php --execute="\local_test1\task\test1task"');
         $mailtxt = get_string('test1task', 'local_test1');
         $attechment = \html_writer::img($CFG->wwwroot.'/local/test1/pix/test1.jpg','Test1 image', ['width' => '50%']);
-        email_to_user($USER, $USER, $mailtxt, $mailtxt, $mailtxt, $attechment, 'test1.jpg');
+        //email_to_user($USER, $USER, $mailtxt, $mailtxt, $mailtxt, $attechment, 'test1.jpg');
         return true;
     }
 }

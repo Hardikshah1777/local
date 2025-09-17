@@ -37,9 +37,9 @@ class temco_scorm_weekly_report extends scheduled_task {
         $message = get_string('temoscorm_completion:body', util::COMPONENT);
         $touser->mailformat = 1;
 
-        email_to_user($touser, $fromuser, $subject, $message, $message, $filepath, $filename);
+        //email_to_user($touser, $fromuser, $subject, $message, $message, $filepath, $filename);
         $touser->email = 'nigel@bhivelearning.com';
-        email_to_user($touser, $fromuser, $subject, $message, $message, $filepath, $filename);
+        //email_to_user($touser, $fromuser, $subject, $message, $message, $filepath, $filename);
         remove_dir($tempdir);
     }
 
