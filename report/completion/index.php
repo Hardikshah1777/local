@@ -412,15 +412,18 @@ if (!$csv) {
 
         foreach ($criteria as $criterion) {
             // Get criteria details
+            $modurl = $CFG->wwwroot.'/mod/'.$criterion->module.'/view.php?id='.$criterion->moduleinstance;
             $details = $criterion->get_title_detailed();
             print '<th scope="col" class="colheader criterianame">';
-            print '<div class="rotated-text-container"><span class="rotated-text">'.$details.'</span></div>';
+            print '<div class="rotated-text-container"><span class="rotated-text"><a href='.$modurl.' class="text-decoration-none" target="_blank">'.$details.'</a></span></div>';
             print '</th>';
         }
 
         // Overall course completion status
+        $iconlink = $CFG->wwwroot.'/course/view.php?id='.$courseid;
         print '<th scope="col" class="colheader criterianame">';
-        print '<div class="rotated-text-container"><span class="rotated-text">'.get_string('coursecomplete', 'completion').'</span></div>';
+        print '<div class="rotated-text-container"><span class="rotated-text"><a href='.$iconlink.' class="text-body text-decoration-none" target="_blank">
+                                                  '.get_string('coursecomplete', 'completion').'</a></span></div>';
         print '</th></tr>';
     }
 
@@ -503,9 +506,10 @@ if (!$csv) {
     }
 
     // Overall course completion status
-    print '<th class="criteriaicon">';
+    $iconlink = $CFG->wwwroot.'/course/view.php?id='.$courseid;
+    print '<th class="criteriaicon"><a href='.$iconlink.' target="_blank" class="text-body">';
     print $OUTPUT->pix_icon('i/course', get_string('coursecomplete', 'completion'));
-    print '</th>';
+    print '</a></th>';
 
     print '</tr></thead>';
 
