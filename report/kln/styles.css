@@ -1,0 +1,4 @@
+#page-report-kln-index #dateselector-calendar-panel,
+#page-report-kln-courses #dateselector-calendar-panel {
+    top: 100px !important;
+}
