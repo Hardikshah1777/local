@@ -87,6 +87,15 @@ class mod_assign_mod_form extends moodleform_mod {
             $assignment->set_course($course);
         }
 
+        ///////////////////////////////////////////////////////////////////////////////
+        //$name = get_string('showsubmissionstudent', 'assign');
+        $name = 'View other users submission';
+        $mform->addElement('advcheckbox', 'showsubmissionstudent', $name);
+        $mform->setDefault('showsubmissionstudent', 0);
+        ///////////////////////////////////////////////////////////////////////////////
+
+        $config = get_config('assign');
+
         $mform->addElement('header', 'availability', get_string('availability', 'assign'));
         $mform->setExpanded('availability', true);
 

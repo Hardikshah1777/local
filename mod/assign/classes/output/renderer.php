@@ -397,6 +397,7 @@ class renderer extends \plugin_renderer_base {
      * @return string
      */
     public function render_assign_feedback_status(\assign_feedback_status $status) {
+        global $DB, $CFG;
         $o = '';
 
         $o .= $this->output->container_start('feedback');

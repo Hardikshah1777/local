@@ -722,6 +722,9 @@ class assign {
         if (isset($formdata->submissionattachments)) {
             $update->submissionattachments = $formdata->submissionattachments;
         }
+        if (isset($formdata->showsubmissionstudent)) {
+            $update->showsubmissionstudent = $formdata->showsubmissionstudent;
+        }
         $update->submissiondrafts = $formdata->submissiondrafts;
         $update->requiresubmissionstatement = $formdata->requiresubmissionstatement;
         $update->sendnotifications = $formdata->sendnotifications;
@@ -763,7 +766,9 @@ class assign {
         if (empty($update->markingworkflow)) { // If marking workflow is disabled, make sure allocation is disabled.
             $update->markingallocation = 0;
         }
-
+        ////////
+        $update->showsubmissionstudent = $formdata->showsubmissionstudent;
+        ////////
         $returnid = $DB->insert_record('assign', $update);
         $this->instance = $DB->get_record('assign', array('id'=>$returnid), '*', MUST_EXIST);
         // Cache the course record.
@@ -801,6 +806,9 @@ class assign {
         $update = new stdClass();
         $update->id = $this->get_instance()->id;
         $update->nosubmissions = (!$this->is_any_submission_plugin_enabled()) ? 1: 0;
+        ///
+        $update->showsubmissionstudent = $formdata->showsubmissionstudent;
+        ///
         $DB->update_record('assign', $update);
 
         return $returnid;
@@ -1487,6 +1495,9 @@ class assign {
         }
         if (isset($formdata->submissionattachments)) {
             $update->submissionattachments = $formdata->submissionattachments;
+        }
+        if (isset($formdata->showsubmissionstudent)) {
+            $update->showsubmissionstudent = $formdata->showsubmissionstudent;
         }
         $update->submissiondrafts = $formdata->submissiondrafts;
         $update->requiresubmissionstatement = $formdata->requiresubmissionstatement;
@@ -5901,7 +5912,11 @@ class assign {
                 $this->get_course_module()
             );
         }
-
+        ///
+        $summary->showsubmissionstudent = $instance->teamsubmission ||
+            (has_capability('mod/assign:viewgrades', $this->context) && $instance->showsubmissionstudent);
+        $summary->isstudent = !$this->can_grade() && $summary->showsubmissionstudent;
+        ///
         return $summary;
     }
 
