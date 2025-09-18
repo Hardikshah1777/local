@@ -340,7 +340,7 @@ if ($CFG->enablenotes || $CFG->messaging) {
 
 // Organise access to JS for messaging.
 $module = array('name' => 'core_user', 'fullpath' => '/user/module.js');
-$PAGE->requires->js_init_call('M.core_user.init_participation', null, false, $module);
+//$PAGE->requires->js_init_call('M.core_user.init_participation', null, false, $module);
 
 // Organise access to JS for progress bars.
 $jsmodule = array('name' => 'block_progress', 'fullpath' => '/blocks/progress/module.js');

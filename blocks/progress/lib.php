@@ -1155,6 +1155,8 @@ function block_progress_event_information($config, $modules, $course, $userid = 
             // Is the module being monitored?
             if (isset($config->{'monitor_'.$module.$record->id})) {
                 $numeventsconfigured++;
+            }else{
+                continue;
             }
             if (progress_default_value($config->{'monitor_'.$module.$record->id}, 0) == 1) {
                 $numevents++;
@@ -1654,7 +1656,7 @@ function block_progress_course_sections($course) {
         if ($section->sequence != '') {
             $sections[$key]->sequence = explode(',', $section->sequence);
         } else {
-            $sections[$key]->sequence = null;
+            $sections[$key]->sequence = [];
         }
     }
 
