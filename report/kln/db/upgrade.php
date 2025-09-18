@@ -46,7 +46,7 @@ function xmldb_report_kln_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2025091500.01, 'report', 'kln');
     }
 
-    if ($oldversion < 2025091500.06) {
+    if ($oldversion < 2025091500.07) {
 
         $frequency = HOURSECS / 2;
         $logs = $DB->get_recordset_select('logstore_standard_log', '', [], 'id ASC');
@@ -101,7 +101,7 @@ function xmldb_report_kln_upgrade($oldversion) {
             \report_kln\util::handle_user_login($currentuser, $loginevent->timecreated);
         }
 
-        upgrade_plugin_savepoint(true, 2025091500.06, 'report', 'kln');
+        upgrade_plugin_savepoint(true, 2025091500.07, 'report', 'kln');
     }
 
     return true;

@@ -26,6 +26,9 @@ class userfilter extends dynamic_form {
         $PAGE->start_collecting_javascript_requirements();
         $html = $this->render();
         $js = $PAGE->requires->get_end_code();
+        if ($formdata->endtime) {
+            $formdata->endtime = strtotime(date("Y-m-d", $formdata->endtime) . ' 23:59:59');
+        }
         return [
             'formdata' => $formdata,
             'html' => $html,
@@ -44,10 +47,10 @@ class userfilter extends dynamic_form {
         $mform = $this->_form;
 
         $useroptions = [0 => get_string('choose')] + util::get_users();
-        $mform->addElement('select', 'userid', get_string('userfilter:userid', util::COMPONENT), $useroptions);
+        $mform->addElement('autocomplete', 'userid', get_string('userfilter:userid', util::COMPONENT), $useroptions);
 
         $courseoptions = [0 => get_string('choose')] + util::get_courses();
-        $mform->addElement('select', 'courseid', get_string('coursefilter:course', util::COMPONENT), $courseoptions);
+        $mform->addElement('autocomplete', 'courseid', get_string('coursefilter:course', util::COMPONENT), $courseoptions);
 
         $this->render_common_filters($mform);
     }

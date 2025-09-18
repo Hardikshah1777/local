@@ -28,12 +28,12 @@ class userslist extends dynamictable {
         $params = [];
 
         if (!empty($filters->starttime)) {
-            $timewhere .= ' AND kct.timecreated > :kcttimestart ';
+            $timewhere .= ' AND kct.timecreated >= :kcttimestart ';
             $params['kcttimestart'] = $filters->starttime;
         }
 
         if (!empty($filters->endtime)) {
-            $timewhere .= ' AND kct.timecreated < :kctendtime ';
+            $timewhere .= ' AND kct.timecreated <= :kctendtime ';
             $params['kctendtime'] = $filters->endtime;
         }
 
@@ -104,7 +104,7 @@ SQL;
     }
 
     public function col_timespent($row) {
-        return !empty($row->timespent) ? format_time($row->timespent) : '';
+        return !empty($row->timespent) ? util::kln_format_time($row->timespent) : '';
     }
 
     public function col_courses($row) {

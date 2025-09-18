@@ -76,4 +76,53 @@ class util {
         return $DB->get_records_select_menu('user', 'id > 2 AND suspended = 0 AND deleted = 0', [], '', 'id, CONCAT(firstname, " ", lastname)');
     }
 
+    public static function kln_format_time($totalsecs, $str = null) {
+
+        $totalsecs = abs($totalsecs);
+
+        if (!$str) {
+            // Create the str structure the slow way.
+            $str = new stdClass();
+            $str->hour  = get_string('hour');
+            $str->hours = get_string('hours');
+            $str->min   = get_string('min');
+            $str->mins  = get_string('mins');
+            $str->sec   = get_string('sec');
+            $str->secs  = get_string('secs');
+        }
+
+        $hours     = floor($totalsecs/HOURSECS);
+        $remainder = $totalsecs - ($hours*HOURSECS);
+        $mins      = floor($remainder/MINSECS);
+        $secs      = $remainder - ($mins*MINSECS);
+
+        $ss = ($secs == 1)  ? $str->sec  : $str->secs;
+        $sm = ($mins == 1)  ? $str->min  : $str->mins;
+        $sh = ($hours == 1) ? $str->hour : $str->hours;
+
+        $ohours = '';
+        $omins = '';
+        $osecs = '';
+
+        if ($hours) {
+            $ohours = $hours .' '. $sh;
+        }
+        if ($mins) {
+            $omins  = $mins .' '. $sm;
+        }
+        if ($secs) {
+            $osecs  = $secs .' '. $ss;
+        }
+
+        if ($hours) {
+            return trim($ohours .' '. $omins);
+        }
+        if ($mins) {
+            return trim($omins .' '. $osecs);
+        }
+        if ($secs) {
+            return $osecs;
+        }
+        return get_string('now');
+    }
 }
