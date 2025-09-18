@@ -1325,6 +1325,34 @@ function core_user_inplace_editable($itemtype, $itemid, $newvalue) {
     if ($itemtype === 'user_roles') {
         return \core_user\output\user_roles_editable::update($itemid, $newvalue);
     }
+    if ($itemtype === 'invoice') {
+        global $DB, $CFG;
+
+        require_once($CFG->libdir . '/external/externallib.php');
+
+        list($courseid, $userid) = explode(':', $itemid, 2);
+
+        $courseid = clean_param($courseid, PARAM_INT);
+        $userid = clean_param($userid, PARAM_INT);
+
+        // Check user is enrolled in the course.
+        $context = context_course::instance($courseid);
+        core_external::validate_context($context);
+
+        require_capability('moodle/course:update',$context);
+        $table = 'courseuserinvoice';
+        if(!$record = $DB->get_record($table,['courseid' => $courseid,'userid' => $userid,])){
+            $record = (object) compact('courseid','userid');
+        }
+        $record->timemodified = time();
+        $record->invoice = $newvalue;
+        if(isset($record->id)){
+            $DB->update_record($table,$record);
+        } else {
+            $record->id = $DB->insert_record($table,$record);
+        }
+        return new \core\output\inplace_editable('core_user',$itemtype,$itemid,true,$newvalue,$newvalue);
+    }
 }
 
 /**

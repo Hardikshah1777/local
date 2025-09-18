@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace core_user\table;
 
+use core\output\inplace_editable;
 use DateTime;
 use context;
 use core_table\dynamic as dynamic_table;
@@ -179,6 +180,12 @@ class participants extends \table_sql implements dynamic_table {
             $headers[] = get_string('participationstatus', 'enrol');
             $this->no_sorting('status');
         };
+
+        if(has_capability('moodle/course:update', $this->context)){
+            $columns[] = 'invoice';
+            $headers[] = 'Invoice';
+            $this->no_sorting('invoice');
+        }
 
         $this->define_columns($columns);
         $this->define_headers($headers);
@@ -459,8 +466,23 @@ class participants extends \table_sql implements dynamic_table {
         if ($useinitialsbar) {
             $this->initialbars(true);
         }
+
+        global $DB;
+        $rs = $DB->get_recordset('courseuserinvoice',['courseid' => $this->courseid,]);
+        foreach ($rs as $rc) {
+            if(isset($this->rawdata[$rc->userid])){
+                $this->rawdata[$rc->userid]->invoice = $rc->invoice;
+            }
+        }
+        $rs->close();
     }
 
+    public function col_invoice($data) {
+        global $OUTPUT;
+        $invoice = $data->invoice ?? null;
+        $widget = new inplace_editable('core_user','invoice', "{$this->courseid}:{$data->id}",true,$invoice,$invoice);
+        return $OUTPUT->render($widget);
+    }
     /**
      * Override the table show_hide_link to not show for select column.
      *
