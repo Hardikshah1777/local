@@ -22,14 +22,17 @@ $PAGE->set_context($context);
 require_admin();
 
 if (!empty($delete)) {
-    $deluser = $DB->get_record( 'user', ['id' => $delete] );
-    delete_user( $deluser );
-    redirect( $url );
+    if ($deluser = $DB->get_record( 'user', ['id' => $delete])) {
+        delete_user($deluser);
+    }
+    redirect($url);
 }
 
 $searchform = new searchform($url->out(false));
-$userlisttable = new userlist('userlist');
 $searchform->set_data(['search' => $search]);
+
+$userlisttable = new userlist('userlist');
+
 $where = '';
 $params = [];
 
@@ -42,13 +45,15 @@ if (!empty($search)) {
     $params['firstname'] = $params['lastname'] = $params['username'] = $params['email'] = '%' . $search . '%';
 }
 
-$userlisttable->set_sql('id, username, firstname, lastname, email, city, timecreated',
-    '{user}',
-    'id > 2 AND deleted = 0 AND suspended = 0 ' . $where, $params);
+$userlisttable->set_sql('*',
+                        '{user}',
+                        'id > 2 AND deleted = 0 AND suspended = 0 ' . $where, $params);
+
 $searchcount = $DB->count_records_sql('SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2 ' . $where, $params );
 $totalcount = $DB->count_records_sql('SELECT COUNT(1) FROM {user} WHERE deleted = 0 AND suspended = 0 AND id > 2' );
+
 $col = [
-    'profile' => '#',
+    'profile' => '',
     'fullname' => get_string('fullname'),
     'email' => get_string('email'),
     'city' => get_string('city'),
@@ -56,8 +61,6 @@ $col = [
     'action' => get_string('action'),
 ];
 
-$userlisttable->search = $search;
-$userlisttable->define_baseurl($url);
 $userlisttable->define_headers(array_values($col));
 $userlisttable->define_columns(array_keys($col));
 $userlisttable->sortable(true);
@@ -65,15 +68,15 @@ $userlisttable->sortable(true,'id',SORT_ASC);
 $userlisttable->no_sorting('profile');
 $userlisttable->no_sorting('action');
 $userlisttable->collapsible(false);
+$userlisttable->search = $search;
+$userlisttable->define_baseurl($url);
 $userlisttable->show_download_buttons_at([TABLE_P_BOTTOM]);
 $userlisttable->set_attribute('id', 'userlist');
 $userlisttable->is_downloadable(false);
 
 if ($userlisttable->is_downloading($download, 'Users', 'Users')) {
-    unset( $userlisttable->headers[0] );
-    unset( $userlisttable->headers[5] );
-    unset( $userlisttable->columns['profile'] );
-    unset( $userlisttable->columns['action'] );
+    unset($userlisttable->headers[0], $userlisttable->headers[5],
+          $userlisttable->columns['profile'], $userlisttable->columns['action']);
     $userlisttable->out( 50, false );
 }
 
@@ -100,6 +103,7 @@ if ($exportinzip == "exportinzip") {
 }
 
 echo $OUTPUT->header();
+
 $PAGE->requires->js_call_amd('local_test1/test1', 'init');
 echo html_writer::tag( 'div', '', ['id' => 'toast', 'class' => 'toast'] );
 echo html_writer::tag( 'link', '', ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css'] );
@@ -118,4 +122,5 @@ echo html_writer::tag( 'span', 'User count = ' . $searchcount . '/' . $totalcoun
 $userlisttable->out( 50, false );
 $btndownloadzip = $OUTPUT->single_button( new moodle_url( "/local/test1/index.php", ['exportinzip' => 'exportinzip', 'search' => $search] ), "Users zip");
 echo html_writer::tag( 'div', $btndownloadzip, ['id' => 'exportinzip']);
+
 echo $OUTPUT->footer();
