@@ -7,7 +7,7 @@
     background-color:#e5e5e5
 }
 
-.modal-dialog[tabindex="0"]:focus {
-    box-shadow:none;
+.modal-dialog[tabindex="0"]:focus{
+    box-shadow:none !important;
 }
 
