@@ -29,7 +29,13 @@ class maillog extends table_sql
     }
 
     public function col_sendtime($row) {
-        return $row->sendtime ? userdate($row->sendtime) : '-';
+        if (!$this->is_downloading()) {
+            $calendarlink = \html_writer::link(new moodle_url('/calendar/view.php', ['view' => 'month', 'time' => userdate($row->sendtime)]), userdate($row->sendtime),
+                ['class' => 'text-body text-decoration-none', 'target' => '_blank']);
+        }else{
+            $calendarlink = userdate($row->sendtime);
+        }
+        return $calendarlink;
     }
 
     public function col_resendtime($row)
@@ -39,8 +45,12 @@ class maillog extends table_sql
             $calendarlink = '';
             foreach ($timestemps as $timestemp) {
                 $resendtime = userdate($timestemp) . " ,<br><br> ";
-                $calendarlink .= \html_writer::link(new moodle_url('/calendar/view.php', ['view' => 'month', 'time' => $timestemp]), $resendtime,
-                    ['class' => 'text-body text-decoration-none', 'target' => '_blank']);
+                if (!$this->is_downloading()) {
+                    $calendarlink .= \html_writer::link( new moodle_url( '/calendar/view.php', ['view' => 'month', 'time' => $timestemp] ), $resendtime,
+                        ['class' => 'text-body text-decoration-none', 'target' => '_blank'] );
+                }else{
+                    $calendarlink .= $resendtime;
+                }
             }
             return $calendarlink;
         }else{
