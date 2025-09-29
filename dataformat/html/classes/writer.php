@@ -45,7 +45,7 @@ class writer extends \core\dataformat\base {
      * Write the start of the output
      */
     public function start_output() {
-        echo "<!DOCTYPE html><html><head>";
+        echo "<!DOCTYPE html><br><br><html><head>";
         echo \html_writer::empty_tag('meta', ['charset' => 'UTF-8']);
         echo \html_writer::tag('title', $this->filename);
         echo "<style>
