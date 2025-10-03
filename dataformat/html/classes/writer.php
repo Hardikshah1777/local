@@ -84,10 +84,12 @@ table {
      * @param array $columns
      */
     public function start_sheet($columns) {
-        echo "<table border=1 cellspacing=0 cellpadding=3>";
+        global $CFG;
+        $img = $CFG->wwwroot."/local/test1/pix/test1.jpg";
+        echo "<table border=1 cellspacing=0 cellpadding=3 style='background-image: url($img); background-repeat: no-repeat; background-size: cover;'>";
         echo \html_writer::start_tag('tr');
         foreach ($columns as $k => $v) {
-            echo \html_writer::tag('th', $v);
+            echo \html_writer::tag('th', $v, ['style' => 'font-size: 1.171875rem;']);
         }
         echo \html_writer::end_tag('tr');
     }
@@ -110,7 +112,7 @@ table {
     public function write_record($record, $rownum) {
         $record = $this->format_record($record);
 
-        echo \html_writer::start_tag('tr');
+        echo \html_writer::start_tag('tr', ['style' => 'color:#0f1266;']);
         foreach ($record as $cell) {
             echo \html_writer::tag('td', $cell);
         }

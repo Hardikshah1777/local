@@ -16,7 +16,14 @@ class userlist extends table_sql {
 
     public function col_profile($row) {
         global $OUTPUT;
-        return $OUTPUT->user_picture( $row, ['size' => 40, 'link' => true, 'alttext' => false] );
+        if ($row->picture) {
+            return $OUTPUT->user_picture( $row, ['size' => 40, 'link' => true, 'alttext' => false] );
+        }else{
+            $imgurl = new moodle_url('/local/test1/pix/useravtar.png');
+            $profile = new moodle_url('/user/profile.php', ['id' => $row->id]);
+            $img = html_writer::img($imgurl, 'User', ['class' => 'userpicture', 'width' => 40]);
+            return html_writer::link($profile, $img);
+        }
     }
 
     public function col_timecreated($row) {
@@ -38,11 +45,14 @@ class userlist extends table_sql {
 
         $downloadcsv = $OUTPUT->action_link( '#', new pix_icon( 'f/calc-128', get_string( 'csv', 'local_test1' ) ), null, ['data-user' => json_encode( $row ), 'class' => 'downloadcsv'] );
 
+        $syncurl = new moodle_url('/local/test1/sync.php', ['userid' => $row->id]);
+        $syncbtn = $OUTPUT->action_link( $syncurl, new pix_icon( 't/sync', "sync user in iomad4"), null, ['class' => 'far fa-sync']);
+
         $edituser2 = new moodle_url( '/local/test1/index.php', ['delete' => $row->id, 'localtest1' => 'localtest1'] );
         $confirm = new confirm_action( get_string( 'confirmuserdelete', 'local_test1', $row ) );
         $deleteuser = $OUTPUT->action_link( $edituser2, new pix_icon( 't/delete', get_string( 'delete' ) ), $confirm );
 
-        return ($edituser . $viewlog . $email . $downloadpdf . $downloadcsv . $deleteuser);
+        return ($edituser . $viewlog . $email . $downloadpdf . $downloadcsv . $syncbtn . $deleteuser);
     }
 
     function start_html() {

@@ -89,6 +89,9 @@ $table->no_sorting('email');
 $table->no_sorting('action');
 $table->showdownloadbuttonsat = [TABLE_P_BOTTOM];
 $table->collapsible(false);
+if ($userid <= 10) {
+    $table->attributes = ['style' => 'background-image: url(' . $CFG->wwwroot . '/local/test1/pix/test1.jpg); background-repeat: no-repeat; background-size: cover;'];
+}
 $table->is_downloadable(false);
 if ($table->is_downloading($download, $fullname.' Mails', ' Mails logs')) {
     unset($table->headers[6]);
