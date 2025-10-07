@@ -30,7 +30,7 @@ class maillog extends table_sql
 
     public function col_sendtime($row) {
         if (!$this->is_downloading()) {
-            $calendarlink = \html_writer::link(new moodle_url('/calendar/view.php', ['view' => 'month', 'time' => userdate($row->sendtime)]), userdate($row->sendtime),
+            $calendarlink = \html_writer::link(new moodle_url('/calendar/view.php', ['view' => 'month', 'time' => $row->sendtime]), userdate($row->sendtime),
                 ['class' => 'text-body text-decoration-none', 'target' => '_blank']);
         }else{
             $calendarlink = userdate($row->sendtime);

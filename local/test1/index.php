@@ -73,7 +73,7 @@ $userlisttable->define_baseurl($url);
 $userlisttable->show_download_buttons_at([TABLE_P_BOTTOM]);
 $userlisttable->set_attribute('id', 'userlist');
 $userlisttable->is_downloadable(false);
-$userlisttable->attributes = ['style' => 'background-color: #cccce7'];
+$userlisttable->attributes = ['style' => 'background-color: #ededf7de'];
 if ($userlisttable->is_downloading($download, 'Users', 'Users')) {
     unset($userlisttable->headers[0], $userlisttable->headers[5],
           $userlisttable->columns['profile'], $userlisttable->columns['action']);
