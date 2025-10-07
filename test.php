@@ -101,7 +101,7 @@ echo $OUTPUT->header();
             return true;
         }
     </script>
-    <div class="p-4 mt-4" style=" background: #efefef;">
+    <div class="p-4 mt-4 " style=" background: #efefef;">
         <div id="timer" style="font-size: 20px; color: #343a40;"></div>
         <div id="timer2" style="font-size: 20px; color: #343a40;"></div>
     </div>
@@ -164,7 +164,7 @@ echo $OUTPUT->header();
         }
     </script>
 
-    <button onclick="alert('Welcome to Demo site!')" class="btn btn-dark">Click Me</button>
+    <!--<button onclick="alert('Welcome to Demo site!')" class="btn btn-dark">Click Me</button>-->
 
     <html lang="en">
     <head>
@@ -338,25 +338,36 @@ echo $OUTPUT->header();
                 super(props);
                 this.state = {
                     message: 'Hello, ',
-                    inputText: ''
+                    inputText: '',
+                    error: ''
                 };
             }
+
             handleInputChange = (event) => {
-                this.setState({ inputText: event.target.value });
+                this.setState({inputText: event.target.value});
             }
             changeMessage1 = () => {
                 if (this.state.inputText.trim() !== '') {
-                    this.setState({ message: 'Hello, ' + this.state.inputText + '', inputText: '' });
+                    this.setState({
+                        message: 'Hello , ' + this.state.inputText,
+                        inputText: '',
+                        error: ''
+                    });
                 } else {
-                    alert('Please enter your name! 111');
+                    this.setState({error: 'Please enter your name 1.'});
                 }
             }
+
             render() {
                 return (
                     <div className="w-100 mb-4">
                         <h2>{this.state.message}</h2>
-                        <input type="text" value={this.state.inputText} onChange={this.handleInputChange} placeholder="Enter your name" className="float-left form-control w-25 mr-4"/>
+                        <input type="text" value={this.state.inputText} onChange={this.handleInputChange}
+                               placeholder="Enter your name" className="float-left form-control w-25 mr-4"/>
                         <button onClick={this.changeMessage1} className="btn btn-primary">Submit 1</button>
+                        {this.state.error && (
+                            <p style={{color: 'red'}}>{this.state.error}</p>
+                        )}
                     </div>
                 );
             }
@@ -364,10 +375,11 @@ echo $OUTPUT->header();
         ReactDOM.render(<GreetingApp />, document.getElementById('root'));
     </script>
 
-    <div id="app">
+    <div id="app" class="w-100">
         <h3>{{ message }}</h3>
         <input v-model="inputText" placeholder="Enter your name" class="form-control w-25 mr-4 float-left"/>
         <button @click="changeMessage" class="btn btn-info">Submit 2 </button>
+        <p id="vueapp"></p>
     </div>
 
     <script>
@@ -377,6 +389,7 @@ echo $OUTPUT->header();
             methods: {
                 changeMessage() {
                     const name = this.inputText.trim();
+                    let vueapp = document.getElementById("vueapp");
                     if (name) {
                         this.message = `Hi, ${name}`;
                         // this.message = this.message.split('').reverse().join('');
@@ -384,8 +397,23 @@ echo $OUTPUT->header();
                         // this.message = this.message.toLowerCase();
                         // this.message = this.message.split('').sort().join('');
                         this.inputText = '';
+                        vueapp.innerText = '';
                     } else {
-                        alert('Please enter your name!');
+                        vueapp.innerText = "Please enter your name 2.";
+                        vueapp.style.color = "red";
+
+                        Swal.fire({
+                            //icon: 'error',
+                            title: 'Empty',
+                            text: 'Please enter your name.',
+                            confirmButtonText: 'OK',
+                            allowOutsideClick:false,
+                            allowEscapeKey:false,
+                            toast:true,
+                            timer: 2000,
+                            timerProgressBar:true,
+                        });
+                        //alert('Please enter your name!');
                     }
                 }
             }
@@ -533,7 +561,7 @@ echo $OUTPUT->header();
             }
         }
     </script>
-    <div class="testtable">
+    <div class="testtable ">
         <table border="1" class="flexible table table-striped table-hover generaltable generalbox">
             <tr>
                 <th onclick="sortTableByName()">Name</th>
