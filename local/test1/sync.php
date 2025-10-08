@@ -84,7 +84,7 @@ if ($response && !preg_match('/Username already exists:\s*(\w+)/', json_decode($
     email_to_user($coreuser, $fromuser,'Signup with moodle4 account', $body, $body);
     //print_object(json_decode($response));
     $msg = \core\notification::success('User created in iomad4');
-    redirect($backurl, $msg);
+    redirect($backurl, 'User created in iomad4');
 } else {
     \core\notification::warning('something went wrong');
     echo html_writer::link($backurl, 'Back' , ['class' =>'btn btn-primary float-right']);

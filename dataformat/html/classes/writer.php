@@ -45,16 +45,28 @@ class writer extends \core\dataformat\base {
      * Write the start of the output
      */
     public function start_output() {
+        global $CFG, $SCRIPT;
         echo "<!DOCTYPE html><br><br><html><head>";
         echo \html_writer::empty_tag('meta', ['charset' => 'UTF-8']);
         echo \html_writer::tag('title', $this->filename);
+        $background = '#eee';
+        $img1 = $img2 = '';
+        if ($SCRIPT === '/local/test1/maillog.php') {
+            $img1 = $CFG->wwwroot."/local/test1/pix/test1.jpg";
+            $img2 = $CFG->wwwroot."/local/test1/pix/test2.jpg";
+            $background = '#dae6f2';
+        }
+
         echo "<style>
 html, body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     font-size: 13px;
-    background: #eee;
+    background: $background;
+    background-image: url($img2);
+    background-repeat: no-repeat;
+    background-size: cover; 
 }
 th {
     border: solid 1px #999;
@@ -69,9 +81,18 @@ tr:hover td {
 }
 table {
     border-collapse: collapse;
-    border-spacing: 0pt;
-    width: 80%;
+    width: 90%;
     margin: auto;
+    background: $background;
+    background-image: url($img1);    
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 </style>
 </head>
@@ -84,9 +105,7 @@ table {
      * @param array $columns
      */
     public function start_sheet($columns) {
-        global $CFG;
-        $img = $CFG->wwwroot."/local/test1/pix/test1.jpg";
-        echo "<table border=1 cellspacing=0 cellpadding=3 style='background-image: url($img); background-repeat: no-repeat; background-size: cover;'>";
+        echo "<table>";
         echo \html_writer::start_tag('tr');
         foreach ($columns as $k => $v) {
             echo \html_writer::tag('th', $v, ['style' => 'font-size: 1.171875rem;']);
