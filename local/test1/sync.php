@@ -1,6 +1,6 @@
 <?php
-
-require_once '../../config.php';
+require_once('../../config.php');
+require_login();
 
 $context = context_system::instance();
 $url = new moodle_url('/local/test1/sync.php');
@@ -8,8 +8,7 @@ $userid = optional_param('userid','',PARAM_INT);
 
 $PAGE->set_url($url);
 $PAGE->set_context($context);
-$PAGE->set_title('Test');
-require_login();
+$PAGE->set_title('Test 1');
 
 $token = 'd44a345b7a2d0349f7d0d8a634eec1d3';
 $domainname = 'http://localhost/iomad4';
@@ -17,9 +16,9 @@ $functionname = 'core_user_create_users';
 
 $serverurl = $domainname.'/webservice/rest/server.php'.'?wstoken='.$token.'&wsfunction='.$functionname.'&moodlewsrestformat=json';
 
-// User to create
 $coreuser = core_user::get_user($userid);
-$user = [
+// Build user array to send
+$newuser = [
     'username'       => $coreuser->username,
     'password'       => 'Test@123',
     'firstname'      => $coreuser->firstname,
@@ -39,7 +38,7 @@ $user = [
     'mailformat'     => 1,
 ];
 
-// Flattened POST data using custom function
+// Recursive function to flatten array for POST
 function buildParams($params, $prefix = '') {
     $result = [];
     foreach ($params as $key => $value) {
@@ -53,7 +52,7 @@ function buildParams($params, $prefix = '') {
     return $result;
 }
 
-$params = ['users' => [ $user ]];
+$params = ['users' => [ $newuser ]];
 $postFields = buildParams($params);
 
 // cURL setup
@@ -76,15 +75,15 @@ $fromuser = core_user::get_support_user();
 if ($response && !preg_match('/Username already exists:\s*(\w+)/', json_decode($response)->debuginfo, $matches)) {
     $coreuser->type = 'Signup with moodle4 account';
     $loginurl = 'http://localhost/iomad4/login/index.php';
-    $body = '<p>Signup with moodle4 account</p>
-            <p>You can login with same credentials</p>
-            <p>Password : Test@123</p>
-            <p><a href='.$loginurl.'>Click here to : login</a></p>';
-
-    email_to_user($coreuser, $fromuser,'Signup with moodle4 account', $body, $body);
-    //print_object(json_decode($response));
-    $msg = \core\notification::success('User created in iomad4');
-    redirect($backurl, 'User created in iomad4');
+    $body = '
+        <p>You have been signed up on Iomad4.</p>
+        <p>Use the same credentials to login:</p>
+        <p><strong>Password:</strong> Test@123</p>
+        <p><a href="' . $loginurl . '">Click here to login</a></p>';
+    // Send email to the new user
+    email_to_user($coreuser, $fromuser,'Account created on Iomad4', $body, $body);
+    $msg = \core\notification::success('User created and email sent');
+    redirect($backurl, 'User successfully synced to Iomad4');
 } else {
     \core\notification::warning('something went wrong');
     echo html_writer::link($backurl, 'Back' , ['class' =>'btn btn-primary float-right']);
