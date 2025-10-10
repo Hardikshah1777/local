@@ -1562,3 +1562,5 @@ $string['modchooserdefault'] = 'Activity chooser default';
 $string['coursepage'] = 'Course page';
 $string['mediapluginswf'] = 'Enable .swf filter';
 $string['mediapluginswfnote'] = 'As a default security measure, normal users should not be allowed to embed swf flash files.';
+$string['favicon'] = 'Favicon';
+$string['admin'] = 'Admin';

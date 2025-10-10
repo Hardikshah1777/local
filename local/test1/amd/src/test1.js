@@ -158,18 +158,18 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
     });
 });
 
-require(['core/modal_factory'], function(ModalFactory) {
+require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
     document.querySelectorAll('.viewmail').forEach(function(link) {
         link.addEventListener('click', function(event) {
             event.preventDefault();
 
             const user = JSON.parse(this.getAttribute('data-user'));
-            let type = user?.type || ' ';
+            let type = user?.type || ' General ';
             let title = user?.subject || 'No Subject';
             let body = user?.body || 'Nothing to display';
             title = 'Subject : ' + title;
             if (type) {
-                type = '<b>Type : ' + type + ' </b> <br><hr>';
+                type = '<p><b>Type : ' + type + ' </b></p><hr>';
             }
             ModalFactory.create({
                 title: title,
@@ -178,8 +178,13 @@ require(['core/modal_factory'], function(ModalFactory) {
                 closeButton: false,
                 footer: 'footer',
             }).then(function(modal) {
-                modal.getModal().addClass('custom-viewmail-modal');
+                const $modal = modal.getModal();
+                $modal.addClass('custom-viewmail-modal');
                 modal.show();
+                $modal.draggable({ handle: ".modal-header" });
+                $modal.find('.modal-content').css({
+                    resize: 'both',
+                });
             });
         });
     });
