@@ -11,3 +11,6 @@
     box-shadow:none !important;
 }
 
+#page-local-test1-maillog .modal .ui-draggable-handle:hover{
+    cursor: move;
+}
