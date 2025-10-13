@@ -19,8 +19,8 @@ $string['sendtime'] = 'Send Time';
 $string['resendtime'] = 'Resend Time';
 $string['email1'] = 'Email';
 $string['selecttype'] = 'Select Type';
-$string['starttime'] = 'Start Time';
-$string['endtime'] = 'End Time';
+$string['starttime'] = 'From';
+$string['endtime'] = 'To';
 $string['resend'] = 'Re-send';
 $string['action'] = 'Action';
 $string['mailbody'] = '<body style="margin:0;padding:0;word-spacing:normal;background-color:#EFEEEE;">
