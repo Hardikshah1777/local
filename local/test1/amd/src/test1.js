@@ -176,10 +176,11 @@ require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
                 body: type + ' ' + body,
                 large: true,
                 closeButton: false,
-                footer: 'footer',
+                footer: '<button type="submit" class="btn btn-primary" data-action="hide">Cancel</button>',
             }).then(function(modal) {
                 const $modal = modal.getModal();
                 $modal.addClass('custom-viewmail-modal');
+                $modal.find('.modal-content').hide().fadeIn(500);
                 modal.show();
                 $modal.draggable({ handle: ".modal-header" });
                 $modal.find('.modal-content').css({
