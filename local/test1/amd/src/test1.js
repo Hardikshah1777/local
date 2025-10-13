@@ -176,7 +176,7 @@ require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
                 body: type + ' ' + body,
                 large: true,
                 closeButton: false,
-                footer: '<button type="submit" class="btn btn-primary" data-action="hide">Cancel</button>',
+                footer: '<button type="submit" class="btn btn-primary cancel-btn">Cancel</button>',
             }).then(function(modal) {
                 const $modal = modal.getModal();
                 $modal.addClass('custom-viewmail-modal');
@@ -185,6 +185,18 @@ require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
                 $modal.draggable({ handle: ".modal-header" });
                 $modal.find('.modal-content').css({
                     resize: 'both',
+                });
+                $modal.on('click', '.cancel-btn', function (e) {
+                    e.preventDefault();
+                    $modal.find('.modal-content').animate({opacity: 0}, 1000, function () {
+                        if (typeof modal.hide === 'function') {
+                            modal.hide();
+                        } else if (typeof modal.close === 'function') {
+                            modal.close();
+                        } else {
+                            $modal.hide();
+                        }
+                    });
                 });
             });
         });
