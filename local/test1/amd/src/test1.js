@@ -158,7 +158,7 @@ document.querySelectorAll('.downloadcsv').forEach(link => {
     });
 });
 
-require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
+require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory, $) {
     document.querySelectorAll('.viewmail').forEach(function(link) {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -181,14 +181,26 @@ require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
                 const $modal = modal.getModal();
                 $modal.addClass('custom-viewmail-modal');
                 $modal.find('.modal-content').hide().fadeIn(500);
-                modal.show();
+                modal.show().then(function () {
+                    const $backdrop = $('.modal-backdrop');
+                    $backdrop.css('opacity', '0');
+                    setTimeout(() => {
+                        $backdrop.addClass('show');
+                        $backdrop.css('opacity', '0.5');
+                    }, 10);
+                });
                 $modal.draggable({ handle: ".modal-header" });
                 $modal.find('.modal-content').css({
                     resize: 'both',
                 });
                 $modal.on('click', '.cancel-btn', function (e) {
                     e.preventDefault();
-                    $modal.find('.modal-content').animate({opacity: 0}, 1000, function () {
+                    const $backdrop = $('.modal-backdrop');
+                    $modal.find('.modal-content').animate({
+                        opacity: 0
+                    }, 500, function () {
+                    $backdrop.css('opacity', '0');
+                    setTimeout(() => {
                         if (typeof modal.hide === 'function') {
                             modal.hide();
                         } else if (typeof modal.close === 'function') {
@@ -196,6 +208,7 @@ require(['core/modal_factory', 'jquery', 'jqueryui'], function(ModalFactory) {
                         } else {
                             $modal.hide();
                         }
+                    },500);
                     });
                 });
             });
