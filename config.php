@@ -34,7 +34,26 @@ $CFG->directorypermissions = 0777;
  //@ini_set('display_errors', '1');    // NOT FOR PRODUCTION SERVERS!
 //$CFG->debug = (E_ALL | E_STRICT);   // === DEBUG_DEVELOPER - NOT FOR PRODUCTION SERVERS!
 //$CFG->debugdisplay = 1;
-
+function dblog(...$args) {
+    global $DBLOGS;
+    /*
+CREATE TABLE `mdl_log3` (
+ `id` int(10) NOT NULL AUTO_INCREMENT,
+ `info` longtext NOT NULL,
+ `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+     */
+    $callback = 'print_r';
+    if (is_null($DBLOGS)) {
+        register_shutdown_function(fn() => $GLOBALS['DB']->insert_records('log3', $GLOBALS['DBLOGS']));
+        $DBLOGS = [];
+    }
+    if (is_callable($args[0])) {
+        $callback = array_shift($args);
+    }
+    $DBLOGS = array_merge($DBLOGS, array_map(fn($info) => ['info' => call_user_func_array($callback, [$info, true])], $args));
+}
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
