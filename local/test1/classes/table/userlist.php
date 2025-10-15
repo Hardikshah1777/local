@@ -2,17 +2,93 @@
 
 namespace local_test1\table;
 
+use coding_exception;
 use confirm_action;
+use context;
+use context_system;
+use core_table\dynamic;
+use core_table\local\filter\filterset;
 use html_writer;
 use moodle_url;
 use pix_icon;
 use table_sql;
+require_once($CFG->libdir . '/tablelib.php');
 
-class userlist extends table_sql {
+class userlist extends table_sql implements dynamic {
 
     public $showpaginationsat = [TABLE_P_BOTTOM];
 
     public $search;
+
+    public function set_filterset(filterset $filterset): void
+    {
+        global $DB;
+        parent::set_filterset($filterset);
+
+        $filter = $this->get_filters();
+
+        $where = '';
+        $params = [];
+
+        $col = [
+            'profile' => '',
+            'fullname' => get_string('fullname'),
+            'email' => get_string('email'),
+            'city' => get_string('city'),
+            'timecreated' => get_string('date'),
+            'action' => get_string('action'),
+        ];
+
+        $this->define_headers(array_values($col));
+        $this->define_columns(array_keys($col));
+        $this->sortable(true);
+        $this->sortable(true,'id',SORT_ASC);
+        $this->no_sorting('profile');
+        $this->no_sorting('action');
+        $this->collapsible(false);
+        $this->show_download_buttons_at([TABLE_P_BOTTOM]);
+        $this->set_attribute('id', 'userlist');
+        $this->is_downloadable(true);
+        $this->attributes = ['style' => 'background-color: #ededf7de'];
+
+        if (!empty($filter['search'])) {
+            $filter['search'] = trim($filter['search']);
+            $where = " AND (" . $DB->sql_like('firstname', ':firstname', false) .
+                " OR " . $DB->sql_like('lastname', ':lastname', false) .
+                " OR " . $DB->sql_like('username', ':username', false) .
+                " OR " . $DB->sql_like('email', ':email', false) . ")";
+            $params['firstname'] = $params['lastname'] = $params['username'] = $params['email'] = '%' . $filter['search'] . '%';
+        }
+
+        $this->set_sql('*',
+            '{user}',
+            'id > 2 AND deleted = 0 AND suspended = 0 ' . $where, $params);
+    }
+
+    public function get_context(): context
+    {
+        return context_system::instance();
+    }
+
+    public function guess_base_url(): void
+    {
+        $filters = $this->get_filters();
+        $this->baseurl = new moodle_url('/local/test1/index.php', $filters);
+    }
+
+    public function get_filters() {
+        $filters = [];
+
+        if (!$this->filterset instanceof filterset) {
+            throw new coding_exception('Unknown filterset class');
+        }
+
+        foreach ($this->filterset->get_filters() as $filter) {
+            $filters[$filter->get_name()] = !isset($filters[$filter->get_name()]) ?
+                $filter->current() :  $filter->get_filter_values();
+        }
+        return $filters;
+    }
 
     public function col_profile($row) {
         global $OUTPUT;

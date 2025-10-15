@@ -1,3 +1,5 @@
+import * as DynamicTable from 'core_table/dynamic';
+
 export const init = () => {
     window.console.log('--------------- Test 1 js working ---------------');
 };
@@ -233,6 +235,8 @@ document.querySelectorAll('.resendmail').forEach(link => {
             .then(data => {
                 if (data.success) {
                     showToast('Mail Re-send to ' + data.fullname, data.success, 'resendmail');
+                    let dt = document.querySelector('.table-dynamic');
+                    DynamicTable.refreshTableContent(DynamicTable.getTableFromId(dt.dataset.tableUniqueid));
                 } else {
                     showToast('Mail Failed to Re-send', data.success, 'resendmail');
                 }

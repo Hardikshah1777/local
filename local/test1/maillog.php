@@ -2,8 +2,10 @@
 
 require_once '../../config.php';
 
+use core_table\local\filter\filter;
 use local_test1\form\logfilter;
 use local_test1\table\maillog;
+use local_test1\table\maillog_filterset;
 
 $userid = optional_param('userid', 0, PARAM_INT);
 $download = optional_param('download', '', PARAM_ALPHANUM);
@@ -39,7 +41,6 @@ if (!empty($endtime) && is_array($endtime)) {
     }
 }
 
-$where = '';
 if (!empty($type)) {
     $where .= " AND (" . $DB->sql_like('ml.type', ':type', false). " ) ";
     $params['type'] .= $type;
@@ -60,39 +61,19 @@ if (!empty($timeend)) {
 
 $user = core_user::get_user($userid);
 $fullname = fullname($user);
-$params['userid'] = $userid;
-$table = new maillog('custommaillog');
+
+$filterset = (new maillog_filterset())
+->add_filter_from_params('userid', filter::JOINTYPE_DEFAULT, (array) $userid)
+->add_filter_from_params('type', filter::JOINTYPE_DEFAULT, (array) $type)
+->add_filter_from_params('timestart', filter::JOINTYPE_DEFAULT, (array) $starttime)
+->add_filter_from_params('timeend', filter::JOINTYPE_DEFAULT, (array) $endtime);
+
+$table = new maillog(uniqid('custommaillog-'));
+$table->set_filterset($filterset);
+
 $filterform = new logfilter($url->out(false), ['userid' => $userid]);
 $filterform->set_data(['type' => $type, 'starttime' => $starttime, 'endtime' => $endtime]);
 
-$table->set_sql('ml.id,u.firstname, u.lastname, u.email, ml.userid as userid, ml.mailer, ml.type, ml.subject, ml.body, ml.sendtime, ml.resendtime',
-                '{local_test1_mail_log} ml
-                       JOIN {user} u ON u.id = ml.userid',
-                'ml.userid = :userid '. $where, $params);
-
-$col = [
-  'name' => get_string('name','local_test1'),
-  'email' => get_string('email1','local_test1'),
-  'mailer' => get_string('mailer','local_test1'),
-  'type' => get_string('type','local_test1'),
-  'sendtime' => get_string('sendtime','local_test1'),
-  'resendtime' => get_string('resendtime','local_test1'),
-  'action' => get_string('action','local_test1'),
-];
-
-$table->define_baseurl($url);
-$table->define_headers(array_values($col));
-$table->define_columns(array_keys($col));
-$table->sortable(true,'sendtime', SORT_DESC);
-$table->no_sorting('name');
-$table->no_sorting('email');
-$table->no_sorting('action');
-$table->showdownloadbuttonsat = [TABLE_P_BOTTOM];
-$table->collapsible(false);
-if ($userid <= 10) {
-    $table->attributes = ['style' => 'background-image: url(' . $CFG->wwwroot . '/local/test1/pix/test1.jpg); background-repeat: no-repeat; background-size: cover;'];
-}
-$table->is_downloadable(false);
 if ($table->is_downloading($download, $fullname.' Mails', ' Mails logs')) {
     unset($table->headers[6]);
     unset($table->columns['action']);
