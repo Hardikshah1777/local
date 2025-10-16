@@ -2,7 +2,7 @@
 
 require_once '../../config.php';
 
-$url = new moodle_url( '/courseslist.php');
+$url = new moodle_url( '/local/test3/courseslist.php');
 $context = context_system::instance();
 
 $PAGE->set_title(get_string('title', 'local_test3'));
@@ -16,8 +16,8 @@ $cats = $DB->get_records('course_categories', ['visible' => 1]);
 echo html_writer::start_div('course-main-div');
 foreach ($cats as $cat) {
     $courses = $DB->get_records('course', ['category' => $cat->id]);
-    echo html_writer::tag('p', $cat->name, ['class' => 'course-container-title-div']);
-    echo html_writer::start_div('course-list-container');
+    echo html_writer::tag('p', $cat->name, ['class' => 'course-container-title-div collapsed', 'data-bs-toggle' => 'collapse', 'data-bs-target' => '#catid'.$cat->id.'-content']);
+    echo html_writer::start_div('course-list-container collapse show', ['id' => 'catid'.$cat->id.'-content']);
     foreach ($courses as $course) {
         echo html_writer::start_div('course-item-container');
         $coursecontext = context_course::instance($course->id);
@@ -44,11 +44,12 @@ echo '<style>
 .course-main-div{
 
 }
-.course-container-title-div{
+.course-container-title-div{    
     color: #f37021;
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0;
+    cursor: pointer;
 }
 .course-list-container{
     display: flex;
