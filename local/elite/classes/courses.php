@@ -9,8 +9,6 @@ require_once($CFG->libdir . '/tablelib.php');
 
 class courses extends table_sql
 {
-    public $download;
-
     public function showdata()
     {
         $col = [
@@ -23,11 +21,6 @@ class courses extends table_sql
         $this->sortable(false);
         $this->collapsible(false);
         $this->define_baseurl($url);
-
-        $this->is_downloadable(true);
-        if ($this->is_downloading($this->download, 'course', 'course')) {
-            $this->out(15, false);
-        }
 
         $this->set_sql('*', '{course}', '1=1');
         $this->out(15, false);

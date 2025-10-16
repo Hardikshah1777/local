@@ -16,7 +16,10 @@ $PAGE->set_heading(get_string('courses','local_elite'));
 require_login();
 
 $ctable = new courses('cid');
-$ctable->download = $download;
+$ctable->is_downloadable(true);
+if ($ctable->is_downloading($download, 'course', 'course')) {
+    $ctable->showdata();
+}
 
 echo $OUTPUT->header();
 echo $ctable->showdata();
