@@ -42,20 +42,14 @@ if (!empty($endtime) && is_array($endtime)) {
 }
 
 if (!empty($type)) {
-    $where .= " AND (" . $DB->sql_like('ml.type', ':type', false). " ) ";
-    $params['type'] .= $type;
     $url->param('type', $type);
 }
 
 if (!empty($timestart)) {
-    $where .= ' AND sendtime >= :timestart';
-    $params['timestart'] .= $timestart;
     $url->param('starttime', $timestart);
 }
 
 if (!empty($timeend)) {
-    $where .= ' AND sendtime <= :timeend';
-    $params['timeend'] .= $timeend;
     $url->param('endtime', $timeend);
 }
 
@@ -65,8 +59,8 @@ $fullname = fullname($user);
 $filterset = (new maillog_filterset())
 ->add_filter_from_params('userid', filter::JOINTYPE_DEFAULT, (array) $userid)
 ->add_filter_from_params('type', filter::JOINTYPE_DEFAULT, (array) $type)
-->add_filter_from_params('timestart', filter::JOINTYPE_DEFAULT, (array) $starttime)
-->add_filter_from_params('timeend', filter::JOINTYPE_DEFAULT, (array) $endtime);
+->add_filter_from_params('timestart', filter::JOINTYPE_DEFAULT, (array) $timestart)
+->add_filter_from_params('timeend', filter::JOINTYPE_DEFAULT, (array) $timeend);
 
 $table = new maillog(uniqid('custommaillog-'));
 $table->set_filterset($filterset);
