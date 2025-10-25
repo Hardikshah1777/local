@@ -91,7 +91,7 @@ if ($response && !preg_match('/Username already exists:\s*(\w+)/', json_decode($
     foreach (json_decode($response) as $responsemsg) {
         $msg .= "<p>".$responsemsg."</p>";
     }
-    email_to_user($USER, $fromuser,'Failed to Signup ', $msg, $msg);
+    email_to_user($USER, $fromuser,'Failed to Signup', $msg, $msg);
     print_object(json_decode($response)->debuginfo);
 }
 
