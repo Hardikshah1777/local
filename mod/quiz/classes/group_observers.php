@@ -23,7 +23,10 @@
  */
 
 namespace mod_quiz;
+use core_user;
 use mod_quiz\event\attempt_submitted;
+use moodle_url;
+use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
