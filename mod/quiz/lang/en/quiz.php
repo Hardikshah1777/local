@@ -1067,3 +1067,14 @@ $string['completionpass_help'] = 'If enabled, this activity is considered comple
 $string['completiondetail:passgrade'] = 'Receive a pass grade';
 $string['gradetopassnotset'] = 'This quiz does not yet have a grade to pass set. It may be set in the Grade section of the quiz settings.';
 $string['basicideasofquiz'] = 'The basic ideas of quiz-making';
+
+$string['quizsubmit:reviewurl'] = 'Click here to review attempt';
+$string['quizsubmit:subject'] = 'Quiz Submitted by - {$a->fullname}';
+$string['quizsubmit:message'] = 'Quiz Submitted 
+<p>Fullname   : {$a->fullname}</p>  
+<p>Course     : {$a->coursename}</p> 
+<p>Quiz name  : {$a->quizname}</p> 
+<p>Marks      : {$a->usermarks} / {$a->totalmarks}</p>
+<p>Grade      : {$a->usergrade} / {$a->totalgrade}</p>
+<p>Submission time: {$a->submittime}</p>
+<p><a href="{$a->reviewurl}">Click here to Review attempt</a></p>';

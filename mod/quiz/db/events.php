@@ -58,4 +58,8 @@ $observers = array(
         'callback' => 'quiz_attempt_submitted_handler',
         'internal' => false
     ),
+    array(
+        'eventname' => '\mod_quiz\event\attempt_submitted',
+        'callback' => '\mod_quiz\group_observers::quizattempt_mail',
+    ),
 );

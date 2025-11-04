@@ -23,6 +23,8 @@
  */
 
 namespace mod_quiz;
+use mod_quiz\event\attempt_submitted;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
@@ -110,4 +112,41 @@ class group_observers {
         quiz_update_open_attempts(array('userid' => $event->relateduserid, 'groupid' => $event->objectid));
     }
 
+    public static function quizattempt_mail(attempt_submitted $event)
+    {
+        global $DB;
+
+        $touser = core_user::get_user($event->relateduserid);
+        $from = core_user::get_support_user();
+        $course = get_course($event->courseid);
+
+        $attempt = $event->get_record_snapshot('quiz_attempts', $event->objectid);
+        $quiz = $DB->get_record('quiz', ['id' => $attempt->quiz], '*', MUST_EXIST);
+        $usermarks = number_format($attempt->sumgrades, 2);
+        $totalmarks = number_format($quiz->sumgrades, 2);
+        $gradinginfo = grade_get_grades($course->id, 'mod', 'quiz', $quiz->id, $touser->id);
+        if (!empty($gradinginfo->items)) {
+            $item = $gradinginfo->items[0];
+            if (!empty($item->grades[$touser->id])) {
+                $usergrade = quiz_format_grade($quiz, $item->grades[$touser->id]->grade);
+                $totalgrade = quiz_format_grade($quiz, $item->grademax);
+            }
+        }
+        $reviewurl = new moodle_url('/mod/quiz/review.php', ['attempt' => $attempt->id]);
+        $a = new stdClass();
+        $a->fullname = fullname($touser);
+        $a->coursename = $course->shortname;
+        $a->quizname = $quiz->name;
+        $a->usermarks = $usermarks;
+        $a->totalmarks = $totalmarks;
+        $a->usergrade = $usergrade;
+        $a->totalgrade = $totalgrade;
+        $a->submittime = userdate(time());
+        $a->reviewurl = $reviewurl->out(false);
+        $from->mailformat = 1;
+
+        $subject = get_string('quizsubmit:subject', 'quiz', $a);
+        $message = get_string('quizsubmit:message', 'quiz', $a);
+        email_to_user($from, $from, $subject, $message);
+    }
 }
