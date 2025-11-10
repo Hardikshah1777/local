@@ -448,7 +448,7 @@ class verify_certificate_result implements templatable, renderable {
         $result->userfullname = $this->userfullname;
         $result->coursefullname = $this->coursefullname;
         $result->summary = $this->summary;
-        $result->userpicture = $output->user_picture($user, array('class' => 'userpicture','size' => 175));
+        $result->userpicture = $output->user_picture($user, array('class' => 'userpicture img-fluid','size' => 175));
         $result->courseurl = $this->courseurl;
         $result->certificatename = $this->certificatename;
 		$result->issuedate = $this->issuedate;

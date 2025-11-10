@@ -6,8 +6,7 @@
     opacity: 1;
 }
 
-#page-local-reveal-index button.btn.btn-icon.bg-secondary.icon-no-margin.btn-footer-popover,
-#page-local-reveal-index .slide-number{
+#page-local-reveal-index button.btn.btn-icon.bg-secondary.icon-no-margin.btn-footer-popover{
     display:none !important;
 }
 
