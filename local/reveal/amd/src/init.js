@@ -1,13 +1,16 @@
-define(['jquery'], function() {
+define([], function() {
     return {
         init: function() {
-            require(['local_reveal/revealjs/reveal'], function(Reveal) {
+            if (typeof Reveal !== 'undefined') {
                 Reveal.initialize({
                     hash: true,
                     slideNumber: true,
-                    transition: 'fade'
+                    transition: 'fade',
+                    loop: true
                 });
-            });
+            } else {
+                window.console.error("Reveal.js not loaded!");
+            }
         }
     };
 });

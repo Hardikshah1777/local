@@ -1,0 +1,16 @@
+#page-local-reveal-index .reveal {
+    position: inherit;
+}
+
+#page-local-reveal-index .fade:not(.show) {
+    opacity: 1;
+}
+
+#page-local-reveal-index button.btn.btn-icon.bg-secondary.icon-no-margin.btn-footer-popover,
+#page-local-reveal-index .slide-number{
+    display:none !important;
+}
+
+#page-local-reveal-index .slides.bg-dark.p-5.font-weight-bold {
+    transform: translate(-50%, -50%) scale(0.3) !important;
+}
