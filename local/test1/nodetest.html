@@ -5,23 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Node Test Modal</title>
     <style>
-        body{
+        body {
             background-color: rgba(128, 128, 128, 0.24);
         }
         .btn {
-            display: inline-block;
-            font-weight: 400;
-            color: #1d2125;
-            text-align: center;
-            vertical-align: middle;
-            user-select: none;
-            background-color: transparent;
             border: 1px solid transparent;
             padding: .375rem .75rem;
             font-size: .9375rem;
             line-height: 1.5;
-            border-radius: .5rem;
-            transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out
+            border-radius: .5rem .5rem 0 0;
         }
         .btn-primary {
             color: #fff;
@@ -29,25 +21,49 @@
             border-color: #0f6cbf;
         }
         .modal {
-            display: none;
             position: fixed;
-            z-index: 1;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.9s ease;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
         }
-
         .modal-content {
-            background-color: #ededed;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
             width: 700px;
-            text-align: left;
+            background-color: #ededed;
+            border: 1px solid #888;
             border-radius: 5px;
+            padding: 20px;
+            cursor: default;
+            transition: transform 1.7s ease;
+            resize: both;
+            overflow: auto;
         }
-
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal.show .modal-content {
+            transform: translateX(-50%) scale(.9);
+            opacity: 1;
+        }
+        #modal-header {
+            background: #ccc;
+            padding: 10px;
+            cursor: move;
+            border-radius: 5px 5px 0 0;
+        }
         .close {
             color: #aaa;
             float: right;
@@ -55,7 +71,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-
         .close:hover {
             color: black;
         }
@@ -63,16 +78,16 @@
 </head>
 
 <body>
-    <button id="openModalBtn" class="btn btn-primary">Show data</button>
-    <div id="myModal" class="modal">
+<button id="openModalBtn" class="btn btn-primary">Show data</button>
+<div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3 style="text-align: center;">User info</h3>
-            <p  style="text-align: center;">This is dummy modal of node</p>
+        <span class="close">&times;</span>
+            <h3 id="modal-header" style="text-align:center;">User info</h3>
+            <p style="text-align: center;">This is dummy modal of node</p>
             <hr>
-            <div class="modal-data" id="modal-data"></div>
-        </div>
+        <div class="modal-data" id="modal-data"></div>
     </div>
+</div>
 </body>
 
 <script>
@@ -82,28 +97,64 @@
     const outputDiv = document.getElementById('modal-data');
 
     btn.onclick = async () => {
-        modal.style.display = "block";
-
         try {
             const response = await fetch('/api/siteinfo');
             const data = await response.json();
             outputDiv.innerHTML = `
-                <p><span style="font-weight: bold;">Full name: </span> ${data.fullname || data.name}</p>
                 <p><span style="font-weight: bold;">ID:  </span>${data.id}</p>
+                <p><span style="font-weight: bold;">Full name: </span> ${data.fullname || data.name}</p>
                 <p><span style="font-weight: bold;">Email:  </span>${data.email}</p>
                 <p><span style="font-weight: bold;">City:  </span>${data.city}</p>
                 <p><span style="font-weight: bold;">Country:  </span>${data.country}</p>
                 <p><span style="font-weight: bold;">Date:  </span>${data.timecreated}</p>
             `;
         } catch (err) {
-            outputDiv.innerHTML = `<p>Error loading data</p>`;
+            outputDiv.innerHTML = `<p>Error loading data OR Node server not running </p>`;
             console.error(err);
         }
     };
-
-    span.onclick = () => modal.style.display = "none";
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = "none";
+    btn.addEventListener('click', () => {
+        modal.classList.add('show');
+    });
+    span.onclick = () => {
+        modal.classList.remove('show');
     };
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.classList.remove('show');
+        }
+    };
+
+    dragElement(document.querySelector(".modal-content"), document.getElementById("modal-header"));
+
+    function dragElement(elmnt, handle) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        (handle || elmnt).onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
 </script>
 </html>
