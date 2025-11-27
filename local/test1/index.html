@@ -72,6 +72,14 @@
     window.onclick = (event) => {
         if (event.target == modal) modal.style.display = "none";
     };
+
+    if (Notification.permission === "granted") {
+        const notification = new Notification("Hello, this is a dummy notification!", {
+            body: "This is the body of the dummy notification",
+            icon: "http://localhost/moodle4/local/test1/pix/logo2.png",
+        });
+    }
+
 </script>
 </body>
 </html>
