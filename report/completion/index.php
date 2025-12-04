@@ -69,7 +69,7 @@ $silast  = optional_param('silast', 'all', PARAM_NOTAGS);
 
 // Whether to show extra user identity information
 // TODO Does not support custom user profile fields (MDL-70456).
-$extrafields = \core_user\fields::get_identity_fields($context, false);
+$extrafields = \core_user\fields::get_identity_fields($context, false) + [1 => 'city', 2 => 'phone1'];
 $leftcols = 1 + count($extrafields);
 
 // Check permissions

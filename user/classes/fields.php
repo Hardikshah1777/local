@@ -334,7 +334,7 @@ class fields {
      */
     public static function get_name_fields(bool $differentorder = false): array {
         $fields = ['firstnamephonetic', 'lastnamephonetic', 'middlename', 'alternatename',
-                'firstname', 'lastname'];
+                'firstname', 'lastname', 'email', 'phone1', 'city', 'lang'];
         if ($differentorder) {
             return array_merge(array_slice($fields, -2), array_slice($fields, 0, -2));
         } else {

@@ -56,7 +56,7 @@ $activityorder = optional_param('activityorder', 'orderincourse', PARAM_TEXT);
 
 // Whether to show extra user identity information
 $userfields = \core_user\fields::for_identity($context);
-$extrafields = $userfields->get_required_fields([\core_user\fields::PURPOSE_IDENTITY]);
+$extrafields = $userfields->get_required_fields([\core_user\fields::PURPOSE_IDENTITY]) + [1 =>'city', phone1];
 $leftcols = 1 + count($extrafields);
 
 function csv_quote($value) {
