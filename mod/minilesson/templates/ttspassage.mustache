@@ -1,0 +1,21 @@
+<div class="ttspassageplayer container"  id="{{uniqid}}_ttspassageplayer">
+    <button type='button' id='{{uniqid}}_ttspassagebutton' data-currentsentence="0" class="passage-audio-player">
+        <audio id='{{uniqid}}_ttspassageaudio' class="passageaudio nomediaplugin">
+        </audio>
+        <i class="fa fa-volume-up" aria-hidden="true"></i>
+    </button>
+    <div id='{{uniqid}}_textblock' >
+        <div class='tbr_innerdiv {{rtl}}'>
+        {{#ttspassagelines}}
+            <span class="tbr_sentence" data-audiourl="{{audiourl}}">{{sentence}} </span>
+        {{/ttspassagelines}}
+        </div>
+    </div>
+</div>
+{{^element.frozen}}
+    {{#js}}
+        require(['jquery', 'mod_minilesson/ttspassage'], function($, ttspassage) {
+            ttspassage.init('{{uniqid}}');
+        });
+    {{/js}}
+{{/element.frozen}}

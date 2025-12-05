@@ -1,0 +1,433 @@
+Version 1.1.03 (Build 2025090100)
+- Added prompt presets for Free Speaking, Free Writing and Audio Chat
+- Added settings for better control of free speaking and free writing results
+
+Version 1.1.02 (Build 2025080104)
+- Added better auto refresh for speech tokens, so long running sessions will still work
+- Added more image generation slots for keyword based templates
+
+Version 1.1.01 (Build 2025080103)
+ - Added item types Word Shuffle and Scatter
+ - Added AIGEN lesson templates for AI Chat and Word Shuffle and Scatter
+
+Version 1.0.99 (Build 2025080102)
+ - Added zoom and pan options to audio story
+ - Added AudioChat
+
+Version 1.0.98 (Build 2025073000)
+ - Beta version of Audio Chat
+ - Better failure handling for AIGEN
+ - Parallel AIGEN image generation so its faster
+ - Better update code for multichoice and multiaudio
+ - New AIGEN template for Keywords to Fluency / GapFills
+
+Version 1.0.97 (Build 2025071305)
+ - New audio story AIGEN template
+ - Fixes to responsiveness on gap fill questions
+ - Better AIGEN progress tracking
+ - Multichoice and Multiaudio item updates
+ - Ability to push files (images and audio) when pushing items to other instances
+
+Version 1.0.96 (Build 2025071303)
+- Added versioning feature to AIGEN templates
+- Various AIGEN tweaks
+- New YouTube Finale Lesson AIGEN template
+
+Version 1.0.95 (Build 2025071300)
+- AI Item Generation -- default templates
+- Fix for fluency item bug when hide start page enabled
+
+Version 1.0.94 (Build 2025062901)
+- AI Item Generation
+
+Version 1.0.93 (Build 2025062300)
+- tweaks to continue btn for fluency item
+- fixed bug where audio would play on item if hidestart page was set
+- allowed hide start page on listen and speak item type
+- added timelimit feature to most item types
+- removed dictation chat item type (from new item menu)
+- added push items feature to push page
+
+Version 1.0.92 (Build 2025062001)
+- Rebuilt compatibile JS for old Moodles
+
+Version 1.0.91 (Build 2025062000)
+- Fix for hints penalty when the student already got the gap wrong
+- Added H5P item type
+- Fixed broken responsiveness on multichoice and dictation item types
+
+Version 1.0.90 (Build 2025061501)
+- Fix for animation issue on Audio Story
+
+Version 1.0.89 (Build 2025061500)
+- Added new item type: Passage Gap Fill
+- A fix for default language in voice selector
+- A new media prompt option: Audio Story
+
+Version 1.0.88 (Build 2025060900)
+- Added new voice selector
+- Added new item type "Fluency" (not available in Ningxia region yet)
+- Added sentenceimage and sentenceaudio fields to item types with "sentences"
+- Redesign of listen and speak item type
+
+Version 1.0.87 (Build 2025051300)
+- Added Somali and Pashto languages
+
+Version 1.0.86 (Build 2025050500)
+- Fixed bug in TTS voices for Ningxia region
+
+Version 1.0.85 (Build 2025050400)
+- support for lang server in Ningxia
+- added a better speech tester
+- fix for open speech on Android Chrome
+- limited list of TTS voices for Ningxia region
+
+Version 1.0.84 (Build 2025042100)
+ - Support Ningxia region (requires Poodll China subscription)
+
+Version 1.0.83 (Build 2025041800)
+ - Support for Moodle 5.0 and PHP 8.4
+ - Added support for custom Cloud Poodll server
+
+Version 1.0.82 (Build 2025040400)
+- Added is_branded callback so the app icons don't look like pink smudges
+- Added new fluency item type (not really ready yet for testing, so it's hidden)
+- Fixed a bug which could cause gapfill items to collapse if hide start page was set
+
+
+Version 1.0.81 (Build 2025030500)
+- Fix for lack of import in short answer questions
+- Streaming audio recorder for open transcription in English (on in MMA, toggle on in admin settings)
+- Added alternates field in Short answer, Listen and Speak, Speaking Gap Fill and passage reading
+- Better detection of mobile app
+
+
+Version 1.0.80 (Build 2025021900)
+- Fix for upgrade script on postgresql
+- Fix for multichoice question duplicate when answer options are images
+- Fix for broken audio recorder on short answer questions
+
+Version 1.0.79 (Build 2025021200)
+- Added fix for speech rec. on Polish numbers 22 - 99
+- Added fix so that teachers could see the view attempt report
+
+Version 1.0.78 (Build 2025020701)
+- Fixed bug in new multichoice code that might mark a correct answer false
+
+Version 1.0.77 (Build 2025020700)
+- Fixed free exercise spinner which did not work well on old moodles
+- Turned off item review on free exercises and passage reading if show-item-review was turned off 
+- Added image option to multichoice
+- Fixed timer issue in free speaking
+- Fixed export from free speaking issue
+- Added view attempt report
+- Added disable copy/paste option to free writing
+
+Version 1.0.76 (Build 2025011701)
+- Added a free writing response type
+- Fixed the display of questions with titles
+- Fixed some issues with Passage Reading results display
+- Added results display of Free writing, speaking and passage reading
+- Fixed issue with push tab display
+
+Version 1.0.75 (Build 2025010702)
+- Added a new item type "Passage Reading"
+- Added a new item type "Free Speaking"
+- Added a "push" feature for admins to clone specific settings to other instances
+- Added item review feature so that students can review their responses immediately after submission
+
+Version 1.0.74 (Build 2024120700)
+- Added a custom CSS key to the minilesson
+
+Version 1.0.73 (Build 2024113000)
+- Added a renderable embed stub for rendered content
+- Added a results panel in minilesson in beta currently
+- Added a SpaceGame item type
+
+Version 1.0.72 (Build 2024100700)
+- Fixes for PHP 8.2/8.3
+- Added example JSON import file
+
+Version 1.0.71 (Build 2024092500)
+- Fix for broken item text area editing (texteditor was readonly sometimes)
+- Added Vietnamese Language support
+
+Version 1.0.70 (Build 2024082600)
+- Fix for layout(display of introduction) issue on Adaptable theme
+
+Version 1.0.69 (Build 2024082400)
+- fixed Youtube/Vimeo embed breaking preview screen when editing items
+- added stubs for new type
+- new media prompt settings system
+
+Version 1.0.68 (Build 2024062200)
+- added finish screen option to settings (admin and instance)
+
+Version 1.0.67
+- fix for json import that could break on TTS Dialog
+- fix for broken speech rec. on non English langs since 2024052800
+
+Version 1.0.66 (Build 2024052800)
+- Added import/export items as JSON
+- fixed wrong trim function
+- fixed issue with apostrophes in listen & speak not handled well
+- added a bit more robustness to prevent superclickers from breaking the audio recorder
+- fixed wrong dialect labels for Arabic voices:  Arabic (modern standard) / Arabic (gulf)
+
+Version 1.0.65 (Build 2024052400)
+- Added export items feature
+
+Version 1.0.65 (Build 2024051600)
+- Fixes for external API calls on pre M40 sites
+- Fixes for TTS and progress on Speaking Gap Fill
+
+Version 1.0.64 (Build 2024051200)
+- Tweaks to format functions for PHP8.2
+- Better support for Arabic and RTL languages
+
+Version 1.0.63 (Build 2024040100)
+- Fixed issue with gapfill question types failing to display properly on < PHP 8.0
+
+Version 1.0.62 (Build 2024032400)
+- Added CP usage logging
+- Better display of language options in settings
+
+Version 1.0.61 (Build 2024012500)
+- Fixed datatables issue that broke events in the item list page if js caching was turned off
+- Fixed import issue if column name was wrong
+
+Version 1.0.60 (Build 2024011800)
+- added expected completion data API support
+
+Version 1.0.59 (Build 2023121100)
+- added speechtester utility (secret link)
+
+Version 1.0.58 (Build 2023111400)
+- Added mobile support
+- fixed poor number word conversion
+- fixed poor recognition on guided speak with speaking gap fill
+- Added voices from Whisper (good on English, not so good on other languages)
+
+Version 1.0.57 (Build 2023101000)
+- Added Maori and other languages
+- Added bulk delete
+
+Version 1.0.56 (Build 2023092600)
+- fix for incorrect language-locale for Norwegian
+- fix for SSML voice option display in listen and speak (and related)
+
+Version 1.0.55 (Build 2023072301)
+- fix for activity description on < M4.0 versions Moodle
+
+Version 1.0.54 (Build 2023072300)
+- added step submitted event
+
+Version 1.0.53 (Build 2023061600)
+ - fixed colors for gapfills
+ - fixed iframe width
+
+Version 1.0.52 (Build 2023051300)
+ - fixed bug in viewstart and viewend DB entries (can kill a restore)
+ - Moodle 4.2 support
+
+Version 1.0.52 (Build 2023051300)
+ - fixed bug in viewstart and viewend DB entries (can kill a restore)
+
+Version 1.0.51 (Build 20230412XX)
+- Added three gapfill question types
+
+Version 1.0.51 (Build 2023040400)
+- Fixed bug in listen and repeat where the prompt and response were different. It would not recognize the correct response
+
+Version 1.0.50 (Build 2023031700)
+- Added RTL support for Hebrew, Arabic (and Farsi but no TTS)
+- Added TTS Voices for Tamil, Telegu, Hebrew and Indonesian
+
+Version 1.0.49(Build 2023022701);
+- Quite a large code refactor
+- Added attempt submitted event
+- Added TTS Passage content type
+- Added several new item types, not yet complete ..so hidden
+- Added end of speech detection for guided speech recorder
+- Fixed some bugs with TTS Dialog and AWS region selection
+
+Version 1.0.47(Build 2022120200)
+- Fixed missing lang strings
+
+Version 1.0.46(Build 2022112700)
+- Added Dutch Belgian (and other) voices
+
+Version 1.0.45 (Build 2022100700)
+- removed unneeded lang strings
+
+Version 1.0.44(2022082200)
+- Fixed issue with Arabic Voice "Zeina" not working
+- Added 2 new Arabic voices
+
+Version 1.0.43(2022073100)
+- Fixed issue with shortanswer grading most answers as correct
+- Fixed issue with TTS Dialog Voice C not working
+
+Version 1.0.42(Build 2022060500)
+ - Added better free trial link
+ - Rebuilt JS for < M3.8
+
+Version 1.0.41(Build 2022053100)
+ - added some styling to text block in content area
+ - added an option to confirm submission in multichoice
+ - added a quiz container width setting (compact, wide or full)
+
+Version 1.0.40(Build 2022050200)
+- Removed JQuery UI which was breaking Moodle 4.0 dock
+- Fixed issue with activity being closed if open date set, but close data not set
+- Added read + listen option to multichoice answers
+- Added some logic to act as failsafe if step_upgrade fails or doesn't arrive
+- Added animate css for toggle and shake effect
+- removed results page for dictation chat and listen/repeat
+ fixed poor pronunciation handling in dictation chat
+
+Version 1.0.39(Build 2022041800)
+- Added a course attempts report
+- Added DataTables support for report
+
+
+Version 1.0.38(Build 2022041300)
+- Added TTS Dialog
+- Added Ukranian, Finnish, Russian, Portuguese, Basque, Italian, Polish, Hungarian, Romanian to Poodll STT
+- Added YouTube URL parsing
+
+Version 1.0.37(Build 2022032000)
+- Fixed an issue with JP phonetic matching
+- fixed issue in get_course_moduleinfo that could kill backup and restore
+- tweaked polly stuff
+- added Norwegian, Romanian, Polish and Swedish
+
+Version 1.0.36(Build 2022022000)
+- Added a more detailed results screen
+- Added a placeholder while activity loads
+
+Version 1.0.35(Build 2022021401)
+- Fixed issue with incomplete attempts
+
+Version 1.0.34(Build 2022021400)
+- Added duplicate feature
+- Added a 3rd prompt/response option textprompt and changed sequence in UI. (update.php rewrites existing qs to match)
+- Added an incomplete attempts report
+
+Version 1.0.33(Build 2022020800)
+- Added open and close start dates
+
+Version 1.0.32(Build 2022020300)
+- Fixed broken new item saving when not using Japanese on qs with speech recognition
+- Added Youtube Clip content type
+
+Version 1.0.31(Build 2022012500)
+- Added missing number/alphabet processing class
+
+Version 1.0.30(Build 2022012001)
+- Added ShortAnswer question type
+- Added TTS Autoplay
+- Added Layout option
+- added credential fetching
+
+Version 1.0.29(Build 2021112100)
+- Added neural voices
+- Added ability to force Poodll STT
+- Added ignore punctuation mode to dictation
+- Fixed browser speech recognition on Safari
+
+Version 1.0.28 (Build 2021082700)
+- Better phonetic comparisons
+
+Version 1.0.27 (Build 2021081800)
+- Fixed array key exists on php8
+
+Version 1.0.26 (Build 2021063000)
+- Fixed media prompt html editor that would not hide
+
+Version 1.0.25 (Build 2021053100)
+- Set internal flag for iframe use
+
+Version 1.0.24 (Build 2021052901)
+- Fixed problem with lang file generation
+
+Version 1.0.23 (Build 2021052900)
+- Added lang models for FR and ES
+
+Version 1.0.22 (Build 2021052500)
+- Added ability to view reports by group
+
+Version 1.0.21 (Build 2021052200)
+- Added an update script to fix up any broken scorer paths
+
+Version 1.0.20 (Build 2021052000)
+- added capetown and bahrain
+
+Version 1.0.19 (Build 2021042500)
+- Added multichoice with audio options
+- layout improvements for multichoice
+
+Version 1.0.18 (Build 2021041700)
+- Added text block
+- Added horizontal layout
+
+Version 1.0.17 (Build 2021041500)
+- Added m4a file handler for audio
+- Added experimental config to make working with experimental types easier
+- Added multichoice audio answer
+
+Version 1.0.16 (Build 2021033000)
+- fixed bug in backup/restore of user attempts
+- fixed bug in reset of user attempts
+- destroy old questions so hidden media players stop playing
+
+Version 1.0.16 (Build 2021033000
+-added cleaning of text, so ssml requests did not get in trouble
+-improvements to JP handling
+
+Version 1.0.16 (Build 2021031500)
+-Added ttsoption so "slow" speech was not assumed. This distorts on some voices
+
+Version 1.0.15 (Build 2021022600)
+-Added mecab based comparison or Japanese text
+-Added setuptab to allow in iframe editing of settings
+
+Version 1.0.14 (Build 2021021802)
+-Added ability to show text or dots in listen and repeat.
+
+Version 1.0.13 (Build 2021021801)
+-Fixed bug in previous build with builtjs not shipped
+-slowed down TTS by default
+
+Version 1.0.12 (Build 2021021800)
+-Added TTS option to content options
+
+Version 1.0.11  (Build 2021013100)
+-Improved differencing
+-Standardized audio recorder
+-Better support for languages with non Latin alphabet
+-Layout and formatting improvements on "chat" screens and item font
+
+Version 1.0.10 (Build 2021012400)
+- Better support for non English speaking
+
+Version 1.0.9 (Build 2021012100)
+-improved multichoice display
+
+Version 1.0.8 (Build 2021011800)
+-fixed navigation when more than 6 items
+
+Version 1.0.7 (Build 2020122300)
+-Added better media select and display
+-Improved progress header
+-Tidied up settings
+-Added an ajax fragmentable form constructor
+
+Version 1.0.6 (Build 2020111700)
+-Updated speech servers
+
+Version 1.0.5 (Build 2020100200)
+-Added passagehash field;
+
+Version 1.0.0 (Build 2020060700)
+-initial commit of Poodll Time

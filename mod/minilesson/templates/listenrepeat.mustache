@@ -1,0 +1,41 @@
+{{> mod_minilesson/questionheader}}
+  <div class="minilesson_landr_player_box gapfill-container">
+    <div style="display:none;" class="landr_results">{{#str}}dc_results, mod_minilesson{{/str}}</div>
+
+    <div class="landr_title text-center" style="display: none">{{#str}}listenandrepeat, mod_minilesson{{/str}}</div>
+
+    <div class="landr_mainmenu">
+      <div class="landr_loaded" style="display:none;">
+          <button disabled class='btn btn-block btn-primary landr_start_btn'>
+              <i class='fa fa-play'></i> {{#str}}start, mod_minilesson{{/str}}
+          </button>
+      </div>
+      <div class="landr_not_loaded">
+        <p>{{#str}}loading, mod_minilesson{{/str}}</p>
+      </div>
+    </div>
+
+    {{> mod_minilesson/progresstimer }}
+
+    <div style="display:none;" class="landr_listen_cont">
+      <button class="btn btn-secondary landr_ctrl-btn landr_listen_btn">
+        <i class="fa fa-volume-up"></i>
+      </button>
+    </div>
+
+    <div style="display:none;" class="landr_game {{rtl}}"></div>
+
+    <div style="display:none;" class="landr_controls">
+      <div class="landr_speakbtncontainer" style="width:246px;margin:auto;position:absolute;left:0;right:0;bottom:0;">
+          {{> mod_minilesson/ttrecorder}}
+      </div>
+        <button class="btn btn-danger landr_ctrl-btn landr_skip_btn">
+          <span class="mobileaccesshide">{{#str}}skip, mod_minilesson{{/str}}</span> <i class="fa fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="landr_resultscontainer"></div>
+
+  </div>
+
+{{> mod_minilesson/questionfooter}}

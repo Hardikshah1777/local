@@ -1,0 +1,35 @@
+{{> mod_minilesson/questionheader}}
+{{> mod_minilesson/progresstimer}}
+<div class="minilesson_pgapfill_box">
+    <div class="ml_pgapfill_resultscontainer" style="display: none"></div>
+    {{< mod_minilesson/speedyplayer}}
+        {{$audioplayer}}
+        <audio class="pgapfill_audio_player" controls="controls" src="{{passageaudio}}"></audio>
+        {{/audioplayer}}
+    {{/ mod_minilesson/speedyplayer}}
+
+    <div class="pgapfill_passage pgapfull_monospace {{rtl}}">
+      {{#passagedata.chunks}}
+        {{#isgap}}
+        <span class="pgapfill_gap_wrapper">
+          <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" class="pgapfill_gap_input character-input pgapfull_monospace" data-wordindex="{{wordindex}}"
+            placeholder="{{placeholder}}" style="width: {{{ paddedtextlength }}}ch" maxlength="{{{textlength}}}"/>
+          <i class="correctIcon fa fa-check"></i>
+          <i class="wrongIcon fa fa-times"></i>
+        </span>{{/isgap}}{{^isgap}}{{{text}}}
+        {{/isgap}}
+      {{/passagedata.chunks}}
+    </div>
+
+    <div class="pgapfill_controls">
+        <button class="btn btn-success pgapfill_ctrl-btn pgapfill_finish_btn">
+            <i class="fa fa-check"></i> {{#str}}finish, mod_minilesson{{/str}}
+        </button>
+        {{#hints}}
+        <button class="btn btn-danger pgapfill_ctrl-btn pgapfill_hint_btn" data-alttext={{#quote}} {{{ althintstring }}} {{/quote}}>
+            {{#str}}gethints, mod_minilesson{{/str}} <i class="fa fa-question-circle"></i>
+        </button>
+        {{/hints}}
+    </div>
+</div>
+{{> mod_minilesson/questionfooter}}

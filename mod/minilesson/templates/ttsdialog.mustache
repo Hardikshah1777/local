@@ -1,0 +1,38 @@
+<div class="ttsdialogplayer container {{rtl}}"  id="{{uniqid}}_ttsdialogplayer">
+
+    {{#ttsdialoglines}}
+    <span class="hide ttsdialogline" data-voice="{{voice}}" data-speaker="{{speaker}}" data-audiourl="{{audiourl}}" data-speakertext="{{speakertext}}"></span>
+    {{/ttsdialoglines}}
+
+    <div class="row">
+        {{#itemttsdialogvisible}}
+            <div class="col-md-1">
+                    <button class="ttsdialog_button btn btn-secondary" ><i class="fa fa-play"></i></button>
+            </div>
+
+            <div class="col-md-11">
+                <div class="row ttsdialog_actorplusline">
+                <div class="col-md-1 ttsdialog_actor rolenone"><i class="fa fa-lg fa-user" aria-hidden="true"></i></div>
+                <div class="col-md-11 ttsdialog_text"></div>
+                </div>
+            </div>
+        {{/itemttsdialogvisible}}
+        {{^itemttsdialogvisible}}
+            <div class="col-md-12" style="text-align: center">
+                <button class="ttsdialog_button btn btn-secondary" style="width: 200px;"><i class="fa fa-play"></i></button>
+            </div>
+            <div class="hide ttsdialog_text"></div>
+        {{/itemttsdialogvisible}}
+    </div>
+    <audio class="ttsdialog_audioplayer" ></audio>
+
+
+
+</div>
+{{^element.frozen}}
+    {{#js}}
+            require(['jquery', 'mod_minilesson/ttsdialog'], function($, ttsdialog) {
+                ttsdialog.init('{{uniqid}}');
+            });
+    {{/js}}
+{{/element.frozen}}

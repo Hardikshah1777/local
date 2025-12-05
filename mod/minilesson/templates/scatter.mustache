@@ -1,0 +1,14 @@
+{{> mod_minilesson/questionheader}}
+{{> mod_minilesson/progresstimer}}
+<div class="minilesson_scatter_box">
+    <div class="ml_scatter_resultscontainer text-center" style="display: none">
+        {{> mod_minilesson/loading}}
+    </div>
+    <div class="ml_scatter_stage">
+        {{#shuffleditems}}
+            <p class="ml_scatter_listitem shake-horizontal clickable" tabindex="0" data-htmlid="{{{ htmlid }}}">{{{ value }}}</p>
+        {{/shuffleditems}}
+    </div>
+</div>
+
+{{> mod_minilesson/questionfooter}}

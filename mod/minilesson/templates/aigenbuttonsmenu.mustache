@@ -1,0 +1,19 @@
+<div id="mod_minilesson_aigenerate_container-{{uniqid}}" class="mod_minilesson_manybuttonsmenu_container" data-tableuniqueid="{{{tableuniqueid}}}">
+{{#buttons}}
+<div class="mod_minilesson_manybuttonsmenu_item card">
+    <div class="card-body">
+        <h5 class="mod_minilesson_rm_card-title">{{title}}</h5>
+        <div class="mod_minilesson_rm_description card-text">{{description}}</div>
+        <div class="mod_minilesson_rm_content">
+           {{#str}} itemcount, mod_minilesson {{/str}} {{itemcount}}
+        </div>
+        {{{thebutton}}}
+    </div >
+</div>
+{{/buttons}}
+</div>
+{{#js}}
+    require(['mod_minilesson/aigenmake'], function(amd) {
+        amd.registerAiGenerateAction('#mod_minilesson_aigenerate_container-{{uniqid}}');
+    });
+{{/js}}
