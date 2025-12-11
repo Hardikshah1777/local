@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PHP Example Extension",
+  "version": "1.0",
+  "description": "Test Chrome extension in PHP",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions": ["storage", "activeTab", "notifications"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
