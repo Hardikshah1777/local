@@ -97,9 +97,41 @@ echo html_writer::tag( 'script', '', ['type' => 'text/javascript', 'src' => 'htt
 
 $searchform->display();
 
-echo html_writer::tag( 'span', 'User count = ' . $searchcount . '/' . $totalcount, ['class' => 'd-flex justify-content-end']);
-$userlisttable->out( 50, false );
-$btndownloadzip = $OUTPUT->single_button( new moodle_url( "/local/test1/index.php", ['exportinzip' => 'exportinzip', 'search' => $search] ), "Users zip");
+echo html_writer::tag('span', 'User count = ' . $searchcount . '/' . $totalcount, ['class' => 'd-flex justify-content-end']);
+echo '<div class="table-custom-top-scroller">        
+        <div>&nbsp;</div>
+      </div>';
+$userlisttable->out(30, false);
+$btndownloadzip = $OUTPUT->single_button(new moodle_url("/local/test1/index.php", ['exportinzip' => 'exportinzip', 'search' => $search] ), "Users zip");
 echo html_writer::tag( 'div', $btndownloadzip, ['id' => 'exportinzip']);
 
+echo '
+<style>
+    .no-overflow {
+          overflow-x: hidden;
+    }
+    .table-custom-top-scroller {
+          overflow-x: scroll;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(function () {
+      var tableContainer = $(".no-overflow");
+      var table = $(".no-overflow table");
+      var customContainer = $(".table-custom-top-scroller");
+      var scrollerDiv = $(".table-custom-top-scroller div");
+    
+      var tableWidth = table.width();
+      scrollerDiv.width(tableWidth);
+    
+      customContainer.scroll(function () {
+        tableContainer.scrollLeft(customContainer.scrollLeft());
+      });      
+      tableContainer.scroll(function () {
+        customContainer.scrollLeft(tableContainer.scrollLeft());
+      });
+    });
+</script>
+';
 echo $OUTPUT->footer();
